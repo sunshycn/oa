@@ -13,5 +13,13 @@
 	<artifactId>oa-domain</artifactId>
     <name>oa-domain</name>
     <packaging>jar</packaging>
+    
+    <dependencies>
+    	<dependency>
+    		<groupId>org.huamuzhen</groupId>
+    		<artifactId>oa-common</artifactId>
+    		<version>${project.version}</version>
+    	</dependency>
+    </dependencies>
 
 </project>

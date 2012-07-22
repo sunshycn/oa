@@ -14,5 +14,13 @@
 	<artifactId>oa-server</artifactId>
     <name>oa-server</name>
     <packaging>war</packaging>
+    
+    <dependencies>
+    	<dependency>
+    		<groupId>org.huamuzhen</groupId>
+    		<artifactId>oa-biz</artifactId>
+    		<version>${project.version}</version>
+    	</dependency>
+    </dependencies>
 
 </project>
