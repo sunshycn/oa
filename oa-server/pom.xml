@@ -6,12 +6,12 @@
 	
 	<parent>
 		<groupId>org.huamuzhen</groupId>
-		<artifactId>oa-server</artifactId>
+		<artifactId>oa</artifactId>
 		<version>0.1</version>
 	</parent>
 	
 	
-	<artifactId>oa</artifactId>
+	<artifactId>oa-server</artifactId>
     <name>oa-server</name>
     <packaging>war</packaging>
 

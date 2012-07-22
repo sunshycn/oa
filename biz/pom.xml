@@ -6,11 +6,11 @@
 	
 	<parent>
 		<groupId>org.huamuzhen</groupId>
-		<artifactId>oa-biz</artifactId>
+		<artifactId>oa</artifactId>
 		<version>0.1</version>
 	</parent>
 	
-	<artifactId>oa</artifactId>
+	<artifactId>oa-biz</artifactId>
     <name>oa-biz</name>
 	<packaging>jar</packaging>
 
