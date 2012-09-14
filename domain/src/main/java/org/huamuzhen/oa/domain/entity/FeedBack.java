@@ -8,9 +8,12 @@ public class FeedBack extends BaseEntity {
 	
 	private String id;
 	private String orgUnitId;
+	private String reportFormId;
 	private String content;
 	private Timestamp feedBackDate;
 	private String signature;
+	private boolean pass;
+	
 	
 	
 

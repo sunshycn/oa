@@ -1,6 +1,8 @@
 package org.huamuzhen.oa.domain.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ReportForm extends BaseEntity{
 
@@ -23,6 +25,12 @@ public class ReportForm extends BaseEntity{
 	private String responsiblePerson;
 	private String auditor;
 	private String tabulator;
+	private String referredRequestFormId;
+	
+	//报审单位
+	private OrgUnit reportOrgUnit;
+	//意见
+	private Set<FeedBack> feedbacks = new HashSet<FeedBack>(0);
 	
 	
 	

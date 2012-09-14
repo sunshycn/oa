@@ -3,7 +3,9 @@ package org.huamuzhen.oa.domain.enumeration;
 public enum Privilege {
 	
 	NORMAL,
-	ADMIN,
+	DEPARTMENT,
 	LEADER1,
-	LEADER2
+	LEADER2,
+	OFFICE,
+	ADMIN
 }
