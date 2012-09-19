@@ -51,6 +51,13 @@
    			<version>4.3.0.Final</version>
     		<scope>runtime</scope>
   		</dependency>
+  		
+  		<!-- HSQL, in memory DB -->
+		<dependency>
+  			 <groupId>org.hsqldb</groupId>
+  			 <artifactId>hsqldb</artifactId>
+  			 <version>2.2.8</version>
+		</dependency>
 
 		
     </dependencies>

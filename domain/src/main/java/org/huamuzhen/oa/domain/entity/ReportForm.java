@@ -25,7 +25,7 @@ public class ReportForm extends BaseEntity{
 	private String responsiblePerson;
 	private String auditor;
 	private String tabulator;
-	private String referredRequestFormId;
+	private String referredReportFormId;
 	
 	//报审单位
 	private OrgUnit reportOrgUnit;

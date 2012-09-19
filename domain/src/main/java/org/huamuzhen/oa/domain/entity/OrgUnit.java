@@ -8,7 +8,7 @@ public class OrgUnit extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
-	private String parentId;
+	private String parentOrgUnitId;
 	private String name;
 	private String description;
 	private Set<OrgUnit> childOrgUnits = new HashSet<OrgUnit>(0);
@@ -19,11 +19,12 @@ public class OrgUnit extends BaseEntity {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getParentId() {
-		return parentId;
+	
+	public String getParentOrgUnitId() {
+		return parentOrgUnitId;
 	}
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
+	public void setParentOrgUnitId(String parentOrgUnitId) {
+		this.parentOrgUnitId = parentOrgUnitId;
 	}
 	public String getName() {
 		return name;
