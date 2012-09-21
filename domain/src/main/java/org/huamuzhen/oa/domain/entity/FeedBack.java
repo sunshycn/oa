@@ -12,7 +12,7 @@ public class FeedBack extends BaseEntity {
 	private String content;
 	private Timestamp feedBackDate;
 	private String signature;
-	private boolean pass;
+	private boolean complete;
 	
 	
 	

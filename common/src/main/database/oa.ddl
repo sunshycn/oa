@@ -1,3 +1,11 @@
+--- 组织表
+CREATE TABLE Org_Unit
+(
+	id VARCHAR (36) NOT NULL PRIMARY KEY,
+	name VARCHAR (100) NOT NULL,
+	description VARCHAR (500),
+	parent_id VARCHAR (36) 
+);
 
 --- 用户表
 CREATE TABLE User
@@ -7,17 +15,10 @@ CREATE TABLE User
      description VARCHAR (500), 
      hashed_password VARCHAR (36) NOT NULL,
      hashsalt VARCHAR (10) NOT NULL,
-     org_unit_id VARCHAR (36) 
+     org_unit_id VARCHAR (36),
+     CONSTRAINT FK_USER_ORG_UNIT FOREIGN KEY (org_unit_id) Org_Unit (id)
 );
 
---- 组织表
-CREATE TABLE Org_Unit
-(
-	id VARCHAR (36) NOT NULL PRIMARY KEY,
-	name VARCHAR (100) NOT NULL,
-	description VARCHAR (500),
-	parent_id VARCHAR (36) 
-);
 
 --- 角色表
 CREATE TABLE Role
@@ -37,37 +38,9 @@ CREATE TABLE Privilege
 --- 角色权限表
 CREATE TABLE Role_Privilege
 (
-	 id VARCHAR (36) NOT NULL PRIMARY KEY,
 	 role_id VARCHAR (36) NOT NULL,
-	 privilege_id VARCHAR (36) NOT NULL
-);
---- 回复类型
-CREATE TABLE Feedback_Type
-(
-	id VARCHAR (36) NOT NULL PRIMARY KEY,
-	name VARCHAR(100) NOT NULL,
-	referred_org_unit_id VARCHAR(36),
-	referred_user_id VARCHAR(36)
-)
---- 回复
-CREATE TABLE Feedback
-(
-	id VARCHAR (36) NOT NULL PRIMARY KEY,
-	feedback_type_id VARCHAR (36) NOT NULL,
-	report_form_id VARCHAR (36) NOT NULL,
-	content VARCHAR (150),
-	feedback_date TIMESTAMP,
-	signature VARCHAR (6),
-	pass BOOLEAN
-	
-);
-
---- 报审表类型与回复类型对应表
-CREATE TABLE Report_Form_T_Feedback_T
-(
-	feedback_type_id VARCHAR (36) NOT NULL,
-	form_type_id VARCHAR (36) NOT NULL,
-	PRIMARY KEY(feedback_type_id,form_type_id)
+	 privilege_id VARCHAR (36) NOT NULL,
+	 PRIMARY KEY(role_id,privilege_id)
 );
 
 --- 报审表类型
@@ -100,7 +73,8 @@ CREATE TABLE Report_Form
 	  tabulator VARCHAR (6),
 	  referred_report_form_id VARCHAR (36),
 	  ---logic part
-	  status INTEGER NOT NULL
+	  status INTEGER NOT NULL,
+	  CONSTRAINT FORM_FT FOREIGN KEY (form_type_id) Report_Form_Type (id)
 );
 --- 报审表进度
 CREATE TABLE Report_Form_Status
@@ -109,3 +83,35 @@ CREATE TABLE Report_Form_Status
 	  report_form_id VARCHAR (36) NOT NULL,
 	  status INTEGER NOT NULL 
 );
+
+--- 回复类型
+CREATE TABLE Feedback_Type
+(
+	id VARCHAR (36) NOT NULL PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	referred_org_unit_id VARCHAR(36),
+	referred_user_id VARCHAR(36)
+)
+--- 回复
+CREATE TABLE Feedback
+(
+	id VARCHAR (36) NOT NULL PRIMARY KEY,
+	feedback_type_id VARCHAR (36) NOT NULL,
+	report_form_id VARCHAR (36) NOT NULL,
+	content VARCHAR (150),
+	feedback_date TIMESTAMP,
+	signature VARCHAR (6),
+	complete BOOLEAN,
+	CONSTRAINT FK_FEEDBACK_FT FOREIGN KEY (feedback_type_id) Feedback_Type (id),
+	CONSTRAINT FK_FEEDBACK_FORM FOREIGN KEY (report_form_id) Report_Form (id)	
+);
+
+--- 报审表类型与回复类型对应表
+CREATE TABLE Report_Form_T_Feedback_T
+(
+	feedback_type_id VARCHAR (36) NOT NULL,
+	form_type_id VARCHAR (36) NOT NULL,
+	PRIMARY KEY(feedback_type_id,form_type_id)
+);
+
+
