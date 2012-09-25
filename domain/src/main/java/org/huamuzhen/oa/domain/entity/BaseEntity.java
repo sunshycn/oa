@@ -13,13 +13,13 @@ public abstract class BaseEntity implements Serializable {
 	/**
 	 * the created_date column
 	 */
-	@Column(name = "CREATED_AT", updatable = false)
+	@Column(name = "created_at", updatable = false)
 	protected Timestamp createdAt;
 
 	/**
 	 * the last_modified_date column
 	 */
-	@Column(name = "MODIFIED_AT")
+	@Column(name = "modified_at")
 	protected Timestamp modifiedAt;
 
 	public Timestamp getCreatedAt() {

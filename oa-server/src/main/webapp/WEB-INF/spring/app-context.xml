@@ -1,0 +1,62 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	" >
+
+	<import resource="mvc-context.xml" />
+  
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:jpaVendorAdapter-ref="jpaAdapter">
+		<property name="packagesToScan">
+			<list>
+				<value>org.huamuzhen.oa.domain</value>
+			</list>
+		</property>
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.hbm2ddl.auto" value="none" />
+				<entry key="hibernate.connection.charSet" value="UTF-8" />
+				<entry key="hibernate.show_sql" value="true" />
+			</map>
+		</property>
+	</bean>
+    
+	<!-- default dataSource -->
+	<jdbc:embedded-database id="dataSource" type="HSQL">
+		<jdbc:script location="classpath:ia.ddl"/>
+	</jdbc:embedded-database>
+
+	<bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="showSql" value="false" />
+		<property name="generateDdl" value="false" />
+		<property name="database" value="HSQL" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<jpa:repositories base-package="org.huamuzhen.oa.domain.dao"></jpa:repositories>
+
+<!--	<beans profile="dev">
+		<jdbc:embedded-database id="dataSource" type="HSQL" >
+			<jdbc:script location="classpath:huamuzhen-test.sql"/>
+		</jdbc:embedded-database>
+	</beans>	-->
+
+</beans>
