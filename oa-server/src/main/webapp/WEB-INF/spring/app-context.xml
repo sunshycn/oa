@@ -38,7 +38,7 @@
     
 	<!-- default dataSource -->
 	<jdbc:embedded-database id="dataSource" type="HSQL">
-		<jdbc:script location="classpath:ia.ddl"/>
+		<jdbc:script location="classpath:oa.ddl"/>
 	</jdbc:embedded-database>
 
 	<bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">

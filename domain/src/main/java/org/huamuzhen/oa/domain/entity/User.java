@@ -29,7 +29,7 @@ public class User extends BaseEntity{
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name = "org_unit_id", nullable = false)
+	@JoinColumn(name = "org_unit_id")
 	//@Column(name="org_unit_id", length = 36)
 	private OrgUnit orgUnit;
 	
