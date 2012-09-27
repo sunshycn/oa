@@ -17,6 +17,10 @@
 	" >
 
 	<import resource="mvc-context.xml" />
+	
+	<context:annotation-config />
+	<context:component-scan base-package="org.huamuzhen.oa.biz" />
+	<context:component-scan base-package="org.huamuzhen.oa.domain.dao" />
   
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
@@ -58,5 +62,6 @@
 			<jdbc:script location="classpath:huamuzhen-test.sql"/>
 		</jdbc:embedded-database>
 	</beans>	-->
+	<context:component-scan base-package="org.huamuzhen.oa.*.controller" />
 
 </beans>

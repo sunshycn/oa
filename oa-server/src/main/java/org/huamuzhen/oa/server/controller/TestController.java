@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/test")
 public class TestController {
 	
+	
 	@RequestMapping(value = { "", "/" })
 	public String test(){
 		return "index";
@@ -20,8 +21,8 @@ public class TestController {
 	public void testUser(HttpServletResponse response) throws IOException{
 	//	return "user";
 		response.getWriter().write("aaa");
-		response.getWriter().write("/n");
-		response.getWriter().write("ccc");
+		
+		
 	}
 	
 	@RequestMapping("/orgunit")
