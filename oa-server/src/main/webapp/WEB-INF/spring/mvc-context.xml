@@ -14,7 +14,7 @@
     <mvc:resources mapping="/js/**" location="/js/" />
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
@@ -25,6 +25,6 @@
 	Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
 	<mvc:annotation-driven /> 
 
-	<context:component-scan base-package="com.huamuzhen.oa.*.controller" />
+	<context:component-scan base-package="org.huamuzhen.oa.server.controller" />
 
 </beans>
