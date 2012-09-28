@@ -23,7 +23,7 @@ public class UserController {
 	
 	@RequestMapping("/list")
 	public void list(HttpServletResponse response) throws IOException{
-		List<User> users = userManager.list();
+		List<User> users = userManager.findAll();
 		for (User user: users){
 			response.getWriter().write(user.getId());
 			response.getWriter().write(user.getUsername());
@@ -46,7 +46,7 @@ public class UserController {
 		newUser.setUsername(username);
 		newUser.setOrgUnit(null);
 		newUser.setDescription(description);
-		userManager.add(newUser);
+		userManager.saveAndFlush(newUser);
 		
 		return "redirect:/user/list";
 	}
