@@ -1,0 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<!-- Initialize context path, and the root path of the static resources here. 
+	 Later, the initialization may be done in another way. -->
+<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application"/>
+<c:set var="jsRootPath" value="${contextPath}/js" scope="application" />
+<c:set var="cssRootPath" value="${contextPath}/css" scope="application" />
+<c:set var="imagesRootPath" value="${contextPath}/images" scope="application" />
+<c:set var="jspRootPath" value="/WEB-INF/jsp" scope="application" />
