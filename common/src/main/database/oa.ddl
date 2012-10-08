@@ -25,7 +25,7 @@ CREATE TABLE Role
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
 	name VARCHAR (10) NOT NULL,
-	description VARCHAR (100),
+	description VARCHAR (100)
 );
 
 --- 权限表

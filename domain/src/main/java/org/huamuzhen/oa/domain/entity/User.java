@@ -34,6 +34,10 @@ public class User extends BaseEntity{
 	//@Column(name="org_unit_id", length = 36)
 	private OrgUnit orgUnit;
 	
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private Role role;
+	
 	@Column(name="hashed_password", length = 36)
 	private String hashedPassword;
 	
@@ -75,6 +79,12 @@ public class User extends BaseEntity{
 	}
 	public void setOrgUnit(OrgUnit orgUnit) {
 		this.orgUnit = orgUnit;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
 	}
 	
 }
