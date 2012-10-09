@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Feedback")
-public class FeedBack extends BaseEntity {
+public class Feedback extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	
