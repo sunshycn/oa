@@ -2,6 +2,8 @@ package org.huamuzhen.oa.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -9,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.huamuzhen.oa.domain.enumeration.Privilege;
 
 @Entity
 @Table(name="User")
@@ -30,12 +33,11 @@ public class User extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "org_unit_id")
-	//@Column(name="org_unit_id", length = 36)
 	private OrgUnit orgUnit;
 	
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
+	@Column(name="privilege", length=20)
+	@Enumerated(EnumType.STRING)
+	private Privilege privilege = Privilege.NORMAL;
 	
 	@Column(name="hashed_password", length = 36)
 	private String hashedPassword;
@@ -79,11 +81,11 @@ public class User extends BaseEntity{
 	public void setOrgUnit(OrgUnit orgUnit) {
 		this.orgUnit = orgUnit;
 	}
-	public Role getRole() {
-		return role;
+	public Privilege getPrivilege() {
+		return privilege;
 	}
-	public void setRole(Role role) {
-		this.role = role;
+	public void setPrivilege(Privilege privilege) {
+		this.privilege = privilege;
 	}
 	
 }

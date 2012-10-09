@@ -9,16 +9,6 @@ CREATE TABLE Org_Unit
 	modified_at TIMESTAMP
 );
 
---- 角色表
-CREATE TABLE Role
-(
-	id VARCHAR (36) NOT NULL PRIMARY KEY,
-	name VARCHAR (10) NOT NULL,
-	description VARCHAR (100),
-	privilege VARCHAR (20),
-	created_at TIMESTAMP,
-    modified_at TIMESTAMP
-);
 
 --- 用户表
 CREATE TABLE User
@@ -29,11 +19,10 @@ CREATE TABLE User
     hashed_password VARCHAR (36) NOT NULL,
     hash_salt VARCHAR (10) NOT NULL,
     org_unit_id VARCHAR (36),
-    role_id VARCHAR (36),
+    privilege VARCHAR (20),
     created_at TIMESTAMP,
     modified_at TIMESTAMP,
-    CONSTRAINT FK_USER_ORG_UNIT FOREIGN KEY (org_unit_id) REFERENCES Org_Unit (id),
-    CONSTRAINT FK_USER_ROLE FOREIGN KEY (role_id) REFERENCES Role (id)
+    CONSTRAINT FK_USER_ORG_UNIT FOREIGN KEY (org_unit_id) REFERENCES Org_Unit (id)
 );
 
 --- 报审表类型
