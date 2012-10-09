@@ -1,0 +1,135 @@
+body,div,span,th,td,input,button,a,select {
+	padding: 0px;
+	color: #666666;
+	font-family: Calibri, Verdana, Arial;
+	font-size: 16px;
+}
+
+body {
+	background: white;
+	margin: auto;
+	width: 800px;
+	height: 100%;
+}
+
+a {
+	color: #1a75cf;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.table {
+	border-collapse: collapse;
+	width: 770px;
+}
+
+.table td,.table th {
+	border: 1px solid #cccccc;
+	padding: 5 10;
+	text-align: left;
+	vertical-align: top;
+}
+
+.table th {
+	background: #e0f0ff;
+}
+
+tr.clickable:hover {
+	background: #f5f5ff;
+}
+
+tr.clickable:hover td {
+	cursor: pointer;
+    text-decoration: underline;
+    color: #1a75cf;
+}
+
+label,input {
+	display: block;
+}
+
+input.text, select.text {
+	margin-bottom: 12px;
+	width: 95%;
+	padding: .4em;
+}
+
+fieldset {
+	padding: 0;
+	border: 0;
+	margin-top: 15px;
+}
+
+.buttons {
+    padding: 0;
+    border: 0;
+    margin-top: 15px;
+}
+
+.buttons button {
+	display: inline;
+	margin-right: 5px;
+	min-width: 100px;
+	min-height: 35px;
+}
+
+.page-header {
+	padding: 5px;
+	border-bottom: 1px solid #999999;
+}
+
+.page-header div {
+	display: inline-block;
+}
+
+.header-logo {
+	text-align: left;
+	width: 214px;
+	vertical-align: middle;
+}
+
+.header-title {
+	font: bold 28px Calibri;
+	text-align: center;
+	width: 350px;
+	vertical-align: middle;
+}
+
+.header-links {
+	text-align: right;
+	width: 214px;
+	vertical-align: middle;
+}
+
+.page-content {
+	padding: 15px;
+	padding-left: 25px;
+}
+
+.page-footer {
+	margin: 30px 0px 10px;
+	border-top: 1px solid #999999;
+	padding: 5px;
+	text-align: center;
+	font-size: 12px;
+}
+
+.page-footer a {
+	font-size: 12px;
+	color: #666666;
+}
+
+.section-title {
+	font: bold 24px Calibri;
+	margin: 0 0 10 0;
+	color: #66aadd;
+}
+
+.section-links {
+	font-weight: normal;
+	margin-left: 20px;
+	vertical-align: middle;
+}

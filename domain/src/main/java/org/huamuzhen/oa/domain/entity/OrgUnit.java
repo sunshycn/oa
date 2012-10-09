@@ -30,7 +30,7 @@ public class OrgUnit extends BaseEntity {
 	@Column(name="parent_id", length = 36)
 	private String parentId;
 	
-	@Column(name="name", unique = true, nullable = false, length = 100)
+	@Column(name="name", unique = true, nullable = false, length = 20)
 	private String name;
 	
 	@Column(name="description", length = 500)

@@ -2,7 +2,7 @@
 CREATE TABLE Org_Unit
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
-	name VARCHAR (100) NOT NULL,
+	name VARCHAR (20) NOT NULL,
 	description VARCHAR (500),
 	parent_id VARCHAR (36),
 	created_at TIMESTAMP,
@@ -14,7 +14,7 @@ CREATE TABLE Org_Unit
 CREATE TABLE User
  (
      id VARCHAR (36) NOT NULL PRIMARY KEY,
-     username VARCHAR (100) NOT NULL,
+     username VARCHAR (20) NOT NULL,
     description VARCHAR (500), 
     hashed_password VARCHAR (36) NOT NULL,
     hash_salt VARCHAR (10) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE User
 CREATE TABLE Report_Form_Type
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
-	name VARCHAR (100) NOT NULL,
+	name VARCHAR (30) NOT NULL,
 	created_at TIMESTAMP,
     modified_at TIMESTAMP
 );
