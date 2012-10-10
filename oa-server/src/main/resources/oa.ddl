@@ -1,5 +1,5 @@
 --- 组织表
-CREATE TABLE Org_Unit
+CREATE TABLE Org_Unit 
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
 	name VARCHAR (20) NOT NULL,
@@ -8,7 +8,6 @@ CREATE TABLE Org_Unit
 	created_at TIMESTAMP,
 	modified_at TIMESTAMP
 );
-
 
 --- 用户表
 CREATE TABLE User

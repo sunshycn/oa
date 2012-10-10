@@ -46,7 +46,7 @@ public class UserController {
 		newUser.setUsername(username);
 		newUser.setOrgUnit(null);
 		newUser.setDescription(description);
-		userManager.saveAndFlush(newUser);
+		userManager.save(newUser);
 		
 		return "redirect:/user/list";
 	}

@@ -73,7 +73,6 @@ public class BaseManager<T, ID extends Serializable> {
         return dao.save(arg0);
     }*/
 
-    @Transactional
     public T save(T arg0) {
 
         return dao.save(arg0);
