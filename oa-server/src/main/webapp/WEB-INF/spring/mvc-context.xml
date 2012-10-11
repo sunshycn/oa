@@ -19,12 +19,19 @@
 	</bean>
 	
 	<!-- Maps '/' requests to the 'index' view -->
-	<mvc:view-controller path="/" view-name="index"/>
+	<!--  <mvc:view-controller path="/" view-name="index"/> -->
 	
 	 <!-- Configures the annotation-driven Spring MVC Controller programming model.
 	Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
 	<mvc:annotation-driven /> 
 
 	<context:component-scan base-package="org.huamuzhen.oa.*.controller" />
+
+    <mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/*"/>
+    		<bean class="org.huamuzhen.oa.server.interceptor.AuthorizeInterceptor"></bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

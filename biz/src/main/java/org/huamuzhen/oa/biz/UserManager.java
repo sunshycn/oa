@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserManager extends BaseManager<User, String>{
 	
 	@Resource
+	private UserDAO userDAO;
+	
+	@Resource
 	public void setDao(UserDAO dao) {
 		super.setDao(dao);
 	}
@@ -45,6 +48,16 @@ public class UserManager extends BaseManager<User, String>{
 		}else{
 			return updateExisting(id,username,rawPassword,description,orgUnitId,privilege);
 		}		
+	}
+	
+	public User authenticate(String username, String password){
+		User user = userDAO.findUserByUsername(username);
+		if(null != user){
+			if(encoder.isPasswordValid(user.getHashedPassword(), password, user.getHashSalt())){
+				return user;
+			}
+		}
+		return null;
 	}
 
 	@Transactional
