@@ -37,6 +37,7 @@ public class OrgUnitManager extends BaseManager<OrgUnit, String> {
 		return this.findAll();
 	}
 
+	@Transactional
 	private OrgUnit updateExisting(String id, String name, String description,
 			String parentId) {
 		OrgUnit orgUnit = this.findOne(id);
@@ -48,6 +49,7 @@ public class OrgUnitManager extends BaseManager<OrgUnit, String> {
 		
 	}
 
+	@Transactional
 	private OrgUnit createNew(String name, String description, String parentId) {
 		OrgUnit newOrgUnit = new OrgUnit();
 		newOrgUnit.setName(name);

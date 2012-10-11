@@ -15,7 +15,7 @@ CREATE TABLE User
      id VARCHAR (36) NOT NULL PRIMARY KEY,
      username VARCHAR (20) NOT NULL,
     description VARCHAR (500), 
-    hashed_password VARCHAR (36) NOT NULL,
+    hashed_password VARCHAR (50) NOT NULL,
     hash_salt VARCHAR (10) NOT NULL,
     org_unit_id VARCHAR (36),
     privilege VARCHAR (20),

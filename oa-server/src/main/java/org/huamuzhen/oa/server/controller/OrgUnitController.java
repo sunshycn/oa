@@ -57,7 +57,7 @@ public class OrgUnitController {
 	}
 	
 	@RequestMapping(value="/addOrgUnit")
-	public ModelAndView addUser(){
+	public ModelAndView addOrgUnit(){
 		ModelAndView mav = new ModelAndView("addOrgUnit");
 		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
 		mav.addObject("orgUnitList", orgUnitList);
@@ -65,7 +65,7 @@ public class OrgUnitController {
 	}
 	
 	@RequestMapping(value="/editOrgUnit/{id}")
-	public ModelAndView editUser(@PathVariable String id){
+	public ModelAndView editOrgUnit(@PathVariable String id){
 		ModelAndView mav = new ModelAndView("editOrgUnit");
 		OrgUnit selectedOrgUnit = orgUnitManager.findOne(id);
 		mav.addObject("selectedOrgUnit", selectedOrgUnit);

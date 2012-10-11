@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <link href="${cssRootPath}/app.css" rel="stylesheet" type="text/css">
-<title>编辑单位</title>
+<title>添加单位</title>
 </head>
 <body>
-	<h2>编辑单位</h2>
+	<h2>添加单位</h2>
 	
 	<form action="${contextPath}/orgUnit/add" method="post">
 		<table>
