@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h2>用户管理</h2>
+	<a href="${contextPath}/">返回主页</a><br>
 	<a href="${contextPath}/user/addUser">新增用户</a>
 	<table border="1">
 		<thead>

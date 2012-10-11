@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h2>单位管理</h2>
+	<a href="${contextPath}/">返回主页</a><br>
 	<a href="${contextPath}/orgUnit/addOrgUnit">新增单位</a>
 	<table border="1">
 		<thead>
