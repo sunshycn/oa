@@ -13,7 +13,7 @@
 	<form action="${contextPath}/orgUnit/add" method="post">
 		<table>
 			<tr><td>单位名： <input type="text" name="name" maxlength="20"/></td></tr>
-			<tr><td>上级单位：<select name="parentId"><option></option></select></td></tr>
+			<tr><td>上级单位：<select name="parentId"><option></option><c:forEach var="orgUnit" items="${orgUnitList}"><option value="${orgUnit.id}">${orgUnit.name}</option></c:forEach></select></td></tr>
 			<tr><td>描述：<textarea name="description" rows="3" cols="30"></textarea></td></tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>

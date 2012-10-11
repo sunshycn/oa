@@ -57,15 +57,22 @@ public class OrgUnitController {
 	}
 	
 	@RequestMapping(value="/addOrgUnit")
-	public String addUser(){
-		return "addOrgUnit";
+	public ModelAndView addUser(){
+		ModelAndView mav = new ModelAndView("addOrgUnit");
+		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
+		mav.addObject("orgUnitList", orgUnitList);
+		return mav;
 	}
 	
 	@RequestMapping(value="/editOrgUnit/{id}")
 	public ModelAndView editUser(@PathVariable String id){
 		ModelAndView mav = new ModelAndView("editOrgUnit");
-		OrgUnit orgUnit = orgUnitManager.findOne(id);
-		mav.addObject("orgUnit", orgUnit);
+		OrgUnit selectedOrgUnit = orgUnitManager.findOne(id);
+		mav.addObject("selectedOrgUnit", selectedOrgUnit);
+		OrgUnit parentOrgUnit = orgUnitManager.findOne(selectedOrgUnit.getParentId());
+		mav.addObject("parentOrgUnit", parentOrgUnit);
+		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
+		mav.addObject("orgUnitList", orgUnitList);
 		return mav;
 	}
 

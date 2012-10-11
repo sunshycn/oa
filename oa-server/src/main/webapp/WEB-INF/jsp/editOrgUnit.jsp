@@ -12,10 +12,20 @@
 	
 	<form action="${contextPath}/orgUnit/edit" method="post">
 		<table>
-			<tr><td>ID: ${orgUnit.id}<input type="hidden" name="id" value="${orgUnit.id}"></td></tr>
-			<tr><td>单位名： <input type="text" name="name" maxlength="20" value="${orgUnit.name}"/></td></tr>
-			<tr><td>上级单位：<select name="parentId"><option value="${orgUnit.parentId}">null</option></select></td></tr>
-			<tr><td>描述：<textarea name="description" rows="3" cols="30">${orgUnit.description}</textarea></td></tr>
+			<tr><td>ID: ${selectedOrgUnit.id}<input type="hidden" name="id" value="${selectedOrgUnit.id}"></td></tr>
+			<tr><td>单位名： <input type="text" name="name" maxlength="20" value="${selectedOrgUnit.name}"/></td></tr>
+			<tr><td>上级单位：<select name="parentId">
+			<c:choose> 
+				<c:when test="${empty parentOrgUnit}">
+					<option></option>
+				</c:when>
+				<c:otherwise>
+					<option value="${parentOrgUnit.id}">${parentOrgUnit.name}</option>
+				</c:otherwise>
+			</c:choose>
+			<c:forEach var="orgUnit" items="${orgUnitList}"><option value="${orgUnit.id}">${orgUnit.name}</option></c:forEach>
+			</select></td></tr>
+			<tr><td>描述：<textarea name="description" rows="3" cols="30">${selectedOrgUnit.description}</textarea></td></tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>
 	</form>
