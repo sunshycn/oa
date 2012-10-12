@@ -37,7 +37,7 @@ public class User extends BaseEntity{
 	
 	@Column(name="privilege", length=20)
 	@Enumerated(EnumType.STRING)
-	private Privilege privilege = Privilege.NORMAL;
+	private Privilege privilege = Privilege.普通;
 	
 	@Column(name="hashed_password", length = 36)
 	private String hashedPassword;

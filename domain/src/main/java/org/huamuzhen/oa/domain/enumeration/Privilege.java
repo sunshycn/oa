@@ -3,15 +3,15 @@ package org.huamuzhen.oa.domain.enumeration;
 public enum Privilege {
 	
 	//普通用户
-	NORMAL,
+	普通,
 	//部门权限，可提交表单
-	DEPARTMENT,
+	部门,
 	//一般领导
-	LEADER1,
+	一般领导,
 	//主要领导
-	LEADER2,
+	主要领导,
 	//办公室
-	OFFICE,
+	办公室,
 	//管理员
-	ADMIN
+	管理员
 }

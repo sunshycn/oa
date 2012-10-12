@@ -39,6 +39,7 @@ public class UserController {
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String add(HttpServletRequest request){
 		String username = request.getParameter("username");
+System.out.println(username);
 		String password = request.getParameter("password");
 		String description = request.getParameter("description");
 		String orgUnitId = request.getParameter("orgUnitId");

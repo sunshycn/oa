@@ -22,6 +22,14 @@
 	<context:component-scan base-package="org.huamuzhen.oa.biz" />
 	<context:component-scan base-package="org.huamuzhen.oa.domain.dao" />
   
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:application.properties</value> 
+            </list>
+        </property>
+    </bean>
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		p:dataSource-ref="dataSource"
@@ -36,25 +44,42 @@
 				<entry key="hibernate.hbm2ddl.auto" value="none" />
 				<entry key="hibernate.connection.charSet" value="UTF-8" />
 				<entry key="hibernate.show_sql" value="true" />
+				<!-- <entry key="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" /> -->
 			</map>
 		</property>
 	</bean>
     
-	<!-- default dataSource -->
+	<!-- default dataSource, for development purpose -->
 	<jdbc:embedded-database id="dataSource" type="HSQL">
 		<jdbc:script location="classpath:oa.ddl"/>
 	</jdbc:embedded-database>
+	
+	<!-- database for prod -->
+	<bean id="dataSource2" class="com.jolbox.bonecp.BoneCPDataSource" >
+		<property name="driverClass" value="${database.driverClassName}" />
+		<property name="jdbcUrl" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+		<property name="maxConnectionsPerPartition" value="${database.maxPoolSize}" />
+		<property name="minConnectionsPerPartition" value="${database.minPoolSize}" />
+		<property name="statementsCacheSize" value="100" />
+		<property name="partitionCount" value="3" />
+		<property name="acquireIncrement" value="5" />
+		<property name="idleConnectionTestPeriod" value="60" />
+	</bean>
 
 	<bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="showSql" value="false" />
 		<property name="generateDdl" value="false" />
-		<property name="database" value="HSQL" />
+		<!-- <property name="database" value="HSQL" /> -->
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+
+	
 	<jpa:repositories base-package="org.huamuzhen.oa.domain.dao"></jpa:repositories>
 
 <!--	<beans profile="dev">
@@ -63,5 +88,7 @@
 		</jdbc:embedded-database>
 	</beans>	-->
 	<context:component-scan base-package="org.huamuzhen.oa.*.controller" />
+	
+	<tx:annotation-driven mode="proxy" transaction-manager="transactionManager"/>
 
 </beans>
