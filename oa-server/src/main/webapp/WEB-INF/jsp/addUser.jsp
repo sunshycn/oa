@@ -16,12 +16,12 @@
 			<tr><td>单位：<select name="orgUnitId"><option></option><c:forEach var="orgUnit" items="${orgUnitList}"><option value="${orgUnit.id}">${orgUnit.name}</option></c:forEach></select>
 			<tr><td>描述：<textarea name="description" rows="3" cols="30"></textarea></td></tr>
 			<tr><td>权限：<select name="privilege">
-			<option value="普通">普通</option>
-			<option value="部门">部门</option>
-			<option value="一般领导">一般领导</option>
-			<option value="主要领导">主要领导</option>
-			<option value="办公室">办公室</option>
-			<option value="管理员">管理员</option>
+			<option value="NORMAL">普通</option>
+			<option value="DEPARTMENT">部门</option>
+			<option value="LEADER1">一般领导</option>
+			<option value="LEADER2">主要领导</option>
+			<option value="OFFICE">办公室</option>
+			<option value="ADMIN">管理员</option>
 			</select></td></tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>

@@ -22,13 +22,22 @@
 			</select>
 			<tr><td>描述：<textarea name="description" rows="3" cols="30">${selectedUser.description}</textarea></td></tr>
 			<tr><td>权限：<select name="privilege">
-			<option value="${selectedUser.privilege}">${selectedUser.privilege}</option>
-			<option value="普通">普通</option>
-			<option value="部门">部门</option>
-			<option value="一般领导">一般领导</option>
-			<option value="主要领导">主要领导</option>
-			<option value="办公室">办公室</option>
-			<option value="管理员">管理员</option>
+			<option value="${selectedUser.privilege}">
+			<c:choose>
+				<c:when test="${selectedUser.privilege =='DEPARTMENT' }">部门</c:when>
+				<c:when test="${selectedUser.privilege =='LEADER1' }">一般领导</c:when>
+				<c:when test="${selectedUser.privilege =='LEADER2' }">主要领导</c:when>
+				<c:when test="${selectedUser.privilege =='OFFICE' }">办公室</c:when>
+				<c:when test="${selectedUser.privilege =='ADMIN' }">管理员</c:when>
+				<c:otherwise>普通</c:otherwise>
+			</c:choose>
+			</option>
+			<option value="NORMAL">普通</option>
+			<option value="DEPARTMENT">部门</option>
+			<option value="LEADER1">一般领导</option>
+			<option value="LEADER2">主要领导</option>
+			<option value="OFFICE">办公室</option>
+			<option value="ADMIN">管理员</option>
 			</select></td></tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>
