@@ -52,6 +52,7 @@
 	<!-- default dataSource, for development purpose -->
 	<jdbc:embedded-database id="dataSource" type="HSQL">
 		<jdbc:script location="classpath:oa.ddl"/>
+		<jdbc:script location="classpath:oa-data.sql"/>
 	</jdbc:embedded-database>
 	
 	<!-- database for prod -->

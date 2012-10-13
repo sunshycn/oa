@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.jdbc.StringUtils;
+
 @Controller
 @RequestMapping("/orgUnit")
 public class OrgUnitController {
@@ -33,6 +35,9 @@ public class OrgUnitController {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		String parentId = request.getParameter("parentId");
+		if(StringUtils.isNullOrEmpty(parentId)){
+			parentId = null;
+		}
 		orgUnitManager.saveOrgUnit(null, name, description, parentId);
 		
 		return "redirect:/orgUnit";
@@ -44,6 +49,9 @@ public class OrgUnitController {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		String parentId = request.getParameter("parentId");
+		if(StringUtils.isNullOrEmpty(parentId)){
+			parentId = null;
+		}
 		orgUnitManager.saveOrgUnit(id, name, description, parentId);
 		
 		return "redirect:/orgUnit";
@@ -69,7 +77,11 @@ public class OrgUnitController {
 		ModelAndView mav = new ModelAndView("editOrgUnit");
 		OrgUnit selectedOrgUnit = orgUnitManager.findOne(id);
 		mav.addObject("selectedOrgUnit", selectedOrgUnit);
-		OrgUnit parentOrgUnit = orgUnitManager.findOne(selectedOrgUnit.getParentId());
+		
+		OrgUnit parentOrgUnit = null;
+		if( null != selectedOrgUnit.getParentId()){
+			 orgUnitManager.findOne(selectedOrgUnit.getParentId());
+		}
 		mav.addObject("parentOrgUnit", parentOrgUnit);
 		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
 		mav.addObject("orgUnitList", orgUnitList);

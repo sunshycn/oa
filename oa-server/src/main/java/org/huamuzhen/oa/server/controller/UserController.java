@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.jdbc.StringUtils;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -42,6 +44,9 @@ public class UserController {
 		String password = request.getParameter("password");
 		String description = request.getParameter("description");
 		String orgUnitId = request.getParameter("orgUnitId");
+		if(StringUtils.isNullOrEmpty(orgUnitId)){
+			orgUnitId = null;
+		}
 		String privilege = request.getParameter("privilege");
 		userManager.saveUser(null, username, password, description, orgUnitId, privilege);
 		return "redirect:/user";
@@ -54,6 +59,9 @@ public class UserController {
 		String password = request.getParameter("password");
 		String description = request.getParameter("description");
 		String orgUnitId = request.getParameter("orgUnitId");
+		if(StringUtils.isNullOrEmpty(orgUnitId)){
+			orgUnitId = null;
+		}
 		String privilege = request.getParameter("privilege");
 		userManager.saveUser(id, username, password, description, orgUnitId, privilege);
 		return "redirect:/user";
