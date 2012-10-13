@@ -12,7 +12,7 @@
 		<form action="${contextPath}/login" method="post">
 		<table>
 			<tr><td>用户名： <input type="text" name="username" maxlength="20"/></td></tr>
-			<tr><td>密码： <input type="text" name="password" maxlength="20"/></td></tr>
+			<tr><td>密码： <input type="password" name="password" maxlength="20"/></td></tr>
 			<tr><td><input type="submit" value="登陆" /></td></tr>
 		</table>
 		</form>
