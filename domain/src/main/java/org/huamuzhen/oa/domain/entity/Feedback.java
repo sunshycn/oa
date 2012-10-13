@@ -25,8 +25,8 @@ public class Feedback extends BaseEntity {
 	@Column(name="report_form_id", length = 36)
 	private String reportFormId;
 	
-	@Column(name="org_unit_id", length = 36)
-	private String orgUnitId;
+	@Column(name="owner", length = 50, nullable = false)
+	private String owner;
 	
 	@Column(name="content", length = 150)
 	private String content;
@@ -54,14 +54,14 @@ public class Feedback extends BaseEntity {
 
 	public void setReportFormId(String reportFormId) {
 		this.reportFormId = reportFormId;
+	}	
+
+	public String getOwner() {
+		return owner;
 	}
 
-	public String getOrgUnitId() {
-		return orgUnitId;
-	}
-
-	public void setOrgUnitId(String orgUnitId) {
-		this.orgUnitId = orgUnitId;
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 	public String getContent() {

@@ -66,14 +66,13 @@ CREATE TABLE Feedback
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
 	report_form_id VARCHAR (36) NOT NULL,
-	org_unit_id VARCHAR (36) NOT NULL,
+	owner VARCHAR (36) NOT NULL,
 	content VARCHAR (150),
 	feedback_date TIMESTAMP,
 	signature VARCHAR (6),
 	complete BOOLEAN,
 	created_at TIMESTAMP,
     modified_at TIMESTAMP,
-	CONSTRAINT FK_FEEDBACK_ORGUNIT FOREIGN KEY (org_unit_id) REFERENCES Org_Unit (id),
 	CONSTRAINT FK_FEEDBACK_FORM FOREIGN KEY (report_form_id) REFERENCES Report_Form (id)	
 );
 

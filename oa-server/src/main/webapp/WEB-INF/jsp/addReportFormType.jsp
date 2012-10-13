@@ -4,9 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Template JSP</title>
+<link href="${cssRootPath}/app.css" rel="stylesheet" type="text/css">
+<title>添加报审表类型</title>
 </head>
 <body>
-
+	<h2>添加报审表类型</h2>
+	
+	<form action="${contextPath}/reportFormType/add" method="post">
+		<table>
+			<tr><td>报审表类型名：<input type="text" name="name" maxlength="30"/></td></tr>
+			<tr><td><input type="submit" value="提交" /></td></tr>
+		</table>
+	</form>
+	
+	<a href="${contextPath}/reportForm">返回报审表类型管理</a>
 </body>
 </html>
