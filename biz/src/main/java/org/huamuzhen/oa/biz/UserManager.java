@@ -66,7 +66,11 @@ public class UserManager extends BaseManager<User, String>{
 		User user = this.findOne(id);
 		user.setUsername(username);
 		user.setDescription(description);
-		user.setOrgUnit(orgUnitDAO.findOne(orgUnitId));
+		if(null == orgUnitId){
+			user.setOrgUnit(null);
+		}else{
+			user.setOrgUnit(orgUnitDAO.findOne(orgUnitId));
+		}
 		user.setPrivilege(Privilege.valueOf(privilege));
 		if(!rawPassword.equals("")){
 			String hashSalt = new Integer(random.nextInt(10000)).toString();
@@ -84,7 +88,11 @@ public class UserManager extends BaseManager<User, String>{
 		User newUser = new User();
 		newUser.setUsername(username);
 		newUser.setDescription(description);
-		newUser.setOrgUnit(orgUnitDAO.findOne(orgUnitId));
+		if(null == orgUnitId){
+			newUser.setOrgUnit(null);
+		}else{
+			newUser.setOrgUnit(orgUnitDAO.findOne(orgUnitId));
+		}
 		newUser.setPrivilege(Privilege.valueOf(privilege));
 		String hashSalt = new Integer(random.nextInt(10000)).toString();
 		newUser.setHashSalt(hashSalt);
