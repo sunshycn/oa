@@ -43,6 +43,6 @@
 		</table>
 	</form>
 	
-	<a href="${contextPath}/orgUnit">返回用户管理</a>
+	<a href="${contextPath}/user">返回用户管理</a>
 </body>
 </html>

@@ -80,7 +80,7 @@ public class OrgUnitController {
 		
 		OrgUnit parentOrgUnit = null;
 		if( null != selectedOrgUnit.getParentId()){
-			 orgUnitManager.findOne(selectedOrgUnit.getParentId());
+			parentOrgUnit = orgUnitManager.findOne(selectedOrgUnit.getParentId());
 		}
 		mav.addObject("parentOrgUnit", parentOrgUnit);
 		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
