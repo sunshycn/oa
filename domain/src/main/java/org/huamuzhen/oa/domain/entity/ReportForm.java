@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
 
 @Entity
-@Table(name="ReportForm")
+@Table(name="Report_Form")
 public class ReportForm extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
