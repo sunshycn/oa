@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 public interface ReportFormDAO extends JpaDAO<ReportForm, String> {
 	
 	@Query(value="SELECT r.formId FROM ReportForm r WHERE r.formId LIKE ':dateOfToday%-00' ORDER BY r.createdAt ASC")
-	public List<String> findLatestFormIdOfToday(@Param("dateOfToday") String dateOfToday);
+	public List<String> findNewCreatedFormIdListOfToday(@Param("dateOfToday") String dateOfToday);
 
 }
