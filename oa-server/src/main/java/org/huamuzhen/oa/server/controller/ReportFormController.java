@@ -44,11 +44,19 @@ public class ReportFormController {
 		Set<OrgUnit> requiredOrgUnits = reportFormType.getRequiredOrgUnits();
 		ModelAndView mav = new ModelAndView("checkRequiredOrgUnits");
 		mav.addObject("requiredOrgUnits", requiredOrgUnits);
-		for (OrgUnit orgUnit: requiredOrgUnits){
-System.out.println(orgUnit.getId());
-System.out.println(orgUnit.getName());
-System.out.println("##############");
-		}
+		
+		String title = request.getParameter("title");
+		String formId = request.getParameter("formId");
+		String landUser = request.getParameter("landUser");
+		String originalLandUser = request.getParameter("originalLandUser");
+		String landLocation = request.getParameter("landLocation");
+		String landArea = request.getParameter("landArea");
+		String landUse = request.getParameter("landUse");
+		String originalLandUse = request.getParameter("originalLandUse");
+		String matter = request.getParameter("matter");
+		String matterDetail = request.getParameter("matterDetail");
+		String policyBasis = request.getParameter("policyBasis");
+		String comment = request.getParameter("comment");
 		
 		return mav;
 	}
