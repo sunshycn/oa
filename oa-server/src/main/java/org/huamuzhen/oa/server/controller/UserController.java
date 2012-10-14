@@ -31,7 +31,7 @@ public class UserController {
 	private OrgUnitManager orgUnitManager;
 	
 	@RequestMapping(value = { "", "/" })
-	public ModelAndView list(HttpServletResponse response) throws IOException{
+	public ModelAndView index() {
 		List<User> userList = userManager.findAllUser();
 		ModelAndView mav = new ModelAndView("user");
 		mav.addObject("userList", userList);

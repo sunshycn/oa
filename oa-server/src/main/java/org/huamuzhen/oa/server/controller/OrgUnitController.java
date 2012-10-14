@@ -23,7 +23,7 @@ public class OrgUnitController {
 	private OrgUnitManager orgUnitManager;
 	
 	@RequestMapping(value = { "", "/" })
-	public ModelAndView list(){
+	public ModelAndView index(){
 		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
 		ModelAndView mav = new ModelAndView("orgUnit");
 		mav.addObject("orgUnitList", orgUnitList);

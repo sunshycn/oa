@@ -24,6 +24,11 @@ public class ReportFormController {
 	@Resource
 	private ReportFormTypeManager reportFormTypeManager;
 	
+	@RequestMapping(value = { "", "/" })
+	public String index(){
+		return "reportForm";
+	}
+	
 	@RequestMapping("/addReportForm")
 	public ModelAndView addReportForm(){
 		ModelAndView mav = new ModelAndView("addReportForm");
