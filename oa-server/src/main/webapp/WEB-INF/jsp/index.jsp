@@ -8,7 +8,8 @@
 </head>
 <body>
 	<h2>主页</h2>
-	<a href="${contextPath}/orgUnit">单位管理</a><br>
-	<a href="${contextPath}/user">用户管理</a>
+	<a href="${contextPath}/orgUnit">单位管理</a><br/>
+	<a href="${contextPath}/user">用户管理</a><br/>
+	<a href="${contextPath}/reportForm/addReportForm">新增报审表</a>
 </body>
 </html>

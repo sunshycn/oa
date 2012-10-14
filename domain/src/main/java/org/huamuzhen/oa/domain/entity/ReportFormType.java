@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,7 +30,7 @@ public class ReportFormType extends BaseEntity {
 	@Column(name="name", unique = true, nullable = false, length = 100)
 	private String name;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="Report_Form_Type_Org_Unit",
 	joinColumns={@JoinColumn(name="report_form_type_id",referencedColumnName="id")},
 	inverseJoinColumns={@JoinColumn(name="org_unit_id",referencedColumnName="id")})
