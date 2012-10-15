@@ -68,8 +68,10 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		
 		String dateOfToday = new SimpleDateFormat("yyyyMMdd")
 				.format(new Date());
+		String fuzzyQueryCondition = dateOfToday + "%-00";
+System.out.println("fuzzyQueryCondition: " + fuzzyQueryCondition);
 		List<String> newCreatedFormIdListOfToday = this.reportFormDAO
-				.findNewCreatedFormIdListOfToday(dateOfToday);
+				.findNewCreatedFormIdListOfToday(fuzzyQueryCondition);
 		if (newCreatedFormIdListOfToday.size() == 0) {
 			return dateOfToday + "0000-00";
 		}
