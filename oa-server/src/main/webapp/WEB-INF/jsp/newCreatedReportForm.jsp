@@ -7,6 +7,8 @@
 <title>新建的报审表</title>
 </head>
 <body>
+ 	<h2>新建的报审表信息如下：</h2>
+ 		
 	${newReportForm.id}<br/>
 	${newReportForm.title}<br/>
 	${newReportForm.formId}<br/>

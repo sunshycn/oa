@@ -11,7 +11,7 @@
 	
 	<form action="${contextPath}/reportForm/add" method="post">
 		<table>
-			<tr><td>选择报审表类型：<select name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
+			<tr><td>报审表类型：<select name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
 			<tr><td>报审名称： <input name="title" type="text" maxlength="10"></input></td></tr>
 			<tr><td>编号：${formId}<input name="formId" type="hidden" value="${formId}" ></td></tr>
 			<tr><td>用地（受让）单位：： <input name="landUser" type="text" maxlength="30"></input></td></tr>
