@@ -12,9 +12,9 @@
 	<form action="${contextPath}/reportForm/edit" method="post">
 		<table>
 			<tr><td>ID: ${selectedReportForm.id}<input type="hidden" name="id" value="${selectedReportForm.id}"></td></tr>
-			<tr><td>报审表类型：<select name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
+			<tr><td>报审表类型：<select name="reportFormTypeId"><option value="${selectedReportForm.reportFormType.id}">${selectedReportForm.reportFormType.name}</option><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
 			<tr><td>报审名称： <input name="title" type="text" maxlength="10" value="${selectedReportForm.title}" ></input></td></tr>
-			<tr><td>编号：${formId}<input name="formId" type="hidden" value="${formId}" ></td></tr>
+			<tr><td>编号：${selectedReportForm.formId}<input name="formId" type="hidden" value="${selectedReportForm.formId}" ></td></tr>
 			<tr><td>用地（受让）单位：： <input name="landUser" type="text" maxlength="30" value="${selectedReportForm.landUser}"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"  value="${selectedReportForm.originalLandUser}"></input></td></tr>
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="40" value="${selectedReportForm.landLocation}"></input></td></tr>

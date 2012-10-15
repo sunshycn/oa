@@ -10,7 +10,9 @@ import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -79,6 +81,44 @@ public class ReportFormController {
 		mav.addObject("unsendReportFormList", unsendReportFormList);
 		
 		return mav;
+	}
+	
+	@RequestMapping("/editUnsendReportForm/{id}")
+	public ModelAndView editUnsendReportForm(@PathVariable String id){
+		ReportForm selectedReportForm =reportFormManager.findOne(id);
+		ModelAndView mav = new ModelAndView("editReportForm");
+		mav.addObject("selectedReportForm", selectedReportForm);
+		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
+		mav.addObject("reportFormTypeList", reportFormTypeList);
+		return mav;
+	}
+	
+	@RequestMapping(value="/edit",method=RequestMethod.POST)
+	public String edit(HttpServletRequest request){
+		String id = request.getParameter("id");
+		String reportFormTypeId = request.getParameter("reportFormTypeId");
+		String title = request.getParameter("title");
+		String formId = request.getParameter("formId");
+		String landUser = request.getParameter("landUser");
+		String originalLandUser = request.getParameter("originalLandUser");
+		String landLocation = request.getParameter("landLocation");
+		String landArea = request.getParameter("landArea");
+		String landUse = request.getParameter("landUse");
+		String originalLandUse = request.getParameter("originalLandUse");
+		String matter = request.getParameter("matter");
+		String matterDetail = request.getParameter("matterDetail");
+		String policyBasis = request.getParameter("policyBasis");
+		String comment = request.getParameter("comment");
+		String responsiblePerson = request.getParameter("responsiblePerson");
+		String auditor = request.getParameter("auditor");
+		String tabulator = request.getParameter("tabulator");
+		reportFormManager.saveReportForm(id, reportFormTypeId, title, formId,
+				landUser, originalLandUser, landLocation, landArea, landUse,
+				originalLandUse, matter, matterDetail, policyBasis, comment,
+				responsiblePerson,auditor,tabulator);
+		
+		
+		return "redirect:/reportForm";
 	}
 
 }

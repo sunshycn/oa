@@ -1,12 +1,10 @@
 package org.huamuzhen.oa.server.controller;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.List;
 
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import org.huamuzhen.oa.biz.OrgUnitManager;
 import org.huamuzhen.oa.biz.UserManager;
