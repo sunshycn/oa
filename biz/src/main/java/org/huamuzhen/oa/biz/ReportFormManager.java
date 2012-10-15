@@ -69,23 +69,22 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		String dateOfToday = new SimpleDateFormat("yyyyMMdd")
 				.format(new Date());
 		String fuzzyQueryCondition = dateOfToday + "%-00";
-System.out.println("fuzzyQueryCondition: " + fuzzyQueryCondition);
 		List<String> newCreatedFormIdListOfToday = this.reportFormDAO
 				.findNewCreatedFormIdListOfToday(fuzzyQueryCondition);
 		if (newCreatedFormIdListOfToday.size() == 0) {
-			return dateOfToday + "0000-00";
+			return new StringBuilder().append(dateOfToday).append("0000-00").toString();
 		}
 		String latestFormIdOfToday = newCreatedFormIdListOfToday.get(0);
 
 		Integer count = Integer.parseInt(latestFormIdOfToday.substring(8, 12)) + 1;
 		if (count < 10) {
-			return dateOfToday + "000" + count + "-00";
+			return new StringBuilder().append(dateOfToday).append("000").append(count).append("-00").toString();
 		} else if (count < 100) {
-			return dateOfToday + "00" + count + "-00";
+			return new StringBuilder().append(dateOfToday).append("00").append(count).append("-00").toString();
 		} else if (count < 1000) {
-			return dateOfToday + "0" + count + "-00";
+			return new StringBuilder().append(dateOfToday).append("0").append(count).append("-00").toString();
 		} else {
-			return dateOfToday + count.toString() + "-00";
+			return new StringBuilder().append(dateOfToday).append(count).append("-00").toString();
 		}
 
 	}

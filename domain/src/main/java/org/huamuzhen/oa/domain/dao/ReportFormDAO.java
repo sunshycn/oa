@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ReportFormDAO extends JpaDAO<ReportForm, String> {
 	
+	//Need to be optimized
 	@Transactional
-	@Query(value="SELECT r.formId FROM ReportForm r WHERE r.formId LIKE :fuzzyQueryCondition ORDER BY r.createdAt ASC")
+	@Query(value="SELECT r.formId FROM ReportForm r WHERE r.formId LIKE :fuzzyQueryCondition ORDER BY r.createdAt DESC")
 	public List<String> findNewCreatedFormIdListOfToday(@Param("fuzzyQueryCondition") String fuzzyQueryCondition);
 
 }
