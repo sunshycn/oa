@@ -87,7 +87,7 @@ public class ReportForm extends BaseEntity{
 	@Column(name="referred_report_form_id", length = 36)
 	private String referredReportFormId;
 	
-	@Column(name="status", length=20)
+	@Column(name="status", length=30)
 	@Enumerated(EnumType.STRING)
 	private ReportFormStatus status = ReportFormStatus.NOT_SEND;
 

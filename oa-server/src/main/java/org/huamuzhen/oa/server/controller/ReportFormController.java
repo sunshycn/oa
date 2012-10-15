@@ -1,14 +1,13 @@
 package org.huamuzhen.oa.server.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.huamuzhen.oa.biz.ReportFormManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
-import org.huamuzhen.oa.domain.entity.OrgUnit;
+import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +41,10 @@ public class ReportFormController {
 	@RequestMapping("/add")
 	public ModelAndView add(HttpServletRequest request){
 		String reportFormTypeId = request.getParameter("reportFormTypeId");
-		ReportFormType reportFormType = reportFormTypeManager.findOne(reportFormTypeId);
+		/*ReportFormType reportFormType = reportFormTypeManager.findOne(reportFormTypeId);
 		Set<OrgUnit> requiredOrgUnits = reportFormType.getRequiredOrgUnits();
 		ModelAndView mav = new ModelAndView("checkRequiredOrgUnits");
-		mav.addObject("requiredOrgUnits", requiredOrgUnits);
+		mav.addObject("requiredOrgUnits", requiredOrgUnits);*/
 		
 		String title = request.getParameter("title");
 		String formId = request.getParameter("formId");
@@ -59,6 +58,25 @@ public class ReportFormController {
 		String matterDetail = request.getParameter("matterDetail");
 		String policyBasis = request.getParameter("policyBasis");
 		String comment = request.getParameter("comment");
+		String responsiblePerson = request.getParameter("responsiblePerson");
+		String auditor = request.getParameter("auditor");
+		String tabulator = request.getParameter("tabulator");
+		
+	    ReportForm newReportForm = reportFormManager.saveReportForm(null, reportFormTypeId, title, formId,
+				landUser, originalLandUser, landLocation, landArea, landUse,
+				originalLandUse, matter, matterDetail, policyBasis, comment,
+				responsiblePerson,auditor,tabulator);
+	    
+		ModelAndView mav = new ModelAndView("newCreatedReportForm");
+		mav.addObject("newReportForm", newReportForm);
+		return mav;
+	}
+	
+	@RequestMapping("/unsendReportForm")
+	public ModelAndView unsendReportForm(){
+		List<ReportForm> unsendReportFormList = reportFormManager.findAllUnsendReportForms();
+		ModelAndView mav = new ModelAndView("unsendReportForm");
+		mav.addObject("unsendReportFormList", unsendReportFormList);
 		
 		return mav;
 	}

@@ -55,7 +55,7 @@ CREATE TABLE Report_Form
 	  auditor VARCHAR (6),
 	  tabulator VARCHAR (6),
 	  referred_report_form_id VARCHAR (36),
-	  status INTEGER NOT NULL,
+	  status VARCHAR(30) NOT NULL,
 	  created_at TIMESTAMP,
       modified_at TIMESTAMP,
 	  CONSTRAINT FORM_FT FOREIGN KEY (form_type_id) REFERENCES Report_Form_Type (id)

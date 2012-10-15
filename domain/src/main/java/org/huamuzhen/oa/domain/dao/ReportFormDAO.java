@@ -14,4 +14,8 @@ public interface ReportFormDAO extends JpaDAO<ReportForm, String> {
 	@Query(value="SELECT r.formId FROM ReportForm r WHERE r.formId LIKE :fuzzyQueryCondition ORDER BY r.createdAt DESC")
 	public List<String> findNewCreatedFormIdListOfToday(@Param("fuzzyQueryCondition") String fuzzyQueryCondition);
 
+	@Transactional
+	@Query(value="From ReportForm r WHERE r.status = 'NOT_SEND'")
+	public List<ReportForm> findAllUnsendReportForms();
+	
 }

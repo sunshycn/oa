@@ -47,5 +47,5 @@ INSERT INTO Report_Form_Type_Org_Unit (report_form_type_id, org_unit_id) VALUES 
 INSERT INTO Report_Form_Type_Org_Unit (report_form_type_id, org_unit_id) VALUES ('a415ba3ad95d414a8370a599faa0de1b', 'e8854fabc731438f9d81bbd59f305fce');
 
 ---测试报审表
-INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('2','测试报审表1', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150001-00', 1, '2012-10-15 11:00:00','2012-10-15 11:00:00');
-INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('3','测试报审表2', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150999-00', 1, '2012-10-15 11:30:00','2012-10-15 11:30:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('2','测试报审表1', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150001-00', 'NOT_SEND', '2012-10-15 11:00:00','2012-10-15 11:00:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('3','测试报审表2', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150999-00', 'NOT_SEND', '2012-10-15 11:30:00','2012-10-15 11:30:00');

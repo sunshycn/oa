@@ -7,7 +7,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.huamuzhen.oa.domain.dao.ReportFormDAO;
+import org.huamuzhen.oa.domain.dao.ReportFormTypeDAO;
 import org.huamuzhen.oa.domain.entity.ReportForm;
+import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,9 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	
 	@Resource
 	private ReportFormDAO reportFormDAO;
+	
+	@Resource
+	private ReportFormTypeDAO reportFormTypeDAO;
 
 	@Resource
 	public void setDao(ReportFormDAO dao) {
@@ -23,34 +28,82 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	}
 	
 	@Transactional
-	public ReportForm saveReportForm(String id, String title,
+	public ReportForm saveReportForm(String id, String reportFormTypeId, String title,
 			String formId, String landUser, String originalLandUser,
 			String landLocation, String landArea, String landUse,
 			String originalLandUse, String matter, String matterDetail,
-			String policyBasis, String comment) {
+			String policyBasis, String comment, String responsiblePerson,
+			String auditor, String tabulator) {
 		if (null == id) {
-			return createNew(title, formId, landUser, originalLandUser,landLocation, landArea, landUse, originalLandUse, matter, matterDetail, policyBasis, comment);
+			return createNew(title, reportFormTypeId, formId, landUser,
+					originalLandUser, landLocation, landArea, landUse,
+					originalLandUse, matter, matterDetail, policyBasis,
+					comment, responsiblePerson, auditor, tabulator);
 		} else {
-			return updateExisting(id, title, formId, landUser, originalLandUser,landLocation, landArea, landUse, originalLandUse, matter, matterDetail, policyBasis, comment);
+			return updateExisting(id, reportFormTypeId, title, formId,
+					landUser, originalLandUser, landLocation, landArea,
+					landUse, originalLandUse, matter, matterDetail,
+					policyBasis, comment, responsiblePerson, auditor, tabulator);
 		}
 	}
 
-	private ReportForm updateExisting(String id, String title,
+	@Transactional
+	private ReportForm updateExisting(String id, String reportFormTypeId, String title,
 			String formId, String landUser, String originalLandUser,
 			String landLocation, String landArea, String landUse,
 			String originalLandUse, String matter, String matterDetail,
-			String policyBasis, String comment) {
-		// TODO Auto-generated method stub
-		return null;
+			String policyBasis, String comment, String responsiblePerson,
+			String auditor, String tabulator) {
+		
+		ReportForm reportForm = reportFormDAO.findOne(id);
+		reportForm.setTitle(title);
+		reportForm.setReportFormType(reportFormTypeDAO.findOne(reportFormTypeId));
+		reportForm.setFormId(formId);
+		reportForm.setLandUser(landUser);
+		reportForm.setOriginalLandUser(originalLandUser);
+		reportForm.setLandLocation(landLocation);
+		reportForm.setLandArea(landArea);
+		reportForm.setLandUse(landUse);
+		reportForm.setOriginalLandUse(originalLandUse);
+		reportForm.setMatter(matter);
+		reportForm.setMatterDetail(matterDetail);
+		reportForm.setPolicyBasis(policyBasis);
+		reportForm.setComment(comment);
+		reportForm.setResponsiblePerson(responsiblePerson);
+		reportForm.setAuditor(auditor);
+		reportForm.setTabulator(tabulator);
+		
+		return reportFormDAO.save(reportForm);
 	}
 
-	private ReportForm createNew(String title, String formId,
+	@Transactional
+	private ReportForm createNew(String title, String reportFormTypeId,String formId,
 			String landUser, String originalLandUser, String landLocation,
 			String landArea, String landUse, String originalLandUse,
 			String matter, String matterDetail, String policyBasis,
-			String comment) {
-		// TODO Auto-generated method stub
-		return null;
+			String comment, String responsiblePerson, String auditor, String tabulator) {
+		
+		ReportForm newReportForm = new ReportForm();
+		newReportForm.setTitle(title);
+		newReportForm.setReportFormType(reportFormTypeDAO.findOne(reportFormTypeId));
+		newReportForm.setFormId(formId);
+		newReportForm.setLandUser(landUser);
+		newReportForm.setOriginalLandUser(originalLandUser);
+		newReportForm.setLandLocation(landLocation);
+		newReportForm.setLandArea(landArea);
+		newReportForm.setLandUse(landUse);
+		newReportForm.setOriginalLandUse(originalLandUse);
+		newReportForm.setMatter(matter);
+		newReportForm.setMatterDetail(matterDetail);
+		newReportForm.setPolicyBasis(policyBasis);
+		newReportForm.setComment(comment);
+		newReportForm.setResponsiblePerson(responsiblePerson);
+		newReportForm.setAuditor(auditor);
+		newReportForm.setTabulator(tabulator);
+		
+		newReportForm.setReferredReportFormId(null);
+		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
+		return reportFormDAO.save(newReportForm);
 	}
 	
     public String generateFormId(String previousFormId){
@@ -64,6 +117,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		}
 	}
 	
+    @Transactional
 	public String generateFormId(){
 		
 		String dateOfToday = new SimpleDateFormat("yyyyMMdd")
@@ -87,6 +141,11 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			return new StringBuilder().append(dateOfToday).append(count).append("-00").toString();
 		}
 
+	}
+
+	public List<ReportForm> findAllUnsendReportForms() {
+		
+		return reportFormDAO.findAllUnsendReportForms();
 	}
 	
 }

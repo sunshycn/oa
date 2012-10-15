@@ -24,9 +24,10 @@
 			<tr><td>报审事项细节：<textarea name="matterDetail" rows="10" cols="50"></textarea></td></tr>
 			<tr><td>办理依据：<textarea name="policyBasis" rows="5" cols="50"></textarea></td></tr>
 			<tr><td>报审单位意见：<textarea name="comment" rows="5" cols="50"></textarea></td></tr>
-			
+			<tr><td>单位主要负责人：<input name="responsiblePerson" type="text" maxlength="6"> </td></tr>
+			<tr><td>审核人：<input name="auditor" type="text" maxlength="6"> </td></tr>
+			<tr><td>制表人：<input name="tabulator" type="text" maxlength="6"> </td></tr>
 			<tr><td><input type="submit" value="保存" /></td></tr>
-			<tr><td><input type="submit" value="发送" /></td></tr>
 		</table>
 	</form>
 	
