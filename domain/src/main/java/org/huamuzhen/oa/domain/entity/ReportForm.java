@@ -42,8 +42,8 @@ public class ReportForm extends BaseEntity{
 	@Column(name="form_id", length = 15)
 	private String formId;
 	
-	@Column(name="send_date")
-	private Timestamp sendDate;
+	@Column(name="send_time")
+	private Timestamp sendTime;
 	
 	@Column(name="land_user", length = 30)
 	private String landUser;
@@ -123,12 +123,12 @@ public class ReportForm extends BaseEntity{
 		this.formId = formId;
 	}
 
-	public Timestamp getSendDate() {
-		return sendDate;
+	public Timestamp getSendTime() {
+		return sendTime;
 	}
 
-	public void setSendDate(Timestamp sendDate) {
-		this.sendDate = sendDate;
+	public void setSendTime(Timestamp sendTime) {
+		this.sendTime = sendTime;
 	}
 
 	public String getLandUser() {

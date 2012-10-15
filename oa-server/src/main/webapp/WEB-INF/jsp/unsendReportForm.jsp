@@ -22,7 +22,7 @@
 			<tr>
 				<td>${unsendReportForm.formId}</td>
 				<td>${unsendReportForm.title}</td>
-				<td><form action="${contextPath}/reportForm/sendToOrgUnits/${unsendReportForm.id}" method="POST"><input type="submit" value="发送"></input></form></td>
+				<td><form action="${contextPath}/reportForm/sendToOrgUnits/${unsendReportForm.id}" method="POST"><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form></td>
 				<td><form action="${contextPath}/reportForm/editUnsendReportForm/${unsendReportForm.id}" method="POST"><input type="submit" value="编辑"></input></form></td>
 			</tr>
 		</c:forEach>

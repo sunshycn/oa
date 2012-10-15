@@ -120,5 +120,12 @@ public class ReportFormController {
 		
 		return "redirect:/reportForm";
 	}
+	
+	@RequestMapping(value="/sendToOrgUnits/{id}", method=RequestMethod.POST)
+	public String sendToOrgUnits(@PathVariable String id){
+		reportFormManager.sendToOrgUnits(id);
+		return "redirect:/reportForm/unsendReportForm";
+		
+	}
 
 }

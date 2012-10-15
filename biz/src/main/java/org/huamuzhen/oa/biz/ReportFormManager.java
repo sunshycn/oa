@@ -1,5 +1,6 @@
 package org.huamuzhen.oa.biz;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -146,6 +147,13 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	public List<ReportForm> findAllUnsendReportForms() {
 		
 		return reportFormDAO.findAllUnsendReportForms();
+	}
+	
+	public ReportForm sendToOrgUnits(String id){
+		ReportForm reportForm = reportFormDAO.findOne(id);
+		reportForm.setStatus(ReportFormStatus.SEND_TO_ORG_UNITS);
+		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
+		return reportFormDAO.save(reportForm);
 	}
 	
 }
