@@ -29,7 +29,7 @@ public class QueryManager extends BaseManager<ReportForm, String> {
 		StringBuffer landerLocationBuffer = new StringBuffer();
 		landerLocationBuffer.append("%").append(landerLocation).append("%");
 		
-		List<ReportForm> queryResult = this.reportFormDAO.queryReportFromByKeywork(formIdBuffer.toString(), landUserBuffer.toString(), landerLocationBuffer.toString());
+		List<ReportForm> queryResult = this.reportFormDAO.queryReportFromByKeyword(formIdBuffer.toString(), landUserBuffer.toString(), landerLocationBuffer.toString());
 		return  queryResult;		
 		
 	}
