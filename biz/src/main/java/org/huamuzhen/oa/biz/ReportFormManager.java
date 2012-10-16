@@ -155,5 +155,10 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
 		return reportFormDAO.save(reportForm);
 	}
+
+	public List<ReportForm> findAllWaitForResponseReportForms() {
+		
+		return reportFormDAO.findAllWaitForResponseReportForms();
+	}
 	
 }

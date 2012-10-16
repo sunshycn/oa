@@ -72,9 +72,10 @@ CREATE TABLE Feedback
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
 	report_form_id VARCHAR (36) NOT NULL,
-	owner VARCHAR (36) NOT NULL,
+	owner VARCHAR (50) NOT NULL,
+	response_org_unit_id VARCHAR (36),
 	content VARCHAR (150),
-	feedback_date TIMESTAMP,
+	feedback_time TIMESTAMP,
 	signature VARCHAR (6),
 	complete BOOLEAN,
 	created_at TIMESTAMP,

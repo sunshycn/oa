@@ -127,5 +127,24 @@ public class ReportFormController {
 		return "redirect:/reportForm/unsendReportForm";
 		
 	}
+	
+	@RequestMapping(value="waitForResponseReportForm")
+	public ModelAndView responseReportForm(){
+		ModelAndView mav = new ModelAndView("waitForResponseReportForm");
+		List<ReportForm> waitForResponseReportFormList = reportFormManager.findAllWaitForResponseReportForms();
+		mav.addObject("waitForResponseReportFormList", waitForResponseReportFormList);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="responseReportForm/{id}",method=RequestMethod.POST)
+	public ModelAndView responseReportForm(@PathVariable String id){
+		ModelAndView mav = new ModelAndView("responseReportForm");
+		ReportForm selectedReportForm = reportFormManager.findOne(id);
+		mav.addObject("selectedReportForm", selectedReportForm);
+		
+		return mav;
+	}
+	
 
 }

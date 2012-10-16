@@ -28,11 +28,14 @@ public class Feedback extends BaseEntity {
 	@Column(name="owner", length = 50, nullable = false)
 	private String owner;
 	
+	@Column(name="response_org_unit_id", length = 36)
+	private String responseOrgUnitId;
+	
 	@Column(name="content", length = 150)
 	private String content;
 	
-	@Column(name="feedback_date")
-	private Timestamp feedBackDate;
+	@Column(name="feedback_time")
+	private Timestamp feedBackTime;
 	
 	@Column(name="signature", length = 6)
 	private String signature;
@@ -64,6 +67,14 @@ public class Feedback extends BaseEntity {
 		this.owner = owner;
 	}
 
+	public String getResponseOrgUnitId() {
+		return responseOrgUnitId;
+	}
+
+	public void setResponseOrgUnitId(String responseOrgUnitId) {
+		this.responseOrgUnitId = responseOrgUnitId;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -71,13 +82,13 @@ public class Feedback extends BaseEntity {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	public Timestamp getFeedBackDate() {
-		return feedBackDate;
+	
+	public Timestamp getFeedBackTime() {
+		return feedBackTime;
 	}
 
-	public void setFeedBackDate(Timestamp feedBackDate) {
-		this.feedBackDate = feedBackDate;
+	public void setFeedBackTime(Timestamp feedBackTime) {
+		this.feedBackTime = feedBackTime;
 	}
 
 	public String getSignature() {

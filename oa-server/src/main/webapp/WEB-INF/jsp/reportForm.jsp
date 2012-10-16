@@ -11,7 +11,7 @@
 	<a href="${contextPath}/">返回首页</a><br/>
 	
 	<a href="${contextPath}/reportForm/addReportForm">新建报审表</a><br/>
-	<a href="${contextPath}/reportForm/responseReportForm">待回复报审表</a><br/>
+	<a href="${contextPath}/reportForm/waitForResponseReportForm">待回复报审表</a><br/>
 	<a href="${contextPath}/reportForm/unsendReportForm">处理未发送报审表</a>
 
 </body>

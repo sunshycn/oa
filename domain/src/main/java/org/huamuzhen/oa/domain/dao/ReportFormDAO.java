@@ -21,5 +21,9 @@ public interface ReportFormDAO extends JpaDAO<ReportForm, String> {
 	@Transactional
 	@Query(value="FROM ReportForm r WHERE (r.formId LIKE :formId) AND (r.landUser LIKE :landUser) AND (r.landLocation LIKE :landLocation)")
 	public List<ReportForm> queryReportFromByKeyword(@Param("formId") String formId, @Param("landUser") String landUser, @Param("landLocation") String landLocation);
+
+	@Transactional
+	@Query(value="From ReportForm r WHERE r.status = 'SEND_TO_ORG_UNITS'")
+	public List<ReportForm> findAllWaitForResponseReportForms();
 	
 }
