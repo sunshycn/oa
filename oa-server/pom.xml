@@ -9,7 +9,9 @@
 		<artifactId>oa</artifactId>
 		<version>0.1</version>
 	</parent>
-	
+	<build>
+		<finalName>oa-server</finalName>
+	</build>
 	
 	<artifactId>oa-server</artifactId>
     <name>oa-server</name>
