@@ -27,10 +27,11 @@ public class FeedbackController {
 		String signature = request.getParameter("signature");
 		String orgUnitId = request.getParameter("orgUnitId");
 		String owner = request.getParameter("owner");
+		boolean agree = Boolean.parseBoolean(request.getParameter("agree"));
 		
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
-		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser);
+		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser,agree);
 		
 		return "redirect:/reportForm/waitForResponseReportForm";
 	}

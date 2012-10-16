@@ -71,7 +71,7 @@ CREATE TABLE Feedback
 	content VARCHAR (150),
 	feedback_time TIMESTAMP,
 	signature VARCHAR (6),
-	complete BOOLEAN,
+	agree BOOLEAN,
 	created_at TIMESTAMP,
     modified_at TIMESTAMP,
 	CONSTRAINT FK_FEEDBACK_FORM FOREIGN KEY (report_form_id) REFERENCES Report_Form (id)	

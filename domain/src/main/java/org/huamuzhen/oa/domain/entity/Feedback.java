@@ -40,8 +40,8 @@ public class Feedback extends BaseEntity {
 	@Column(name="signature", length = 6)
 	private String signature;
 	
-	@Column(name="complete")
-	private boolean complete;
+	@Column(name="agree")
+	private boolean agree;
 
 	public String getId() {
 		return id;
@@ -99,12 +99,12 @@ public class Feedback extends BaseEntity {
 		this.signature = signature;
 	}
 
-	public boolean isComplete() {
-		return complete;
+	public boolean isAgree() {
+		return agree;
 	}
 
-	public void setComplete(boolean complete) {
-		this.complete = complete;
+	public void setAgree(boolean agree) {
+		this.agree = agree;
 	}
 	
 }

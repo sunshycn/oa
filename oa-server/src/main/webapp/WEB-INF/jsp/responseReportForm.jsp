@@ -36,6 +36,7 @@
 				<tr><td>回复意见：<textarea name="content" rows="5" cols="50"></textarea></td></tr>
 				<tr><td>签名：<input name="signature" type="text" maxlength="6" ></input></td></tr>
 				<tr><td><select name="orgUnitId"><c:forEach var="orgUnit" items="${requiredOrgUnits}"><option value="${orgUnit.id}">${orgUnit.name}</option></c:forEach></select></td></tr>
+				<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
 				<tr><td><input type="submit" value="回复" /></td></tr>
 			</table>
 		</form>
