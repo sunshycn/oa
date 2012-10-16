@@ -9,7 +9,10 @@ import javax.annotation.Resource;
 
 import org.huamuzhen.oa.domain.dao.ReportFormDAO;
 import org.huamuzhen.oa.domain.dao.ReportFormTypeDAO;
+import org.huamuzhen.oa.domain.entity.Feedback;
 import org.huamuzhen.oa.domain.entity.ReportForm;
+import org.huamuzhen.oa.domain.entity.User;
+import org.huamuzhen.oa.domain.enumeration.Privilege;
 import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -144,11 +147,13 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 
 	}
 
+    @Transactional
 	public List<ReportForm> findAllUnsendReportForms() {
 		
 		return reportFormDAO.findAllUnsendReportForms();
 	}
 	
+    @Transactional
 	public ReportForm sendToOrgUnits(String id){
 		ReportForm reportForm = reportFormDAO.findOne(id);
 		reportForm.setStatus(ReportFormStatus.SEND_TO_ORG_UNITS);
@@ -156,6 +161,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		return reportFormDAO.save(reportForm);
 	}
 
+    @Transactional
 	public List<ReportForm> findAllWaitForResponseReportForms() {
 		
 		return reportFormDAO.findAllWaitForResponseReportForms();

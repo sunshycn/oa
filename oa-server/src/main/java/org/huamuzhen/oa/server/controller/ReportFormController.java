@@ -1,14 +1,17 @@
 package org.huamuzhen.oa.server.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.huamuzhen.oa.biz.ReportFormManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
+import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
+import org.huamuzhen.oa.domain.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -142,9 +145,28 @@ public class ReportFormController {
 		ModelAndView mav = new ModelAndView("responseReportForm");
 		ReportForm selectedReportForm = reportFormManager.findOne(id);
 		mav.addObject("selectedReportForm", selectedReportForm);
+		ReportFormType reportFormType = reportFormTypeManager.findOne(selectedReportForm.getReportFormType().getId());
+		Set<OrgUnit> requiredOrgUnits = reportFormType.getRequiredOrgUnits();
+		mav.addObject("requiredOrgUnits", requiredOrgUnits);
 		
 		return mav;
 	}
+	
+/*	@RequestMapping(value="response", method=RequestMethod.POST)
+	public String response(HttpServletRequest request){
+		String reportFormId = request.getParameter("reportFormId");
+		String content = request.getParameter("content");
+		String signature = request.getParameter("signature");
+		String orgUnitId = request.getParameter("orgUnitId");
+		String owner = request.getParameter("owner");
+		
+		User currentUser = (User)request.getSession().getAttribute("currentUser");
+		
+		reportFormManager.response(reportFormId,content,signature,orgUnitId,owner,currentUser);
+		
+		
+		return "redirect:/reportForm/waitForResponseReportForm";
+	}*/
 	
 
 }

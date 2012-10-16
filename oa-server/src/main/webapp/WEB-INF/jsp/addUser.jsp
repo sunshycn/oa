@@ -13,7 +13,7 @@
 		<table>
 			<tr><td>用户名： <input type="text" name="username" maxlength="10"/></td></tr>
 			<tr><td>密码： <input type="text" name="password" maxlength="36"/></td></tr>
-			<tr><td>单位：<select name="orgUnitId"><option></option><c:forEach var="orgUnit" items="${orgUnitList}"><option value="${orgUnit.id}">${orgUnit.name}</option></c:forEach></select>
+			<tr><td>单位：<select name="orgUnitId"><option></option><c:forEach var="orgUnit" items="${orgUnitList}"><option value="${orgUnit.id}">${orgUnit.name}</option></c:forEach></select></td></tr>
 			<tr><td>描述：<textarea name="description" rows="3" cols="30"></textarea></td></tr>
 			<tr><td>权限：<select name="privilege">
 			<option value="NORMAL">普通</option>
