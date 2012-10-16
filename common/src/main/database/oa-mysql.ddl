@@ -46,7 +46,7 @@ CREATE TABLE Report_Form
 	  form_type_id VARCHAR (36) NOT NULL,
 	  title VARCHAR (20) NOT NULL,
 	  form_id VARCHAR (15) NOT NULL,
-	  send_date TIMESTAMP,
+	  send_time TIMESTAMP,
 	  land_user VARCHAR (30),
 	  original_land_user VARCHAR (30),
 	  land_location VARCHAR (40),
@@ -61,7 +61,7 @@ CREATE TABLE Report_Form
 	  auditor VARCHAR (6),
 	  tabulator VARCHAR (6),
 	  referred_report_form_id VARCHAR (36),
-	  status INTEGER NOT NULL,
+	  status VARCHAR(30) NOT NULL,
 	  created_at TIMESTAMP,
       modified_at TIMESTAMP,
 	  CONSTRAINT FORM_FT FOREIGN KEY (form_type_id) REFERENCES Report_Form_Type (id)
