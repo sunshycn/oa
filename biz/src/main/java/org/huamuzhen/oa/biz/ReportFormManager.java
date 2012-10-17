@@ -150,21 +150,44 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
     @Transactional
 	public List<ReportForm> findAllUnsendReportForms() {
 		
-		return reportFormDAO.findAllUnsendReportForms();
+		return reportFormDAO.findReportFormByStatus(ReportFormStatus.NOT_SEND);
 	}
 	
     @Transactional
 	public ReportForm sendToOrgUnits(String id){
 		ReportForm reportForm = reportFormDAO.findOne(id);
-		reportForm.setStatus(ReportFormStatus.SEND_TO_ORG_UNITS);
+		reportForm.setStatus(ReportFormStatus.SENT_TO_ORG_UNITS);
 		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
 		return reportFormDAO.save(reportForm);
 	}
 
     @Transactional
 	public List<ReportForm> findAllWaitForResponseReportForms() {
-		
-		return reportFormDAO.findAllWaitForResponseReportForms();
+		return reportFormDAO.findReportFormByStatus(ReportFormStatus.SENT_TO_ORG_UNITS);
 	}
-	
+    
+    public List<ReportForm> findAllGotReplyFromUnitsReportForm(){
+    	return reportFormDAO.findReportFormByStatus(ReportFormStatus.GOT_REPLY_FROM_UNITS);
+    }
+    
+    public List<ReportForm> findAllSentToLeader1ReportForm(){
+    	return reportFormDAO.findReportFormByStatus(ReportFormStatus.SENT_TO_LEADER1);
+    }
+    
+    public List<ReportForm> findAllSentToLeader2ReportForm(){
+    	return reportFormDAO.findReportFormByStatus(ReportFormStatus.SENT_TO_LEADER2);
+    }
+    
+    public List<ReportForm> findAllSentToOfficeReportForm(){
+    	return reportFormDAO.findReportFormByStatus(ReportFormStatus.SENT_TO_OFFICE);
+    }
+
+    public List<ReportForm> findAllPassedReportForm(){
+    	return reportFormDAO.findReportFormByStatus(ReportFormStatus.PASSED);
+    }
+    
+    public List<ReportForm> findAllDeniedReportForm(){
+    	return reportFormDAO.findReportFormByStatus(ReportFormStatus.DENIED);
+    }
+
 }

@@ -64,7 +64,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			if(!agree){
 				reportForm.setStatus(ReportFormStatus.DENIED);
 			}else{
-				reportForm.setStatus(ReportFormStatus.SEND_TO_LEADER2);
+				reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER2);
 			}
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
@@ -75,7 +75,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			if(!agree){
 				reportForm.setStatus(ReportFormStatus.DENIED);
 			}else{
-				reportForm.setStatus(ReportFormStatus.SEND_TO_OFFICE);
+				reportForm.setStatus(ReportFormStatus.SENT_TO_OFFICE);
 			}
 					
 			reportFormDAO.save(reportForm);
@@ -86,7 +86,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			if(!agree){
 				reportForm.setStatus(ReportFormStatus.DENIED);
 			}else{
-				reportForm.setStatus(ReportFormStatus.SEND_BACK_TO_REPORT_UNIT);
+				reportForm.setStatus(ReportFormStatus.PASSED);
 			}
 			
 			reportFormDAO.save(reportForm);
