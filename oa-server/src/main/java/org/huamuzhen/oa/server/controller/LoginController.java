@@ -33,6 +33,7 @@ public class LoginController {
 		User currentUser = userManager.authenticate(username, password);
 		if(null != currentUser){
 			request.getSession().setAttribute("currentUser", currentUser);
+			request.setAttribute("privilege", currentUser.getPrivilege());
 			return "index";
 		}
 		request.setAttribute("flag", new Object());

@@ -6,11 +6,13 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.huamuzhen.oa.biz.FeedbackManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
+import org.huamuzhen.oa.domain.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +29,13 @@ public class ReportFormController {
 	@Resource
 	private ReportFormTypeManager reportFormTypeManager;
 	
+	@Resource
+	private FeedbackManager feedbackManager;
+	
 	@RequestMapping(value = { "", "/" })
-	public String index(){
+	public String index(HttpServletRequest request){
+		User currentUser = (User)request.getSession().getAttribute("currentUser");
+		request.setAttribute("privilege", currentUser.getPrivilege());
 		return "reportForm";
 	}
 	
@@ -141,13 +148,28 @@ public class ReportFormController {
 	}
 	
 	@RequestMapping(value="responseReportForm/{id}",method=RequestMethod.POST)
-	public ModelAndView responseReportForm(@PathVariable String id){
+	public ModelAndView responseReportForm(@PathVariable String id, HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("responseReportForm");
+		mav.addObject("responseType", request.getAttribute("responseType"));
 		ReportForm selectedReportForm = reportFormManager.findOne(id);
 		mav.addObject("selectedReportForm", selectedReportForm);
 		ReportFormType reportFormType = reportFormTypeManager.findOne(selectedReportForm.getReportFormType().getId());
 		Set<OrgUnit> requiredOrgUnits = reportFormType.getRequiredOrgUnits();
-		mav.addObject("requiredOrgUnits", requiredOrgUnits);
+		User user = (User)request.getSession().getAttribute("currentUser");
+		OrgUnit qualifiedOrgUnit = null;
+		for(OrgUnit orgUnit : requiredOrgUnits){
+			if(user.getOrgUnit().getName().equals(orgUnit.getName())){
+				 if(!feedbackManager.checkIfOrgUnitFeedbackIsAlreadyExists(orgUnit)){
+					 qualifiedOrgUnit = orgUnit;
+				 }else{
+					 ModelAndView errorMav = new ModelAndView("error");
+					 errorMav.addObject("errorMessage", "该部门已经回复");
+					 return errorMav;
+				 }
+			}
+		}
+		
+		mav.addObject("qualifiedOrgUnit", qualifiedOrgUnit);
 		
 		return mav;
 	}

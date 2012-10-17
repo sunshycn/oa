@@ -7,5 +7,7 @@ import org.huamuzhen.oa.domain.entity.Feedback;
 public interface FeedbackDAO extends JpaDAO<Feedback, String> {
 	
 	public List<Feedback> findFeedbackByReportFormId(String reportFormId);
+	
+	public List<Feedback> findFeedbackByResponseOrgUnitId(String responseOrgUnitId);
 
 }

@@ -119,5 +119,13 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		}
 		return false;
 	}
+	
+	@Transactional
+	public boolean checkIfOrgUnitFeedbackIsAlreadyExists(OrgUnit orgUnit){
+		if(feedbackDAO.findFeedbackByResponseOrgUnitId(orgUnit.getId()).size() > 0){
+			return true;
+		}
+		return false;
+	}
 
 }
