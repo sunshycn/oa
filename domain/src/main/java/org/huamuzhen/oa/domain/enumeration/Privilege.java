@@ -6,7 +6,7 @@ public enum Privilege {
 	NORMAL,
 	//部门权限，可提交表单
 	DEPARTMENT,
-	//一般领导
+	//分管领导
 	LEADER1,
 	//主要领导
 	LEADER2,

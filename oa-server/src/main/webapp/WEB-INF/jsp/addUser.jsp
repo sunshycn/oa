@@ -18,7 +18,7 @@
 			<tr><td>权限：<select name="privilege">
 			<option value="NORMAL">普通</option>
 			<option value="DEPARTMENT">部门</option>
-			<option value="LEADER1">一般领导</option>
+			<option value="LEADER1">分管领导</option>
 			<option value="LEADER2">主要领导</option>
 			<option value="OFFICE">办公室</option>
 			<option value="ADMIN">管理员</option>

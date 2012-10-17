@@ -40,7 +40,7 @@
 				<td>
 					<c:choose>
 					<c:when test="${user.privilege =='DEPARTMENT' }">部门</c:when>
-					<c:when test="${user.privilege =='LEADER1' }">一般领导</c:when>
+					<c:when test="${user.privilege =='LEADER1' }">分管领导</c:when>
 					<c:when test="${user.privilege =='LEADER2' }">主要领导</c:when>
 					<c:when test="${user.privilege =='OFFICE' }">办公室</c:when>
 					<c:when test="${user.privilege =='ADMIN' }">管理员</c:when>
