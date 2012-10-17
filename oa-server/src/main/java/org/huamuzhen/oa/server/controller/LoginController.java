@@ -8,6 +8,7 @@ import org.huamuzhen.oa.biz.UserManager;
 import org.huamuzhen.oa.domain.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/")
@@ -25,7 +26,7 @@ public class LoginController {
 		return "index";
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(HttpServletRequest request){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -35,6 +36,12 @@ public class LoginController {
 			return "index";
 		}
 		request.setAttribute("flag", new Object());
-		return "login";
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/logoff",method=RequestMethod.POST)
+	public String logoff(HttpSession session){
+		session.removeAttribute("currentUser");
+		return "redirect:/";
 	}
 }

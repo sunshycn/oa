@@ -11,5 +11,8 @@
 	<a href="${contextPath}/orgUnit">单位管理</a><br/>
 	<a href="${contextPath}/user">用户管理</a><br/>
 	<a href="${contextPath}/reportForm">报审表管理</a>
+	<form action="${contextPath}/logoff" method="post">
+		<input type="submit" value="登出" />
+	</form>
 </body>
 </html>
