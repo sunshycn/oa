@@ -11,7 +11,6 @@ import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
-import org.huamuzhen.oa.domain.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -131,11 +130,12 @@ public class ReportFormController {
 		
 	}
 	
-	@RequestMapping(value="waitForResponseReportForm")
-	public ModelAndView responseReportForm(){
-		ModelAndView mav = new ModelAndView("waitForResponseReportForm");
-		List<ReportForm> waitForResponseReportFormList = reportFormManager.findAllWaitForResponseReportForms();
-		mav.addObject("waitForResponseReportFormList", waitForResponseReportFormList);
+	@RequestMapping(value="/list/{responseType}")
+	public ModelAndView list(@PathVariable String responseType){
+		ModelAndView mav = new ModelAndView("listResponseReportForm");
+		List<ReportForm> responseReportFormList = reportFormManager.findAllResponseReportForms(responseType);
+		mav.addObject("responseReportFormList", responseReportFormList);
+		mav.addObject("responseType", responseType);
 		
 		return mav;
 	}

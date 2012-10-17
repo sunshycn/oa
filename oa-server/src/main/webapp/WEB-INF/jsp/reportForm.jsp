@@ -12,11 +12,11 @@
 	
 	<a href="${contextPath}/reportForm/addReportForm">新建报审表</a><br/>
 	<a href="${contextPath}/reportForm/unsendReportForm">处理未发送报审表</a><br/>
-	<a href="${contextPath}/reportForm/waitForResponseReportForm">待科室回复报审表</a><br/>
-	<a href="${contextPath}/reportForm/gotReplyFromUnitsReportForm">可发送给分管领导的报审表</a><br/>
-	<a href="${contextPath}/reportForm/sentToLeader1ReportForm">需要分管领导批复的报审表</a><br/>
-	<a href="${contextPath}/reportForm/sentToLeader2ReportForm">需要主要领导批复的报审表</a><br/>
-	<a href="${contextPath}/reportForm/sentToOfficeReportForm">发送到办公室的报审表</a><br/>
+	<a href="${contextPath}/reportForm/list/sentToOrgUnitsReportForm">待科室回复报审表</a><br/>
+	<a href="${contextPath}/reportForm/list/gotReplyFromUnitsReportForm">可发送给分管领导的报审表</a><br/>
+	<a href="${contextPath}/reportForm/list/sentToLeader1ReportForm">需要分管领导批复的报审表</a><br/>
+	<a href="${contextPath}/reportForm/list/sentToLeader2ReportForm">需要主要领导批复的报审表</a><br/>
+	<a href="${contextPath}/reportForm/list/sentToOfficeReportForm">发送到办公室的报审表</a><br/>
 	<a href="${contextPath}/reportForm/passedReportForm">发送回报审单位的报审表（可打印）</a><br/>
 	<a href="${contextPath}/reportForm/deniedReportForm">被拒绝的报审表</a><br/>
 
