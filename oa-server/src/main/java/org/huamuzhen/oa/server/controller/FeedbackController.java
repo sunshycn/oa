@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/feedback")
-public class FeedbackController {
+public class FeedbackController { 
 	
 	@Resource
 	private FeedbackManager feedbackManager;

@@ -59,14 +59,15 @@
 							<td><form action="${contextPath}/reportForm/responseReportForm/${reportForm.id}" method="POST"><input type="hidden" name="reportFormStatus" value="${reportFormStatus}"><input type="submit" value="回复"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatus =='gotReplyFromUnitsReportForm'}">
-							<!-- 选择发给哪个分管领导 ， 选择是否重新走流程-->
+							<!-- 选择发给哪个分管领导 -->
 							<td><form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST"><input type="hidden" name="reportFormStatus" value="${reportFormStatus}"><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form></td>
+							<td><form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="hidden" name="reportFormStatus" value="${reportFormStatus}"><input type="submit" value="重新生成表单"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatus =='passedReportForm'}">
-							<!-- 选择打印 -->
+							<td><form action="${contextPath}/reportForm/printReportForm/${reportForm.id}" method="POST"><input type="hidden" name="reportFormStatus" value="${reportFormStatus}"><input type="submit" value="打印"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatus =='deniedReportForm'}">
-						 	<!-- 选择重新走流程 -->
+						 	<td><form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="hidden" name="reportFormStatus" value="${reportFormStatus}"><input type="submit" value="重新生成表单"></input></form></td>
 						</c:when>
 						<c:otherwise>?</c:otherwise>
 					</c:choose>
