@@ -15,6 +15,7 @@ import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
 import org.huamuzhen.oa.domain.enumeration.Privilege;
+import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -132,13 +133,13 @@ public class ReportFormController {
 				responsiblePerson,auditor,tabulator);
 		
 		
-		return "redirect:/reportForm";
+		return "redirect:/reportForm/list/notSendReportForm";
 	}
 	
 	@RequestMapping(value="/sendToOrgUnits/{id}", method=RequestMethod.POST)
 	public String sendToOrgUnits(@PathVariable String id){
 		reportFormManager.sendToOrgUnits(id);
-		return "redirect:/reportForm/unsendReportForm";
+		return "redirect:/reportForm/list/notSendReportForm";
 		
 	}
 	
@@ -158,45 +159,35 @@ public class ReportFormController {
 	@RequestMapping(value="responseReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView responseReportForm(@PathVariable String id, HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("responseReportForm");
-		mav.addObject("responseType", request.getAttribute("responseType"));
 		ReportForm selectedReportForm = reportFormManager.findOne(id);
 		mav.addObject("selectedReportForm", selectedReportForm);
-		ReportFormType reportFormType = reportFormTypeManager.findOne(selectedReportForm.getReportFormType().getId());
-		Set<OrgUnit> requiredOrgUnits = reportFormType.getRequiredOrgUnits();
-		User user = (User)request.getSession().getAttribute("currentUser");
-		OrgUnit qualifiedOrgUnit = null;
-		for(OrgUnit orgUnit : requiredOrgUnits){
-			if(user.getOrgUnit().getName().equals(orgUnit.getName())){
-				 if(!feedbackManager.checkIfOrgUnitFeedbackIsAlreadyExists(orgUnit)){
-					 qualifiedOrgUnit = orgUnit;
-				 }else{
-					 ModelAndView errorMav = new ModelAndView("error");
-					 errorMav.addObject("errorMessage", "该部门已经回复");
-					 return errorMav;
-				 }
+		if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_ORG_UNITS){
+			ReportFormType reportFormType = reportFormTypeManager.findOne(selectedReportForm.getReportFormType().getId());
+			Set<OrgUnit> requiredOrgUnits = reportFormType.getRequiredOrgUnits();
+			User user = (User)request.getSession().getAttribute("currentUser");
+			OrgUnit qualifiedOrgUnit = null;
+			for(OrgUnit orgUnit : requiredOrgUnits){
+				if(user.getOrgUnit().getName().equals(orgUnit.getName())){
+					 if(!feedbackManager.checkIfOrgUnitFeedbackIsAlreadyExists(orgUnit)){
+						 qualifiedOrgUnit = orgUnit;
+					 }else{
+						 ModelAndView errorMav = new ModelAndView("error");
+						 errorMav.addObject("errorMessage", "该部门已经回复");
+						 return errorMav;
+					 }
+				}
 			}
+			mav.addObject("qualifiedOrgUnit", qualifiedOrgUnit);
+			mav.addObject("responseType","orgUnit");
+		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_LEADER1){
+			mav.addObject("responseType","leader1");
+		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_LEADER2){
+			mav.addObject("responseType","leader2");
+		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_OFFICE){
+			mav.addObject("responseType","office");
 		}
-		
-		mav.addObject("qualifiedOrgUnit", qualifiedOrgUnit);
-		
+
 		return mav;
-	}
-	
-/*	@RequestMapping(value="response", method=RequestMethod.POST)
-	public String response(HttpServletRequest request){
-		String reportFormId = request.getParameter("reportFormId");
-		String content = request.getParameter("content");
-		String signature = request.getParameter("signature");
-		String orgUnitId = request.getParameter("orgUnitId");
-		String owner = request.getParameter("owner");
-		
-		User currentUser = (User)request.getSession().getAttribute("currentUser");
-		
-		reportFormManager.response(reportFormId,content,signature,orgUnitId,owner,currentUser);
-		
-		
-		return "redirect:/reportForm/waitForResponseReportForm";
-	}*/
-	
+	}	
 
 }
