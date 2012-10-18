@@ -12,7 +12,7 @@
 	
 		<table>
 			<tr><td>ID: ${selectedReportForm.id}</td></tr>
-			<tr><td>报审表类型：<select name="reportFormTypeId"><option value="${selectedReportForm.reportFormType.id}">${selectedReportForm.reportFormType.name}</option></select></td></tr>
+			<tr><td>报审表类型：${selectedReportForm.reportFormType.name}</td></tr>
 			<tr><td>报审名称： ${selectedReportForm.title}" </td></tr>
 			<tr><td>编号：${selectedReportForm.formId}</td></tr>
 			<tr><td>用地（受让）单位：： ${selectedReportForm.landUser}</td></tr>
@@ -35,7 +35,16 @@
 				<tr><td><input type="hidden" name="reportFormId" value="${selectedReportForm.id}"></td></tr>
 				<tr><td>回复意见：<textarea name="content" rows="5" cols="50"></textarea></td></tr>
 				<tr><td>签名：<input name="signature" type="text" maxlength="6" ></input></td></tr>
-				<tr><td><select name="orgUnitId"><c:forEach var="orgUnit" items="${requiredOrgUnits}"><option value="${orgUnit.id}">${orgUnit.name}</option></c:forEach></select></td></tr>
+				<tr><td>
+					<c:choose>
+						<c:when test="${responseType =='sentToOrgUnitsReportForm' }">回复部门： ${qualitiedOrgUnit.name}<input type="hidden" name="orgUnitId" value="${qualifiedOrgUnit.id}"></input></c:when>
+						<c:when test="${responseType =='gotReplyFromUnitsReportForm' }">选择分管领导</c:when>
+						<c:when test="${responseType =='sentToLeader1ReportForm' }">需要分管领导批复的报审表</c:when>
+						<c:when test="${responseType =='sentToLeader2ReportForm' }">需要主要领导批复的报审表</c:when>
+						<c:when test="${responseType =='sentToOfficeReportForm' }">发送到办公室的报审表</c:when>
+					<c:otherwise>?</c:otherwise>
+					</c:choose>
+				</td></tr>
 				<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
 				<tr><td><input type="submit" value="回复" /></td></tr>
 			</table>

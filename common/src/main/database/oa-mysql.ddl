@@ -61,6 +61,7 @@ CREATE TABLE Report_Form
 	  auditor VARCHAR (6),
 	  tabulator VARCHAR (6),
 	  referred_report_form_id VARCHAR (36),
+	  current_receiver_id VARCHAR (36),
 	  status VARCHAR(30) NOT NULL,
 	  created_at TIMESTAMP,
       modified_at TIMESTAMP,

@@ -87,6 +87,9 @@ public class ReportForm extends BaseEntity{
 	@Column(name="referred_report_form_id", length = 36)
 	private String referredReportFormId;
 	
+	@Column(name="current_receiver_id", length =36)
+	private String currentReceiverId;
+	
 	@Column(name="status", length=30)
 	@Enumerated(EnumType.STRING)
 	private ReportFormStatus status = ReportFormStatus.NOT_SEND;
@@ -241,6 +244,14 @@ public class ReportForm extends BaseEntity{
 
 	public void setReferredReportFormId(String referredReportFormId) {
 		this.referredReportFormId = referredReportFormId;
+	}
+
+	public String getCurrentReceiverId() {
+		return currentReceiverId;
+	}
+
+	public void setCurrentReceiverId(String currentReceiverId) {
+		this.currentReceiverId = currentReceiverId;
 	}
 
 	public ReportFormStatus getStatus() {
