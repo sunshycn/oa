@@ -47,8 +47,14 @@ INSERT INTO Report_Form_Type_Org_Unit (report_form_type_id, org_unit_id) VALUES 
 INSERT INTO Report_Form_Type_Org_Unit (report_form_type_id, org_unit_id) VALUES ('a415ba3ad95d414a8370a599faa0de1b', 'e8854fabc731438f9d81bbd59f305fce');
 
 ---测试报审表
-INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('2','测试报审表1', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150001-00', 'SENT_TO_ORG_UNITS', '2012-10-15 11:00:00','2012-10-15 11:00:00');
-INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('3','测试报审表2', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150999-00', 'NOT_SEND', '2012-10-15 11:30:00','2012-10-15 11:30:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('1','测试报审表1', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150001-00', 'SENT_TO_ORG_UNITS', '2012-10-15 11:00:00','2012-10-15 11:00:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('2','测试报审表2', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150999-00', 'NOT_SEND', '2012-10-15 11:30:00','2012-10-15 11:30:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('3','测试报审表3', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150002-00', 'GOT_REPLY_FROM_UNITS', '2012-10-15 11:00:00','2012-10-15 11:00:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('4','测试报审表4', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150998-00', 'SENT_TO_LEADER1', '2012-10-15 11:30:00','2012-10-15 11:30:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('5','测试报审表5', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150003-00', 'SENT_TO_LEADER2', '2012-10-15 11:00:00','2012-10-15 11:00:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('6','测试报审表6', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150997-00', 'SENT_TO_OFFICE', '2012-10-15 11:30:00','2012-10-15 11:30:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('7','测试报审表7', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150004-00', 'PASSED', '2012-10-15 11:00:00','2012-10-15 11:00:00');
+INSERT INTO Report_Form (id, title, form_type_id, form_id, status, created_at, modified_at) VALUES ('8','测试报审表8', 'de9f2dada8b241a2b28f8a0b3c4a4cea', '201210150995-00', 'DENIED', '2012-10-15 11:30:00','2012-10-15 11:30:00');
 
 ---测试用户
 INSERT INTO User (id, username, description, hashed_password, hash_salt, org_unit_id, privilege,created_at, modified_at) VALUES ('0e1a9ba9f2d248c6acbdd7ec1bf864ee', '监察支队', '监察支队默认用户', 'b1b59a3ea43f2daae0631243fbdd05e0bf6fe4db', '3285', '7118f30734384741b63a78f1dfaa26dd', 'DEPARTMENT', '2000-01-01 12:00:00', '2000-01-01 12:00:00');

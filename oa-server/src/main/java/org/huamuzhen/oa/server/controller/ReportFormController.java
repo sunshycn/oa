@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.huamuzhen.oa.biz.FeedbackManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
+import org.huamuzhen.oa.biz.UserManager;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
+import org.huamuzhen.oa.domain.enumeration.Privilege;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,9 @@ public class ReportFormController {
 	
 	@Resource
 	private FeedbackManager feedbackManager;
+	
+	@Resource
+	private UserManager userManager;
 	
 	@RequestMapping(value = { "", "/" })
 	public String index(HttpServletRequest request){
@@ -137,12 +142,15 @@ public class ReportFormController {
 		
 	}
 	
-	@RequestMapping(value="/list/{responseType}")
-	public ModelAndView list(@PathVariable String reportFormStatus){
+	@RequestMapping(value="/list/{reportFormStatusLink}")
+	public ModelAndView list(@PathVariable String reportFormStatusLink){
 		ModelAndView mav = new ModelAndView("listResponseReportForm");
-		List<ReportForm> reportFormList = reportFormManager.findReportFormByStatus(reportFormStatus);
+		List<ReportForm> reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		mav.addObject("reportFormList", reportFormList);
-		mav.addObject("reportFormStatus", reportFormStatus);
+		mav.addObject("reportFormStatusLink", reportFormStatusLink);
+		if(reportFormStatusLink.equals("gotReplyFromUnitsReportForm")){
+			mav.addObject("leader1List", userManager.findUserByPrivilege(Privilege.LEADER1));
+		}
 		
 		return mav;
 	}

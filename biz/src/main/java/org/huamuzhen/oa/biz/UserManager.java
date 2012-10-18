@@ -103,4 +103,9 @@ public class UserManager extends BaseManager<User, String>{
 		return this.save(newUser);
 	}
 	
+	public List<User> findUserByPrivilege(Privilege privilege){
+
+		return userDAO.findUserByPrivilege(privilege);
+	}
+	
 }

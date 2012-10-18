@@ -190,24 +190,24 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
     	return reportFormDAO.findReportFormByStatus(ReportFormStatus.DENIED);
     }
 
-	public List<ReportForm> findReportFormByStatus(String reportFormStatus) {
+	public List<ReportForm> findReportFormByStatus(String reportFormStatusLink) {
 		
 		ReportFormStatus status = null;
-		if(reportFormStatus.equals("notSendReportForm")){
+		if(reportFormStatusLink.equals("notSendReportForm")){
 			status = ReportFormStatus.NOT_SEND;
-		}else if(reportFormStatus.equals("sentToOrgUnitsReportForm")){
+		}else if(reportFormStatusLink.equals("sentToOrgUnitsReportForm")){
 			status = ReportFormStatus.SENT_TO_ORG_UNITS;
-		}else if(reportFormStatus.equals("gotReplyFromUnitsReportForm")){
+		}else if(reportFormStatusLink.equals("gotReplyFromUnitsReportForm")){
 			status = ReportFormStatus.GOT_REPLY_FROM_UNITS;
-		}else if(reportFormStatus.equals("sentToLeader1ReportForm")){
+		}else if(reportFormStatusLink.equals("sentToLeader1ReportForm")){
 			status = ReportFormStatus.SENT_TO_LEADER1;
-		}else if(reportFormStatus.equals("sentToLeader2ReportForm")){
+		}else if(reportFormStatusLink.equals("sentToLeader2ReportForm")){
 			status = ReportFormStatus.SENT_TO_LEADER2;
-		}else if(reportFormStatus.equals("sentToOfficeReportForm")){
+		}else if(reportFormStatusLink.equals("sentToOfficeReportForm")){
 			status = ReportFormStatus.SENT_TO_OFFICE;
-		}else if(reportFormStatus.equals("passedReportForm")){
+		}else if(reportFormStatusLink.equals("passedReportForm")){
 			status = ReportFormStatus.PASSED;
-		}else if(reportFormStatus.equals("deniedReportForm")){
+		}else if(reportFormStatusLink.equals("deniedReportForm")){
 			status = ReportFormStatus.DENIED;
 		}
 			
