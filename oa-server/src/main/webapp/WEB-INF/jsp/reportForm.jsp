@@ -11,10 +11,10 @@
 	<a href="${contextPath}/">返回首页</a><br/>
 	<c:if test="${privilege == 'NORMAL' || privilege == 'DEPARTMENT'}">
 		<a href="${contextPath}/reportForm/addReportForm">新建报审表</a><br/>
-		<a href="${contextPath}/reportForm/unsendReportForm">处理未发送报审表</a><br/>
+		<a href="${contextPath}/reportForm/list/notSendReportForm">处理未发送报审表</a><br/>
 		<a href="${contextPath}/reportForm/list/gotReplyFromUnitsReportForm">可发送给分管领导的报审表</a><br/>
-		<a href="${contextPath}/reportForm/passedReportForm">发送回报审单位的报审表</a><br/>
-		<a href="${contextPath}/reportForm/deniedReportForm">被拒绝的报审表</a><br/>
+		<a href="${contextPath}/reportForm/list/passedReportForm">发送回报审单位的报审表</a><br/>
+		<a href="${contextPath}/reportForm/list/deniedReportForm">被否决的报审表</a><br/>
 	</c:if>
 	<c:if test="${privilege == 'DEPARTMENT'}">
 		<a href="${contextPath}/reportForm/list/sentToOrgUnitsReportForm">待科室回复报审表</a><br/>
@@ -27,7 +27,7 @@
 	</c:if>
 	<c:if test="${privilege == 'OFFICE'}">
 		<a href="${contextPath}/reportForm/list/sentToOfficeReportForm">发送到办公室的报审表</a><br/>
-		<a href="${contextPath}/reportForm/passedReportForm">发送回报审单位的报审表（可打印）</a><br/>
+		<a href="${contextPath}/reportForm/list/passedReportForm">发送回报审单位的报审表</a><br/>
 	</c:if>
 
 </body>

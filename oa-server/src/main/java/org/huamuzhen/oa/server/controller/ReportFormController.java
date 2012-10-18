@@ -138,11 +138,11 @@ public class ReportFormController {
 	}
 	
 	@RequestMapping(value="/list/{responseType}")
-	public ModelAndView list(@PathVariable String responseType){
+	public ModelAndView list(@PathVariable String reportFormStatus){
 		ModelAndView mav = new ModelAndView("listResponseReportForm");
-		List<ReportForm> responseReportFormList = reportFormManager.findAllResponseReportForms(responseType);
-		mav.addObject("responseReportFormList", responseReportFormList);
-		mav.addObject("responseType", responseType);
+		List<ReportForm> reportFormList = reportFormManager.findReportFormByStatus(reportFormStatus);
+		mav.addObject("reportFormList", reportFormList);
+		mav.addObject("reportFormStatus", reportFormStatus);
 		
 		return mav;
 	}
