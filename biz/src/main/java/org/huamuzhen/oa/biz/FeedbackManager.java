@@ -47,7 +47,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		if(currentUser.getPrivilege() == Privilege.DEPARTMENT && null != orgUnitId){
 			feedback.setOwner(currentUser.getOrgUnit().getName());
 			feedback.setResponseOrgUnitId(currentUser.getOrgUnit().getId());
-			Feedback savedFeedback= this.save(feedback);;
+			Feedback savedFeedback= this.saveAndFlush(feedback);;
 			if(!agree){
 				reportForm.setStatus(ReportFormStatus.DENIED);
 			}else{
@@ -110,8 +110,8 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 				if(!feedback.isAgree()){
 					return false;
 				}
-				if(feedback.getReportFormId().equals(requiredOrgUnit.getId())){
-					requiredOrgUnitIdList.remove(feedback.getReportFormId());
+				if(feedback.getResponseOrgUnitId().equals(requiredOrgUnit.getId())){
+					requiredOrgUnitIdList.remove(feedback.getResponseOrgUnitId());
 				}
 			}
 		}
