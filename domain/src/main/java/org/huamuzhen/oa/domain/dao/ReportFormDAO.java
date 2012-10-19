@@ -16,6 +16,9 @@ public interface ReportFormDAO extends JpaDAO<ReportForm, String> {
 	public List<String> findNewCreatedFormIdListOfToday(@Param("fuzzyQueryCondition") String fuzzyQueryCondition);
 	
 	@Transactional
+	public List<ReportForm> findReportFormByStatusAndCurrentReceiverId(ReportFormStatus status, String currentReceiverId);
+	
+	@Transactional
 	public List<ReportForm> findReportFormByStatus(ReportFormStatus status);
 	
 	@Transactional

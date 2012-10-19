@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.huamuzhen.oa.biz.FeedbackManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
@@ -143,10 +144,24 @@ public class ReportFormController {
 		
 	}
 	
+	@RequestMapping(value="/sendToLeader1/{id}", method=RequestMethod.POST)
+	public String sendToLeader1(@PathVariable String id, HttpServletRequest request){
+		String leader1Id = request.getParameter("leader1Id");
+		reportFormManager.sendToLeader1(id, leader1Id);	
+		return "redirect:/reportForm/list/gotReplyFromUnitsReportForm";
+	}
+	
 	@RequestMapping(value="/list/{reportFormStatusLink}")
-	public ModelAndView list(@PathVariable String reportFormStatusLink){
+	public ModelAndView list(@PathVariable String reportFormStatusLink, HttpSession session){
 		ModelAndView mav = new ModelAndView("listResponseReportForm");
-		List<ReportForm> reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
+		User currentUser = (User)session.getAttribute("currentUser");
+		List<ReportForm> reportFormList = null;
+		if (reportFormStatusLink.equals("sentToLeader1ReportForm")
+				|| reportFormStatusLink.equals("sentToLeader2ReportForm")) {
+			reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,currentUser.getId());
+		}else{
+			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
+		}
 		mav.addObject("reportFormList", reportFormList);
 		mav.addObject("reportFormStatusLink", reportFormStatusLink);
 		if(reportFormStatusLink.equals("gotReplyFromUnitsReportForm")){
@@ -178,14 +193,10 @@ public class ReportFormController {
 				}
 			}
 			mav.addObject("qualifiedOrgUnit", qualifiedOrgUnit);
-			mav.addObject("responseType","orgUnit");
 		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_LEADER1){
-			mav.addObject("responseType","leader1");
-		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_LEADER2){
-			mav.addObject("responseType","leader2");
-		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_OFFICE){
-			mav.addObject("responseType","office");
+			mav.addObject("leader2List", userManager.findUserByPrivilege(Privilege.LEADER2));
 		}
+		mav.addObject("responseType", selectedReportForm.getStatus());
 
 		return mav;
 	}	

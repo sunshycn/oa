@@ -35,7 +35,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 
 	@Transactional
 	public Feedback add(String reportFormId, String content, String signature,
-			String orgUnitId, String owner, User currentUser, boolean agree) {
+			String orgUnitId, String owner, User currentUser, boolean agree, String currentReceiverId, String leader2Id) {
 		Feedback feedback = new Feedback();
 		feedback.setContent(content);
 		feedback.setSignature(signature);
@@ -44,7 +44,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		feedback.setAgree(agree);
 		ReportForm reportForm = reportFormDAO.findOne(reportFormId);
 		
-		if(currentUser.getPrivilege() == Privilege.DEPARTMENT){
+		if(currentUser.getPrivilege() == Privilege.DEPARTMENT && null != orgUnitId){
 			feedback.setOwner(currentUser.getOrgUnit().getName());
 			feedback.setResponseOrgUnitId(currentUser.getOrgUnit().getId());
 			Feedback savedFeedback= this.save(feedback);;
@@ -58,18 +58,19 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
 			
-		}else if(currentUser.getPrivilege() == Privilege.LEADER1){
+		}else if(currentUser.getPrivilege() == Privilege.LEADER1 && null != currentReceiverId && null != leader2Id){
 			feedback.setOwner(Privilege.LEADER1.toString());
 			Feedback savedFeedback = this.save(feedback);
 			if(!agree){
 				reportForm.setStatus(ReportFormStatus.DENIED);
 			}else{
+				reportForm.setCurrentReceiverId(leader2Id);
 				reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER2);
 			}
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
 			
-		}else if(currentUser.getPrivilege() == Privilege.LEADER2){
+		}else if(currentUser.getPrivilege() == Privilege.LEADER2 && null != currentReceiverId){
 			feedback.setOwner(Privilege.LEADER2.toString());
 			Feedback savedFeedback = this.save(feedback);
 			if(!agree){
