@@ -83,12 +83,9 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			return savedFeedback;
 		}else if(currentUser.getPrivilege() == Privilege.OFFICE){
 			feedback.setOwner(Privilege.OFFICE.toString());
-			Feedback savedFeedback = this.save(feedback);
-			if(!agree){
-				reportForm.setStatus(ReportFormStatus.DENIED);
-			}else{
-				reportForm.setStatus(ReportFormStatus.PASSED);
-			}
+			feedback.setAgree(true);
+			Feedback savedFeedback = this.save(feedback);	
+			reportForm.setStatus(ReportFormStatus.PASSED);
 			
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
