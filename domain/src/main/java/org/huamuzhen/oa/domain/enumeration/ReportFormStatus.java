@@ -9,6 +9,7 @@ public enum ReportFormStatus {
 	SENT_TO_LEADER2,
 	SENT_TO_OFFICE,
 	PASSED,
-	DENIED
+	DENIED,
+	DEAD
 	
 }

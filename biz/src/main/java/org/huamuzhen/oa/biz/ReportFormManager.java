@@ -116,9 +116,9 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		String currentSuffix= previousFormId.substring(13);
 		Integer nextSuffix = Integer.parseInt(currentSuffix) + 1;
 		if(nextSuffix < 10){
-			return "0" + nextSuffix;
+			return previousFormId.substring(0, 13)+ "0" + nextSuffix;
 		}else{
-			return nextSuffix.toString();
+			return previousFormId.substring(0, 13)+ nextSuffix.toString();
 		}
 	}
 	
@@ -209,6 +209,44 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			status = ReportFormStatus.DENIED;
 		}
 		return status;
+	}
+
+	@Transactional
+	public ReportForm reCreateReportForm(String oldId, String reportFormTypeId,
+			String title, String formId, String landUser,
+			String originalLandUser, String landLocation, String landArea,
+			String landUse, String originalLandUse, String matter,
+			String matterDetail, String policyBasis, String comment,
+			String responsiblePerson, String auditor, String tabulator,
+			String creatorId) {
+		
+		ReportForm oldReportForm = this.findOne(oldId);
+		oldReportForm.setStatus(ReportFormStatus.DEAD);
+		
+		ReportForm newReportForm = new ReportForm();
+		newReportForm.setTitle(title);
+		newReportForm.setReportFormType(reportFormTypeDAO.findOne(reportFormTypeId));
+		newReportForm.setFormId(formId);
+		newReportForm.setLandUser(landUser);
+		newReportForm.setOriginalLandUser(originalLandUser);
+		newReportForm.setLandLocation(landLocation);
+		newReportForm.setLandArea(landArea);
+		newReportForm.setLandUse(landUse);
+		newReportForm.setOriginalLandUse(originalLandUse);
+		newReportForm.setMatter(matter);
+		newReportForm.setMatterDetail(matterDetail);
+		newReportForm.setPolicyBasis(policyBasis);
+		newReportForm.setComment(comment);
+		newReportForm.setResponsiblePerson(responsiblePerson);
+		newReportForm.setAuditor(auditor);
+		newReportForm.setTabulator(tabulator);
+		
+		newReportForm.setCreatorId(creatorId);
+		newReportForm.setReferredReportFormId(oldReportForm.getId());
+		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
+		
+		reportFormDAO.save(oldReportForm);
+		return reportFormDAO.save(newReportForm);	
 	}
 
 }

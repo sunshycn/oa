@@ -203,5 +203,47 @@ public class ReportFormController {
 
 		return mav;
 	}	
+	
+	@RequestMapping("/reCreateReportForm/{id}")
+	public ModelAndView reCreateReportForm(@PathVariable String id){
+		ReportForm selectedReportForm =reportFormManager.findOne(id);
+		ModelAndView mav = new ModelAndView("reCreateReportForm");
+		mav.addObject("selectedReportForm", selectedReportForm);
+		String newFormId = reportFormManager.generateFormId(selectedReportForm.getFormId());
+		mav.addObject("newFormId", newFormId);
+		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
+		mav.addObject("reportFormTypeList", reportFormTypeList);
+		return mav;
+	}
+	
+	@RequestMapping("/reCreate")
+	public String reCreate(HttpServletRequest request){
+		
+		String oldId = request.getParameter("oldId");
+		String reportFormTypeId = request.getParameter("reportFormTypeId");
+		String title = request.getParameter("title");
+		String formId = request.getParameter("formId");
+		String landUser = request.getParameter("landUser");
+		String originalLandUser = request.getParameter("originalLandUser");
+		String landLocation = request.getParameter("landLocation");
+		String landArea = request.getParameter("landArea");
+		String landUse = request.getParameter("landUse");
+		String originalLandUse = request.getParameter("originalLandUse");
+		String matter = request.getParameter("matter");
+		String matterDetail = request.getParameter("matterDetail");
+		String policyBasis = request.getParameter("policyBasis");
+		String comment = request.getParameter("comment");
+		String responsiblePerson = request.getParameter("responsiblePerson");
+		String auditor = request.getParameter("auditor");
+		String tabulator = request.getParameter("tabulator");
+		User currentUser = (User)request.getSession().getAttribute("currentUser");
+		
+		reportFormManager.reCreateReportForm(oldId, reportFormTypeId, title, formId,
+				landUser, originalLandUser, landLocation, landArea, landUse,
+				originalLandUse, matter, matterDetail, policyBasis, comment,
+				responsiblePerson,auditor,tabulator,currentUser.getId() );
+		
+		return "redirect:/reportForm";
+	}
 
 }
