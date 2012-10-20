@@ -89,4 +89,39 @@ public class UserController {
 		return "redirect:/user";
 	}
 	
+	@RequestMapping(value="/changePasswordPage")
+	public String changePasswordPage(){
+		return "changePassword";
+	}
+	
+	@RequestMapping(value="/changePassword")
+	public ModelAndView changePassword(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		String oldPassword = request.getParameter("oldPassword");
+		String newPassword =request.getParameter("newPassword");
+		String repeatPassword = request.getParameter("repeatPassword");
+		if(oldPassword.equals("") || newPassword.equals("") || repeatPassword.equals("")){
+			mav.addObject("errorMessage", "密码不能为空");
+			mav.setViewName("changePassword");
+			return mav;
+		}
+		if(!newPassword.equals(repeatPassword)){
+			mav.addObject("errorMessage", "重复密码不对");
+			mav.setViewName("changePassword");
+			return mav;
+		}
+		User currentUser = (User)request.getSession().getAttribute("currentUser");
+		if(userManager.authenticate(currentUser.getUsername(), oldPassword) == null){
+			mav.addObject("errorMessage", "旧密码不对");
+			mav.setViewName("changePassword");
+			return mav;
+		}
+		
+		User user = userManager.changePassword(currentUser.getId(), newPassword);
+		request.getSession().setAttribute("currentUser", user);
+		mav.setViewName("/index");
+		
+		return mav;
+	}
+	
 }

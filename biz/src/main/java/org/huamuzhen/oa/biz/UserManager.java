@@ -103,9 +103,21 @@ public class UserManager extends BaseManager<User, String>{
 		return this.save(newUser);
 	}
 	
+	@Transactional
 	public List<User> findUserByPrivilege(Privilege privilege){
 
 		return userDAO.findUserByPrivilege(privilege);
+	}
+	
+	@Transactional
+	public User changePassword(String id, String newPassword){
+		User user = this.findOne(id);
+		String hashSalt = new Integer(random.nextInt(10000)).toString();
+		user.setHashSalt(hashSalt);
+		user.setHashedPassword(encoder.encodePassword(newPassword, hashSalt));
+		user.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+		return this.save(user);
+		
 	}
 	
 }

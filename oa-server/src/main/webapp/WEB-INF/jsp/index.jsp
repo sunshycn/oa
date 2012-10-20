@@ -8,16 +8,18 @@
 </head>
 <body>
 	<h2>主页</h2>
+	
 	<c:choose>
-	  <c:when test="${privilege == 'ADMIN' }">
+	  <c:when test="${currentUser.privilege == 'ADMIN' }">
 		<a href="${contextPath}/orgUnit">单位管理</a><br/>
 		<a href="${contextPath}/user">用户管理</a><br/>
 	  </c:when>
 	  <c:otherwise>
-	  	<a href="${contextPath}/reportForm">报审表管理</a>
+	  	<a href="${contextPath}/reportForm">报审表管理</a><br/>
 	  </c:otherwise>
 	</c:choose>
 	
+	<a href="${contextPath}/user/changePasswordPage">修改密码</a><br/>
 	<form action="${contextPath}/logoff" method="post">
 		<input type="submit" value="登出" />
 	</form>

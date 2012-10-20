@@ -41,8 +41,7 @@ public class ReportFormController {
 	
 	@RequestMapping(value = { "", "/" })
 	public String index(HttpServletRequest request){
-		User currentUser = (User)request.getSession().getAttribute("currentUser");
-		request.setAttribute("privilege", currentUser.getPrivilege());
+		
 		return "reportForm";
 	}
 	
