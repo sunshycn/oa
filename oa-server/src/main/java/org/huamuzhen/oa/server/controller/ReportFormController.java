@@ -161,6 +161,8 @@ public class ReportFormController {
 			reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,currentUser.getId());
 			List<ReportForm> reportFormListWhichCurrentReceiverIdIsNull = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,null);
 			reportFormList.addAll(reportFormListWhichCurrentReceiverIdIsNull);
+		}else if(reportFormStatusLink.equals("deniedReportForm")){
+			reportFormList = reportFormManager.findReportFormByStatusAndCreatorId(reportFormStatusLink, currentUser.getId());
 		}else{
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
