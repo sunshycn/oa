@@ -19,6 +19,7 @@ import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 public class FeedbackManager extends BaseManager<Feedback, String> {
 	
@@ -64,6 +65,9 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			if(!agree){
 				reportForm.setStatus(ReportFormStatus.DENIED);
 			}else{
+				if(leader2Id.equals("")){
+					leader2Id = null;
+				}
 				reportForm.setCurrentReceiverId(leader2Id);
 				reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER2);
 			}

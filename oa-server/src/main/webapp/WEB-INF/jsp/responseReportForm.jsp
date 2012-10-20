@@ -43,7 +43,7 @@
 						
 						<c:when test="${responseType =='SENT_TO_LEADER1'}">
 								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">
-								<tr><td>选择要发给的主要领导： <select name="leader2Id"><c:forEach var="leader2" items="${leader2List}"><option value="${leader2.id}">${leader2.username}</option></c:forEach></select></td></tr>
+								<tr><td>选择要发给的主要领导： <select name="leader2Id"><option></option><c:forEach var="leader2" items="${leader2List}"><option value="${leader2.id}">${leader2.username}</option></c:forEach></select></td></tr>
 						</c:when>
 						<c:when test="${responseType =='SENT_TO_LEADER2'}">
 								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">

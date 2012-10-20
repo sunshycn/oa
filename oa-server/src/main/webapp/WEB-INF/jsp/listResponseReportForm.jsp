@@ -56,7 +56,7 @@
 							<td><form action="${contextPath}/reportForm/responseReportForm/${reportForm.id}" method="POST"><input type="submit" value="回复"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">
-							<td><form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST"><select name="leader1Id"><c:forEach var="leader1" items="${leader1List}"><option value="${leader1.id}">${leader1.username}</option></c:forEach></select><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form></td>
+							<td><form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST"><select name="leader1Id"><option></option><c:forEach var="leader1" items="${leader1List}"><option value="${leader1.id}">${leader1.username}</option></c:forEach></select><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form></td>
 							<td><form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="submit" value="重新生成表单"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='passedReportForm'}">

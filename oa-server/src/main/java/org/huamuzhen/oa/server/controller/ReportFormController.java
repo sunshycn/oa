@@ -59,10 +59,6 @@ public class ReportFormController {
 	@RequestMapping("/add")
 	public ModelAndView add(HttpServletRequest request){
 		String reportFormTypeId = request.getParameter("reportFormTypeId");
-		/*ReportFormType reportFormType = reportFormTypeManager.findOne(reportFormTypeId);
-		Set<OrgUnit> requiredOrgUnits = reportFormType.getRequiredOrgUnits();
-		ModelAndView mav = new ModelAndView("checkRequiredOrgUnits");
-		mav.addObject("requiredOrgUnits", requiredOrgUnits);*/
 		
 		String title = request.getParameter("title");
 		String formId = request.getParameter("formId");
@@ -147,6 +143,9 @@ public class ReportFormController {
 	@RequestMapping(value="/sendToLeader1/{id}", method=RequestMethod.POST)
 	public String sendToLeader1(@PathVariable String id, HttpServletRequest request){
 		String leader1Id = request.getParameter("leader1Id");
+		if(leader1Id.equals("")){
+			leader1Id = null;
+		}
 		reportFormManager.sendToLeader1(id, leader1Id);	
 		return "redirect:/reportForm/list/gotReplyFromUnitsReportForm";
 	}
@@ -159,6 +158,8 @@ public class ReportFormController {
 		if (reportFormStatusLink.equals("sentToLeader1ReportForm")
 				|| reportFormStatusLink.equals("sentToLeader2ReportForm")) {
 			reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,currentUser.getId());
+			List<ReportForm> reportFormListWhichCurrentReceiverIdIsNull = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,null);
+			reportFormList.addAll(reportFormListWhichCurrentReceiverIdIsNull);
 		}else{
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
