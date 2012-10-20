@@ -62,6 +62,7 @@ CREATE TABLE Report_Form
 	  tabulator VARCHAR (6),
 	  referred_report_form_id VARCHAR (36),
 	  current_receiver_id VARCHAR (36),
+	  creator_id VARCHAR (36) NOT NULL,
 	  status VARCHAR(30) NOT NULL,
 	  created_at TIMESTAMP,
       modified_at TIMESTAMP,

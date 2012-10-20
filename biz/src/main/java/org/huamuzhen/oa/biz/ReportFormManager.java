@@ -37,12 +37,12 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			String landLocation, String landArea, String landUse,
 			String originalLandUse, String matter, String matterDetail,
 			String policyBasis, String comment, String responsiblePerson,
-			String auditor, String tabulator) {
+			String auditor, String tabulator, String creatorId) {
 		if (null == id) {
 			return createNew(title, reportFormTypeId, formId, landUser,
 					originalLandUser, landLocation, landArea, landUse,
 					originalLandUse, matter, matterDetail, policyBasis,
-					comment, responsiblePerson, auditor, tabulator);
+					comment, responsiblePerson, auditor, tabulator, creatorId);
 		} else {
 			return updateExisting(id, reportFormTypeId, title, formId,
 					landUser, originalLandUser, landLocation, landArea,
@@ -85,7 +85,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			String landUser, String originalLandUser, String landLocation,
 			String landArea, String landUse, String originalLandUse,
 			String matter, String matterDetail, String policyBasis,
-			String comment, String responsiblePerson, String auditor, String tabulator) {
+			String comment, String responsiblePerson, String auditor, String tabulator, String creatorId) {
 		
 		ReportForm newReportForm = new ReportForm();
 		newReportForm.setTitle(title);
@@ -105,6 +105,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setAuditor(auditor);
 		newReportForm.setTabulator(tabulator);
 		
+		newReportForm.setCreatorId(creatorId);
 		newReportForm.setReferredReportFormId(null);
 		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
 		return reportFormDAO.save(newReportForm);

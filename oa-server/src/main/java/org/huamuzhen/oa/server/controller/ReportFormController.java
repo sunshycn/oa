@@ -75,11 +75,12 @@ public class ReportFormController {
 		String responsiblePerson = request.getParameter("responsiblePerson");
 		String auditor = request.getParameter("auditor");
 		String tabulator = request.getParameter("tabulator");
+		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
 	    ReportForm newReportForm = reportFormManager.saveReportForm(null, reportFormTypeId, title, formId,
 				landUser, originalLandUser, landLocation, landArea, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
-				responsiblePerson,auditor,tabulator);
+				responsiblePerson,auditor,tabulator, currentUser.getId());
 	    
 		ModelAndView mav = new ModelAndView("newCreatedReportForm");
 		mav.addObject("newReportForm", newReportForm);
@@ -127,7 +128,7 @@ public class ReportFormController {
 		reportFormManager.saveReportForm(id, reportFormTypeId, title, formId,
 				landUser, originalLandUser, landLocation, landArea, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
-				responsiblePerson,auditor,tabulator);
+				responsiblePerson,auditor,tabulator, null);
 		
 		
 		return "redirect:/reportForm/list/notSendReportForm";

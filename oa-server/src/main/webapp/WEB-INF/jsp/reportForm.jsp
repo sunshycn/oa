@@ -9,7 +9,7 @@
 <body>
 	<h2>报审表管理</h2>
 	<a href="${contextPath}/">返回首页</a><br/>
-	<c:if test="${privilege == 'NORMAL' || privilege == 'DEPARTMENT'}">
+	<c:if test="${privilege == 'NORMAL'}">
 		<a href="${contextPath}/reportForm/addReportForm">新建报审表</a><br/>
 		<a href="${contextPath}/reportForm/list/notSendReportForm">处理未发送报审表</a><br/>
 		<a href="${contextPath}/reportForm/list/gotReplyFromUnitsReportForm">可发送给分管领导的报审表</a><br/>
