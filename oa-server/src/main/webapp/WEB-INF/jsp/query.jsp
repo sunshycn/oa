@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>查询 报表</title>
+<title>查询报审表</title>
 </head>
 <body>
-   <h2>查询报表</h2>
+   <h2>查询报审表</h2>
 	
 	<form action="${contextPath}/query" method="post">
 		<table>

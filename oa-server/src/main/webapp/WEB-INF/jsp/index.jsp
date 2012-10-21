@@ -18,7 +18,7 @@
 	  	<a href="${contextPath}/reportForm">报审表管理</a><br/>
 	  </c:otherwise>
 	</c:choose>
-	
+	<a href="${contextPath}/query">查询报审表</a><br/>
 	<a href="${contextPath}/user/changePasswordPage">修改密码</a><br/>
 	<form action="${contextPath}/logoff" method="post">
 		<input type="submit" value="登出" />
