@@ -134,5 +134,10 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 	public List<Feedback> findFeedbackByReportFormId(String reportFormId){
 		return feedbackDAO.findFeedbackByReportFormId(reportFormId);
 	}
+	
+	@Transactional
+	public List<Feedback> findFeedbackByResponseOrgUnitIdAndReportFormId(String responseOrgUnitId, String reportFormId){
+		return feedbackDAO.findFeedbackByResponseOrgUnitIdAndReportFormId(responseOrgUnitId, reportFormId);
+	}
 
 }

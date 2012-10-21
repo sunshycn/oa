@@ -1,5 +1,7 @@
 package org.huamuzhen.oa.server.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,7 +10,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.HashMap;
 import org.huamuzhen.oa.biz.FeedbackManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
@@ -89,15 +90,6 @@ public class ReportFormController {
 		return mav;
 	}
 	
-	@RequestMapping("/unsendReportForm")
-	public ModelAndView unsendReportForm(){
-		List<ReportForm> unsendReportFormList = reportFormManager.findAllUnsendReportForms();
-		ModelAndView mav = new ModelAndView("unsendReportForm");
-		mav.addObject("unsendReportFormList", unsendReportFormList);
-		
-		return mav;
-	}
-	
 	@RequestMapping("/editUnsendReportForm/{id}")
 	public ModelAndView editUnsendReportForm(@PathVariable String id){
 		ReportForm selectedReportForm =reportFormManager.findOne(id);
@@ -165,6 +157,17 @@ public class ReportFormController {
 			reportFormList.addAll(reportFormListWhichCurrentReceiverIdIsNull);
 		}else if(reportFormStatusLink.equals("deniedReportForm")){
 			reportFormList = reportFormManager.findReportFormByStatusAndCreatorId(reportFormStatusLink, currentUser.getId());
+		}else if(reportFormStatusLink.equals("sentToOrgUnitsReportForm")){
+			// need to be optimized, use one HQL instead of looping
+			List<ReportForm> allReportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
+			reportFormList = new ArrayList<ReportForm>();
+			for(ReportForm reportForm : allReportFormList){
+				// check if the reportForm is already answered by current org_unit
+				List<Feedback> feedbackList = feedbackManager.findFeedbackByResponseOrgUnitIdAndReportFormId(currentUser.getOrgUnit().getId(), reportForm.getId());
+				if(feedbackList.size() == 0){
+					reportFormList.add(reportForm);
+				}
+			}
 		}else{
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
