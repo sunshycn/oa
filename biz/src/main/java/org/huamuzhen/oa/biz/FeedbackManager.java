@@ -129,5 +129,10 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		}
 		return false;
 	}
+	
+	@Transactional
+	public List<Feedback> findFeedbackByReportFormId(String reportFormId){
+		return feedbackDAO.findFeedbackByReportFormId(reportFormId);
+	}
 
 }

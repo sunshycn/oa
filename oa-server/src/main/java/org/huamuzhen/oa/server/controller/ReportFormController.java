@@ -1,16 +1,19 @@
 package org.huamuzhen.oa.server.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import org.huamuzhen.oa.biz.FeedbackManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.biz.UserManager;
+import org.huamuzhen.oa.domain.entity.Feedback;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
@@ -244,6 +247,22 @@ public class ReportFormController {
 				responsiblePerson,auditor,tabulator,currentUser.getId() );
 		
 		return "redirect:/reportForm";
+	}
+	
+	@RequestMapping("/printReportForm/{id}")
+	public ModelAndView printReportForm(@PathVariable String id){
+		ReportForm printedReportForm =reportFormManager.findOne(id);
+		ModelAndView mav = new ModelAndView("printReportForm");
+		mav.addObject("printedReportForm", printedReportForm);
+		
+		List<Feedback> feedbacks = feedbackManager.findFeedbackByReportFormId(id);
+		Map<String, Feedback> orgunitFeedbackMap = new HashMap<String, Feedback>();
+		for(Feedback feedback:feedbacks){
+			orgunitFeedbackMap.put(feedback.getOwner(), feedback);
+		}
+		mav.addObject("orgunitFeedbackMap", orgunitFeedbackMap);
+		
+		return mav;
 	}
 
 }
