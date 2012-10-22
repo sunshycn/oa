@@ -147,12 +147,6 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		}
 
 	}
-
-    @Transactional
-	public List<ReportForm> findAllUnsendReportForms() {
-		
-		return reportFormDAO.findReportFormByStatus(ReportFormStatus.NOT_SEND);
-	}
 	
     @Transactional
 	public ReportForm sendToOrgUnits(String id){
@@ -185,7 +179,6 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		ReportForm reportForm = reportFormDAO.findOne(id);
 		reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER1);
 		reportForm.setCurrentReceiverId(leader1Id);
-		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
 		return reportFormDAO.save(reportForm);
 	}
 	

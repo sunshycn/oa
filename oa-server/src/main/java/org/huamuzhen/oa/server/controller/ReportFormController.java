@@ -1,5 +1,6 @@
 package org.huamuzhen.oa.server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -171,6 +172,24 @@ public class ReportFormController {
 		}else{
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
+		// check if there are reportForms which is urgent
+		if(reportFormStatusLink.equals("sentToLeader1ReportForm")
+				|| reportFormStatusLink.equals("sentToLeader2ReportForm") || reportFormStatusLink.equals("sentToOrgUnitsReportForm")
+				|| reportFormStatusLink.equals("gotReplyFromUnitsReportForm") || reportFormStatusLink.equals("sentToOfficeReportForm")){
+			for(ReportForm reportForm : reportFormList){
+				if(null != reportForm.getSendTime()){
+					long sendTime = reportForm.getSendTime().getTime();
+					long now = System.currentTimeMillis();
+					if (now - sendTime > 86400000 * 2){
+						mav.addObject("warningMsg", "twoDaysDelay");
+						break;
+					}else if (now - sendTime > 86400000){
+						mav.addObject("warningMsg", "oneDayDelay");
+					}
+				}
+			}
+		}
+		
 		mav.addObject("reportFormList", reportFormList);
 		mav.addObject("reportFormStatusLink", reportFormStatusLink);
 		if(reportFormStatusLink.equals("gotReplyFromUnitsReportForm")){
@@ -267,5 +286,6 @@ public class ReportFormController {
 		
 		return mav;
 	}
+	
 
 }
