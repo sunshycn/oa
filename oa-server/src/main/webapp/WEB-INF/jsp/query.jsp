@@ -8,7 +8,7 @@
 </head>
 <body>
    <h2>查询报审表</h2>
-	
+	<a href="${contextPath}/">返回首页</a><br/>
 	<form action="${contextPath}/query" method="post">
 		<table>
 			<tr><td>编号： <input type="text" name="formId" maxlength="20"/></td></tr>
