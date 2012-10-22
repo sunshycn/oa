@@ -35,7 +35,7 @@ public class Feedback extends BaseEntity {
 	private String content;
 	
 	@Column(name="feedback_time")
-	private Timestamp feedBackTime;
+	private Timestamp feedbackTime;
 	
 	@Column(name="signature", length = 6)
 	private String signature;
@@ -83,12 +83,13 @@ public class Feedback extends BaseEntity {
 		this.content = content;
 	}
 	
-	public Timestamp getFeedBackTime() {
-		return feedBackTime;
+
+	public Timestamp getFeedbackTime() {
+		return feedbackTime;
 	}
 
-	public void setFeedBackTime(Timestamp feedBackTime) {
-		this.feedBackTime = feedBackTime;
+	public void setFeedbackTime(Timestamp feedbackTime) {
+		this.feedbackTime = feedbackTime;
 	}
 
 	public String getSignature() {

@@ -40,7 +40,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		Feedback feedback = new Feedback();
 		feedback.setContent(content);
 		feedback.setSignature(signature);
-		feedback.setFeedBackTime(new Timestamp(System.currentTimeMillis()));
+		feedback.setFeedbackTime(new Timestamp(System.currentTimeMillis()));
 		feedback.setReportFormId(reportFormId);
 		feedback.setAgree(agree);
 		ReportForm reportForm = reportFormDAO.findOne(reportFormId);

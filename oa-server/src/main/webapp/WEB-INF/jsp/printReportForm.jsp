@@ -45,12 +45,10 @@ th {
 </style>
 </head>
 <body>
-
-<button id="printButton" type="button" onclick="window.print();">打印</button>
 	
-	<p align=center ><span class="titlefont">赣州市国土资源局章贡分局建设用地报审表</span></p>
-	<p align=center style="margin:10px 0 10px 0"><span>报审事项：（${printedReportForm.matter}）</span>&nbsp;
-	<span>编号：（${printedReportForm.formId}）</span>&nbsp;&nbsp;&nbsp; <span>日期：（${printedReportForm.sendTime}）</span></p>
+	<p align=center ><span class="titlefont">${printedReportForm.reportFormType.name}</span></p>
+	<p align=center style="margin:10px 0 10px 0"><span>报审事项：${printedReportForm.matter}</span>&nbsp;
+	<span>编号：${printedReportForm.formId}</span>&nbsp;&nbsp;&nbsp; <span>日期：${printedReportForm.sendTime}</span></p>
 	
 	<div align=center>
 	
@@ -130,121 +128,44 @@ th {
 	   </p>
 	  </td>
 	 </tr>
+	 <c:forEach var="feedbackFromOrgUnits" items="feedback">
 	 <tr>
 	  <td width=102 colspan=2 valign=top>
-	  <p ><span >耕保科</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("OFFICE").feedBackTime}</span></p>
+	  <p ><span >${feedback.owner}</span></p>
 	  </td>
 	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("OFFICE").content}</span></p>
+	  <p ><span class="fangsong">${feedback.content}</span></p>
 	  </td>
 	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("OFFICE").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("OFFICE").feedBackTime}</span></p>
+	  <p ><span class="fangsong" >签名：${feedback.signature}</span></p>
+	  <p ><span class="fangsong">日期：${feedback.feedbackTime}</span></p>
 	  </td>
 	 </tr>
-	  <tr>
-	  <td width=102 colspan=2 valign=top>
-	  <p ><span >利用科</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("利用科").feedBackTime}</span></p>
-	  </td>
-	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("利用科").content}</span></p>
-	  </td>
-	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("利用科").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("利用科").feedBackTime}</span></p>
-	  </td>
-	 </tr>
-	  <tr>
-	  <td width=102 colspan=2 valign=top>
-	  <p ><span >地籍科</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("地籍科").feedBackTime}</span></p>
-	  </td>
-	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("地籍科").content}</span></p>
-	  </td>
-	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("地籍科").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("地籍科").feedBackTime}</span></p>
-	  </td>
-	 </tr>
-	   <tr>
-	  <td width=102 colspan=2 valign=top>
-	  <p ><span >法规科</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("法规科").feedBackTime}</span></p>
-	  </td>
-	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("法规科").content}</span></p>
-	  </td>
-	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("法规科").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("法规科").feedBackTime}</span></p>
-	  </td>
-	 </tr>
-	   <tr>
-	  <td width=102 colspan=2 valign=top>
-	  <p ><span >交易中心</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("交易中心").feedBackTime}</span></p>
-	  </td>
-	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("交易中心").content}</span></p>
-	  </td>
-	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("交易中心").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("交易中心").feedBackTime}</span></p>
-	  </td>
-	 </tr>
-	   <tr>
-	  <td width=102 colspan=2 valign=top>
-	  <p ><span >收储中心</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("收储中心").feedBackTime}</span></p>
-	  </td>
-	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("收储中心").content}</span></p>
-	  </td>
-	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("收储中心").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("收储中心").feedBackTime}</span></p>
-	  </td>
-	 </tr>
-	   <tr>
-	  <td width=102 colspan=2 valign=top>
-	  <p ><span >监察支队</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("监察支队").feedBackTime}</span></p>
-	  </td>
-	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("监察支队").content}</span></p>
-	  </td>
-	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("监察支队").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("监察支队").feedBackTime}</span></p>
-	  </td>
-	 </tr>
+	 </c:forEach>
+
 	   <tr>
 	  <td width=102 colspan=2 valign=top>
 	  <p ><span >市局分管领导</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("市局分管领导").feedBackTime}</span></p>
 	  </td>
 	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("市局分管领导").content}</span></p>
+	  <p ><span class="fangsong">${feedbackFromLeader1.content}</span></p>
 	  </td>
 	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("市局分管领导").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("市局分管领导").feedBackTime}</span></p>
+	  <p ><span class="fangsong" >签名：${feedbackFromLeader1.signature}</span></p>
+	  <p ><span class="fangsong">日期：${feedbackFromLeader1.feedbackTime}</span></p>
 	  </td>
 	 </tr>
 	   <tr>
 	  <td width=102 colspan=2 valign=top>
 	  <p ><span >市局主要领导</span></p>
-	  <p ><span >${orgunitFeedbackMap.get("市局主要领导").feedBackTime}</span></p>
+	  
 	  </td>
 	  <td width=516 colspan=7 valign=top>
-	  <p ><span class="fangsong">${orgunitFeedbackMap.get("市局主要领导").content}</span></p>
+	  <p ><span class="fangsong">${feedbackFromLeader2.content}</span></p>
 	  </td>
 	  <td width=181 colspan=2 valign=top>
-	  <p ><span class="fangsong" >签名：${orgunitFeedbackMap.get("市局主要领导").signature}</span></p>
-	  <p ><span class="fangsong">日期：${orgunitFeedbackMap.get("市局主要领导").feedBackTime}</span></p>
+	  <p ><span class="fangsong" >签名：${feedbackFromLeader2.signature}</span></p>
+	  <p ><span class="fangsong">日期：${feedbackFromLeader2.feedbackTime}</span></p>
 	  </td>
 	 </tr>
 	   <tr>
@@ -252,7 +173,7 @@ th {
 	  <p ><span >市局意见</span></p>
 	  </td>
 	  <td width=697 colspan=9 valign=top>
-	  <p ><span class="fangsong">同意</span></p>
+	  <p ><span class="fangsong">${feedbackFromOffice.content}</span></p>
 	  </td>
 	 </tr>
 	</table>

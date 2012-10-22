@@ -1,10 +1,8 @@
 package org.huamuzhen.oa.server.controller;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -22,6 +20,7 @@ import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
 import org.huamuzhen.oa.domain.enumeration.Privilege;
 import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
+import org.huamuzhen.oa.server.util.FeedbackComparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -277,12 +276,33 @@ public class ReportFormController {
 		ModelAndView mav = new ModelAndView("printReportForm");
 		mav.addObject("printedReportForm", printedReportForm);
 		
-		List<Feedback> feedbacks = feedbackManager.findFeedbackByReportFormId(id);
-		Map<String, Feedback> orgunitFeedbackMap = new HashMap<String, Feedback>();
+		List<Feedback> feedbackList = feedbackManager.findFeedbackByReportFormId(id);
+		List<Feedback> feedbackFromOrgUnits = new ArrayList<Feedback>();
+		// empty feedback
+		Feedback feedbackFromLeader1 = new Feedback();
+		Feedback feedbackFromLeader2 = new Feedback();
+		Feedback feedbackFromOffice = new Feedback();
+		for(Feedback feedback : feedbackList){
+			if(feedback.getOwner().equals(Privilege.LEADER1.toString())){
+				feedbackFromLeader1 = feedback;
+			}else if(feedback.getOwner().equals(Privilege.LEADER1.toString())){
+				feedbackFromLeader2 = feedback;
+			}else if(feedback.getOwner().equals(Privilege.LEADER1.toString())){
+				feedbackFromOffice = feedback;
+			}else{
+				feedbackFromOrgUnits.add(feedback);
+			}
+		}
+		Collections.sort(feedbackFromOrgUnits,new FeedbackComparator());
+/*		Map<String, Feedback> orgunitFeedbackMap = new HashMap<String, Feedback>();
 		for(Feedback feedback:feedbacks){
 			orgunitFeedbackMap.put(feedback.getOwner(), feedback);
 		}
-		mav.addObject("orgunitFeedbackMap", orgunitFeedbackMap);
+		mav.addObject("orgunitFeedbackMap", orgunitFeedbackMap);*/
+		mav.addObject("feedbackFromOrgUnits", feedbackFromOrgUnits);
+		mav.addObject("feedbackFromLeader1", feedbackFromLeader1);
+		mav.addObject("feedbackFromLeader2", feedbackFromLeader2);
+		mav.addObject("feedbackFromOffice", feedbackFromOffice);
 		
 		return mav;
 	}
