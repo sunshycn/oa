@@ -10,12 +10,27 @@ import org.springframework.stereotype.Service;
 public class ReportFormTypeManager extends BaseManager<ReportFormType, String> {
 
 	@Resource
+	private ReportFormTypeDAO reportFormTypeDAO;
+	
+	@Resource
 	public void setDao(ReportFormTypeDAO dao) {
 		super.setDao(dao);
 	}
 
-	public void saveReportFormType(String name, String[] orgUnits) {
-		// TODO Auto-generated method stub
+	public void saveReportFormType(String id, String name, String[] requiredOrgUnitIds) {
+		if(null == id){
+			this.createNew(name,requiredOrgUnitIds);
+		}else{
+			this.updateExisting(id,name,requiredOrgUnitIds);
+		}
+		
+	}
+	
+	private void createNew(String name, String[] requiredOrgUnitIds){
+		
+	}
+	
+	private void updateExisting(String id, String name, String[] requiredOrgUnitIds){
 		
 	}
 }

@@ -41,9 +41,9 @@ public class ReportFormTypeController {
 		if(name.trim().equals("")){
 			name = null;
 		}
-		String[] orgUnits = request.getParameterValues("orgUnits");
+		String[] requiredOrgUnitIds = request.getParameterValues("requiredOrgUnitIds");
 		
-		reportFormTypeManager.saveReportFormType(name,orgUnits);
+		reportFormTypeManager.saveReportFormType(null,name,requiredOrgUnitIds);
 		
 		return "redirect:/reportFormType";
 	}
