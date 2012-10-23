@@ -25,7 +25,7 @@
 				<td>${orgUnit.id}</td>
 				<td>${orgUnit.name}</td>
 				<td>${orgUnit.description}</td>
-				<td><form action="${contextPath}/orgUnit/delete/${orgUnit.id}" method="POST"><input type="submit" value="删除"></input></form></td>
+				<td><form action="${contextPath}/orgUnit/delete/${orgUnit.id}" method="POST"><input type="submit" value="删除" onclick="return confirm('确认删除');"></input></form></td>
 				<td><form action="${contextPath}/orgUnit/editOrgUnit/${orgUnit.id}" method="POST"><input type="submit" value="编辑"></input></form></td>
 			</tr>
 		</c:forEach>

@@ -13,6 +13,7 @@
 	<form action="${contextPath}/reportFormType/add" method="post">
 		<table>
 			<tr><td>报审表类型名：<input type="text" name="name" maxlength="30"/></td></tr>
+			<tr><td>需要回复该报审表的部门：<select multiple="multiple" size="10"><option></option></select></td></tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>
 	</form>

@@ -13,6 +13,7 @@
 	  <c:when test="${currentUser.privilege == 'ADMIN' }">
 		<a href="${contextPath}/orgUnit">单位管理</a><br/>
 		<a href="${contextPath}/user">用户管理</a><br/>
+		<a href="${contextPath}/reportFormType">报审表类型管理</a><br/>
 	  </c:when>
 	  <c:otherwise>
 	  	<a href="${contextPath}/reportForm">报审表管理</a><br/>

@@ -47,7 +47,7 @@
 					<c:otherwise>普通</c:otherwise>
 					</c:choose>
 				</td>
-				<td><form action="${contextPath}/user/delete/${user.id}" method="POST"><input type="submit" value="删除"></input></form></td>
+				<td><form action="${contextPath}/user/delete/${user.id}" method="POST"><input type="submit" value="删除" onclick="return confirm('确认删除');"></input></form></td>
 				<td><form action="${contextPath}/user/editUser/${user.id}" method="POST"><input type="submit" value="编辑"></input></form></td>
 			</tr>
 		</c:forEach>
