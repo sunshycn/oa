@@ -22,6 +22,12 @@
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>
 	</form>
+	<br/>当前需要回复的科室有：
+	<table>
+		<c:forEach var="orgUnit" items="${selectedReportFormType.requiredOrgUnits}">
+			<tr><td>${orgUnit.name}</td></tr>
+		</c:forEach>
+	</table>
 	
 	<a href="${contextPath}/reportForm">返回报审表类型管理</a>
 </body>
