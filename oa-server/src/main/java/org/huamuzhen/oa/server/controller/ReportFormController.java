@@ -85,8 +85,8 @@ public class ReportFormController {
 				originalLandUse, matter, matterDetail, policyBasis, comment,
 				responsiblePerson,auditor,tabulator, currentUser.getId());
 	    
-		ModelAndView mav = new ModelAndView("newCreatedReportForm");
-		mav.addObject("newReportForm", newReportForm);
+		ModelAndView mav = new ModelAndView("viewReportForm");
+		mav.addObject("reportForm", newReportForm);
 		return mav;
 	}
 	
@@ -294,11 +294,7 @@ public class ReportFormController {
 			}
 		}
 		Collections.sort(feedbackFromOrgUnits,new FeedbackComparator());
-/*		Map<String, Feedback> orgunitFeedbackMap = new HashMap<String, Feedback>();
-		for(Feedback feedback:feedbacks){
-			orgunitFeedbackMap.put(feedback.getOwner(), feedback);
-		}
-		mav.addObject("orgunitFeedbackMap", orgunitFeedbackMap);*/
+
 		mav.addObject("feedbackFromOrgUnits", feedbackFromOrgUnits);
 		mav.addObject("feedbackFromLeader1", feedbackFromLeader1);
 		mav.addObject("feedbackFromLeader2", feedbackFromLeader2);
@@ -307,5 +303,12 @@ public class ReportFormController {
 		return mav;
 	}
 	
+	@RequestMapping("/view/{id}")
+	public ModelAndView view(@PathVariable String id){
+		ModelAndView mav = new ModelAndView("viewReportForm");
+		ReportForm selectedReportForm = reportFormManager.findOne(id);
+		mav.addObject("reportForm", selectedReportForm);
+		return mav;
+	}
 
 }

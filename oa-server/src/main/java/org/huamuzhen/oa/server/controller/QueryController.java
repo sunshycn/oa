@@ -29,15 +29,7 @@ public class QueryController {
 		String formId = request.getParameter("formId");
 		String landUser = request.getParameter("landUser");
 		String landLocation = request.getParameter("landLocation");
-		if(StringUtils.isNullOrEmpty(formId)){
-			formId = "";
-		}
-		if(StringUtils.isNullOrEmpty(landUser)){
-			landUser = "";
-		}
-		if(StringUtils.isNullOrEmpty(landLocation)){
-			landLocation = "";
-		}
+
 		List<ReportForm> reportFormList = new ArrayList<ReportForm>();
 		reportFormList = queryManager.queryForm(formId,landUser,landLocation);
 		

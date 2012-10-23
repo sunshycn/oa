@@ -17,12 +17,12 @@
 			
 			<tr><td><input type="submit" value="查询" /></td></tr>
 		</table>
-		
+	</form>
 		<table>
 		<tr>
 		<td>编号</td>
-		<td>用户单位</td>
-		<td>原用户单位</td>
+		<td>用地单位</td>
+		<td>原用地单位</td>
 		<td>土地坐落</td>
 		</tr>
 		<c:forEach var="reportForm" items="${reportFormList}">
@@ -31,11 +31,12 @@
 			<td>${reportForm.landUser}</td>
 			<td>${reportForm.originalLandUser}</td>
 			<td>${reportForm.landLocation}</td>
+			<td><form action="${contextPath}/reportForm/view/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td>
 		</tr>			
 		</c:forEach>
 		
 		</table>
-		</form>
+		
 
 </body>
 </html>
