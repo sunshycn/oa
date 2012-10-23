@@ -5,7 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.huamuzhen.oa.biz.OrgUnitManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
+import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,9 @@ public class ReportFormTypeController {
 	@Resource
 	private ReportFormTypeManager reportFormTypeManager;
 	
+	@Resource
+	private OrgUnitManager orgUnitManager;
+	
 	@RequestMapping(value = { "", "/" })
 	public ModelAndView index() {
 		
@@ -32,12 +37,23 @@ public class ReportFormTypeController {
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String add(HttpServletRequest request){
-		return null;
+		String name = request.getParameter("name");
+		if(name.trim().equals("")){
+			name = null;
+		}
+		String[] orgUnits = request.getParameterValues("orgUnits");
+		
+		reportFormTypeManager.saveReportFormType(name,orgUnits);
+		
+		return "redirect:/reportFormType";
 	}
 	
 	@RequestMapping(value="/addReportFormType")
-	public String addReportFormType(HttpServletRequest request){
-		return null;
+	public ModelAndView addReportFormType(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("addReportFormType");
+		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
+		mav.addObject("orgUnitList", orgUnitList);
+		return mav;
 	}
 	
 	@RequestMapping(value="/edit",method=RequestMethod.POST)

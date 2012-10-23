@@ -13,4 +13,9 @@ public class ReportFormTypeManager extends BaseManager<ReportFormType, String> {
 	public void setDao(ReportFormTypeDAO dao) {
 		super.setDao(dao);
 	}
+
+	public void saveReportFormType(String name, String[] orgUnits) {
+		// TODO Auto-generated method stub
+		
+	}
 }

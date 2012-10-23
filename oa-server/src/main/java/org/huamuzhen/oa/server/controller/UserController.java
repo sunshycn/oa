@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.jdbc.StringUtils;
 
 @Controller
 @RequestMapping("/user")
@@ -42,7 +41,10 @@ public class UserController {
 		String password = request.getParameter("password");
 		String description = request.getParameter("description");
 		String orgUnitId = request.getParameter("orgUnitId");
-		if(StringUtils.isNullOrEmpty(orgUnitId)){
+		if(username.trim().equals("")){
+			username = null;
+		}
+		if(orgUnitId.trim().equals("")){
 			orgUnitId = null;
 		}
 		String privilege = request.getParameter("privilege");
@@ -57,7 +59,10 @@ public class UserController {
 		String password = request.getParameter("password");
 		String description = request.getParameter("description");
 		String orgUnitId = request.getParameter("orgUnitId");
-		if(StringUtils.isNullOrEmpty(orgUnitId)){
+		if(username.trim().equals("")){
+			username = null;
+		}
+		if(orgUnitId.trim().equals("")){
 			orgUnitId = null;
 		}
 		String privilege = request.getParameter("privilege");

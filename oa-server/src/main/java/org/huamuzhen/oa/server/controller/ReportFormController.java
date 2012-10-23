@@ -64,6 +64,9 @@ public class ReportFormController {
 		String reportFormTypeId = request.getParameter("reportFormTypeId");
 		
 		String title = request.getParameter("title");
+		if(title.trim().equals("")){
+			title = null;
+		}
 		String formId = request.getParameter("formId");
 		String landUser = request.getParameter("landUser");
 		String originalLandUser = request.getParameter("originalLandUser");

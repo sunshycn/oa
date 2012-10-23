@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.jdbc.StringUtils;
 
 @Controller
 @RequestMapping("/orgUnit")
@@ -35,7 +34,10 @@ public class OrgUnitController {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		String parentId = request.getParameter("parentId");
-		if(StringUtils.isNullOrEmpty(parentId)){
+		if(name.trim().equals("")){
+			name = null;
+		}
+		if(parentId.trim().equals("")){
 			parentId = null;
 		}
 		orgUnitManager.saveOrgUnit(null, name, description, parentId);
@@ -49,7 +51,10 @@ public class OrgUnitController {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		String parentId = request.getParameter("parentId");
-		if(StringUtils.isNullOrEmpty(parentId)){
+		if(name.trim().equals("")){
+			name = null;
+		}
+		if(parentId.trim().equals("")){
 			parentId = null;
 		}
 		orgUnitManager.saveOrgUnit(id, name, description, parentId);
