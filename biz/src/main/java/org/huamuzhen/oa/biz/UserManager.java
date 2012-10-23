@@ -50,6 +50,7 @@ public class UserManager extends BaseManager<User, String>{
 		}		
 	}
 	
+	@Transactional
 	public User authenticate(String username, String password){
 		User user = userDAO.findUserByUsername(username);
 		if(null != user){
