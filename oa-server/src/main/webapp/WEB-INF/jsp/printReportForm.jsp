@@ -128,7 +128,7 @@ th {
 	   </p>
 	  </td>
 	 </tr>
-	 <c:forEach var="feedbackFromOrgUnits" items="feedback">
+	 <c:forEach var="feedback" items="${feedbackFromOrgUnits}">
 	 <tr>
 	  <td width=102 colspan=2 valign=top>
 	  <p ><span >${feedback.owner}</span></p>

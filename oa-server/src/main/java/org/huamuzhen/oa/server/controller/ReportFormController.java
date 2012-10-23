@@ -210,7 +210,7 @@ public class ReportFormController {
 			OrgUnit qualifiedOrgUnit = null;
 			for(OrgUnit orgUnit : requiredOrgUnits){
 				if(user.getOrgUnit().getName().equals(orgUnit.getName())){
-					 if(!feedbackManager.checkIfOrgUnitFeedbackIsAlreadyExists(orgUnit)){
+					 if(!feedbackManager.checkIfOrgUnitFeedbackIsAlreadyExists(orgUnit, id)){
 						 qualifiedOrgUnit = orgUnit;
 					 }else{
 						 ModelAndView errorMav = new ModelAndView("error");
@@ -285,9 +285,9 @@ public class ReportFormController {
 		for(Feedback feedback : feedbackList){
 			if(feedback.getOwner().equals(Privilege.LEADER1.toString())){
 				feedbackFromLeader1 = feedback;
-			}else if(feedback.getOwner().equals(Privilege.LEADER1.toString())){
+			}else if(feedback.getOwner().equals(Privilege.LEADER2.toString())){
 				feedbackFromLeader2 = feedback;
-			}else if(feedback.getOwner().equals(Privilege.LEADER1.toString())){
+			}else if(feedback.getOwner().equals(Privilege.OFFICE.toString())){
 				feedbackFromOffice = feedback;
 			}else{
 				feedbackFromOrgUnits.add(feedback);

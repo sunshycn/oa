@@ -123,8 +123,8 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 	}
 	
 	@Transactional
-	public boolean checkIfOrgUnitFeedbackIsAlreadyExists(OrgUnit orgUnit){
-		if(feedbackDAO.findFeedbackByResponseOrgUnitId(orgUnit.getId()).size() > 0){
+	public boolean checkIfOrgUnitFeedbackIsAlreadyExists(OrgUnit orgUnit, String reportFormId){
+		if(feedbackDAO.findFeedbackByResponseOrgUnitIdAndReportFormId(orgUnit.getId(), reportFormId).size() > 0){
 			return true;
 		}
 		return false;
