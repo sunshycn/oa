@@ -59,7 +59,7 @@ public class ReportFormController {
 		return mav;
 	}
 	
-	@RequestMapping("/add")
+	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public ModelAndView add(HttpServletRequest request){
 		String reportFormTypeId = request.getParameter("reportFormTypeId");
 		
@@ -90,7 +90,7 @@ public class ReportFormController {
 		return mav;
 	}
 	
-	@RequestMapping("/editUnsendReportForm/{id}")
+	@RequestMapping(value="/editUnsendReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView editUnsendReportForm(@PathVariable String id){
 		ReportForm selectedReportForm =reportFormManager.findOne(id);
 		ModelAndView mav = new ModelAndView("editReportForm");
@@ -228,7 +228,7 @@ public class ReportFormController {
 		return mav;
 	}	
 	
-	@RequestMapping("/reCreateReportForm/{id}")
+	@RequestMapping(value="/reCreateReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView reCreateReportForm(@PathVariable String id){
 		ReportForm selectedReportForm =reportFormManager.findOne(id);
 		ModelAndView mav = new ModelAndView("reCreateReportForm");
@@ -240,7 +240,7 @@ public class ReportFormController {
 		return mav;
 	}
 	
-	@RequestMapping("/reCreate")
+	@RequestMapping(value="/reCreate",method=RequestMethod.POST)
 	public String reCreate(HttpServletRequest request){
 		
 		String oldId = request.getParameter("oldId");
@@ -270,7 +270,7 @@ public class ReportFormController {
 		return "redirect:/reportForm";
 	}
 	
-	@RequestMapping("/printReportForm/{id}")
+	@RequestMapping(value="/printReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView printReportForm(@PathVariable String id){
 		ReportForm printedReportForm =reportFormManager.findOne(id);
 		ModelAndView mav = new ModelAndView("printReportForm");
@@ -303,7 +303,7 @@ public class ReportFormController {
 		return mav;
 	}
 	
-	@RequestMapping("/view/{id}")
+	@RequestMapping(value="/view/{id}",method=RequestMethod.POST)
 	public ModelAndView view(@PathVariable String id){
 		ModelAndView mav = new ModelAndView("viewReportForm");
 		ReportForm selectedReportForm = reportFormManager.findOne(id);

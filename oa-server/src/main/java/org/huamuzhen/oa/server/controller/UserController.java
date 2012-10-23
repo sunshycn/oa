@@ -73,7 +73,7 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/editUser/{id}")
+	@RequestMapping(value="/editUser/{id}",method=RequestMethod.POST)
 	public ModelAndView editUser(@PathVariable String id){
 		ModelAndView mav = new ModelAndView("editUser");
 		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
@@ -94,7 +94,7 @@ public class UserController {
 		return "changePassword";
 	}
 	
-	@RequestMapping(value="/changePassword")
+	@RequestMapping(value="/changePassword",method=RequestMethod.POST)
 	public ModelAndView changePassword(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		String oldPassword = request.getParameter("oldPassword");

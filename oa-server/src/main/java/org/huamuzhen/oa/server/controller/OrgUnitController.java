@@ -72,7 +72,7 @@ public class OrgUnitController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/editOrgUnit/{id}")
+	@RequestMapping(value="/editOrgUnit/{id}",method=RequestMethod.POST)
 	public ModelAndView editOrgUnit(@PathVariable String id){
 		ModelAndView mav = new ModelAndView("editOrgUnit");
 		OrgUnit selectedOrgUnit = orgUnitManager.findOne(id);

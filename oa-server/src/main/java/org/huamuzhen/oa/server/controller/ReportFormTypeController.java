@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,9 +35,25 @@ public class ReportFormTypeController {
 		return null;
 	}
 	
-	@RequestMapping(value="/addReportFormType",method=RequestMethod.POST)
+	@RequestMapping(value="/addReportFormType")
 	public String addReportFormType(HttpServletRequest request){
 		return null;
+	}
+	
+	@RequestMapping(value="/edit",method=RequestMethod.POST)
+	public String edit(HttpServletRequest request){
+		return null;
+	}
+	
+	@RequestMapping(value="/editReportFormType")
+	public String editReportFormType(HttpServletRequest request){
+		return null;
+	}
+	
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.POST)
+	public String delete(@PathVariable String id){
+		reportFormTypeManager.delete(id);
+		return "redirect:/reportFormType";
 	}
 
 }
