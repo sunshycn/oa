@@ -58,12 +58,26 @@ public class ReportFormTypeController {
 	
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
 	public String edit(HttpServletRequest request){
-		return null;
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		if(name.trim().equals("")){
+			name = null;
+		}
+		String[] requiredOrgUnitIds = request.getParameterValues("requiredOrgUnitIds");
+		
+		reportFormTypeManager.saveReportFormType(id,name,requiredOrgUnitIds);
+		
+		return "redirect:/reportFormType";
 	}
 	
-	@RequestMapping(value="/editReportFormType")
-	public String editReportFormType(HttpServletRequest request){
-		return null;
+	@RequestMapping(value="/editReportFormType/{id}",method=RequestMethod.POST)
+	public ModelAndView editReportFormType(@PathVariable String id, HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("editReportFormType");
+		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
+		mav.addObject("orgUnitList", orgUnitList);
+		ReportFormType selectedReportFormType = reportFormTypeManager.findOne(id);
+		mav.addObject("selectedReportFormType", selectedReportFormType);
+		return mav;
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.POST)
