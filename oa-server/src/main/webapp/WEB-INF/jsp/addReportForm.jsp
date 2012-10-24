@@ -3,6 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script type="text/javascript" src="${jsRootPath}/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="${jsRootPath}/jquery.jec-1.3.4.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('#demo1').jec();
+	 });
+</script>
 <meta charset="UTF-8">
 <title>新建报审表</title>
 </head>
@@ -11,8 +20,11 @@
 	
 	<form action="${contextPath}/reportForm/add" method="post">
 		<table>
-			<tr><td>报审表类型：<select name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
-			<tr><td>报审名称： <input name="title" type="text" maxlength="10"></input></td></tr>
+			<tr><td><select id="demo1" name="demo1"><option></option></select></td></tr>
+			<tr><td>报审表类型：<select id="reportFormTypeId" name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
+			
+			<tr><td>报审名称： <input id="title" name="title" type="text" maxlength="10"></input><td/></tr>
+			
 			<tr><td>编号：${formId}<input name="formId" type="hidden" value="${formId}" ></td></tr>
 			<tr><td>用地（受让）单位： <input name="landUser" type="text" maxlength="30"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"></input></td></tr>
@@ -33,4 +45,5 @@
 	
 	<a href="${contextPath}/reportForm">返回报审表管理</a>
 </body>
+
 </html>
