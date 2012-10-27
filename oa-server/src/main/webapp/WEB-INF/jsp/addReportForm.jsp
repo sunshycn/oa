@@ -29,7 +29,10 @@ $(document).ready(function(){
 			<tr><td>用地（受让）单位： <input name="landUser" type="text" maxlength="30"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"></input></td></tr>
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="40"></input></td></tr>
-			<tr><td>用地面积（㎡、亩）： <input name="landArea" type="text" maxlength="24"></input></td></tr>
+			<tr><td>
+			用地面积（㎡、亩）： <input name="landArea" type="text" maxlength="24"></input>
+			<select name="landAreaMeasure"><option value="SQUARE_METER">平方米</option><option value="MU">亩</option><option value="HECTARE">公顷</option></select>
+			</td></tr>
 			<tr><td>规划用途： <input name="landUse" type="text" maxlength="10"></input></td></tr>
 			<tr><td>原用途：： <input name="originalLandUse" type="text" maxlength="10"></input></td></tr>
 			<tr><td>报审事项： <input name="matter" type="text" maxlength="20"></input></td></tr>

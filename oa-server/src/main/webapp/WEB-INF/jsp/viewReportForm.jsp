@@ -16,7 +16,7 @@
 	用地（受让）单位：${reportForm.landUser}<br/>
 	原土地使用者：${reportForm.originalLandUser}<br/>
 	土地座落： ${reportForm.landLocation}<br/>
-	用地面积（㎡、亩）：${reportForm.landArea}<br/>
+	用地面积（㎡、亩）：${reportForm.landArea} ${reportForm.landAreaMeasure}<br/>
 	规划用途： ${reportForm.landUse}<br/>
 	原用途： ${reportForm.originalLandUse}<br/>
 	报审事项：${reportForm.matter}<br/>

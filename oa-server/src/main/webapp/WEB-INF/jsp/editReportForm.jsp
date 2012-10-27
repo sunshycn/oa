@@ -18,7 +18,17 @@
 			<tr><td>用地（受让）单位： <input name="landUser" type="text" maxlength="30" value="${selectedReportForm.landUser}"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"  value="${selectedReportForm.originalLandUser}"></input></td></tr>
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="40" value="${selectedReportForm.landLocation}"></input></td></tr>
-			<tr><td>用地面积（㎡、亩）： <input name="landArea" type="text" maxlength="24" value="${selectedReportForm.landArea}"></input></td></tr>
+			<tr><td>
+			用地面积（㎡、亩）： <input name="landArea" type="text" maxlength="24" value="${selectedReportForm.landArea}"></input>
+			<select name="landAreaMeasure">
+			<c:choose>
+			 	<c:when test="${selectReportForm.landAreaMeasure == 'MU'}"><option value="MU">亩</option></c:when>
+			 	<c:when test="${selectReportForm.landAreaMeasure == 'HECTARE'}"><option value="HECTARE">公顷</option></c:when>
+			 	<c:otherwise><option value="SQUARE_METER">平方米</option></c:otherwise>
+			 </c:choose>
+			<option value="SQUARE_METER">平方米</option><option value="MU">亩</option><option value="HECTARE">公顷</option>
+			</select>
+			</td></tr>
 			<tr><td>规划用途： <input name="landUse" type="text" maxlength="10" value="${selectedReportForm.landUse}"></input></td></tr>
 			<tr><td>原用途： <input name="originalLandUse" type="text" maxlength="10" value="${selectedReportForm.originalLandUse}"></input></td></tr>
 			<tr><td>报审事项： <input name="matter" type="text" maxlength="20" value="${selectedReportForm.matter}"></input></td></tr>

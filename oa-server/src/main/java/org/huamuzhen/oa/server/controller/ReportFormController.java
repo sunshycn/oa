@@ -1,5 +1,6 @@
 package org.huamuzhen.oa.server.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -72,6 +73,7 @@ public class ReportFormController {
 		String originalLandUser = request.getParameter("originalLandUser");
 		String landLocation = request.getParameter("landLocation");
 		String landArea = request.getParameter("landArea");
+		String landAreaMeasure = request.getParameter("landAreaMeasure");
 		String landUse = request.getParameter("landUse");
 		String originalLandUse = request.getParameter("originalLandUse");
 		String matter = request.getParameter("matter");
@@ -84,7 +86,7 @@ public class ReportFormController {
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
 	    ReportForm newReportForm = reportFormManager.saveReportForm(null, reportFormTypeId, title, formId,
-				landUser, originalLandUser, landLocation, landArea, landUse,
+				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
 				responsiblePerson,auditor,tabulator, currentUser.getId());
 	    
@@ -113,6 +115,7 @@ public class ReportFormController {
 		String originalLandUser = request.getParameter("originalLandUser");
 		String landLocation = request.getParameter("landLocation");
 		String landArea = request.getParameter("landArea");
+		String landAreaMeasure = request.getParameter("landAreaMeasure");
 		String landUse = request.getParameter("landUse");
 		String originalLandUse = request.getParameter("originalLandUse");
 		String matter = request.getParameter("matter");
@@ -123,7 +126,7 @@ public class ReportFormController {
 		String auditor = request.getParameter("auditor");
 		String tabulator = request.getParameter("tabulator");
 		reportFormManager.saveReportForm(id, reportFormTypeId, title, formId,
-				landUser, originalLandUser, landLocation, landArea, landUse,
+				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
 				responsiblePerson,auditor,tabulator, null);
 		
@@ -254,6 +257,7 @@ public class ReportFormController {
 		String originalLandUser = request.getParameter("originalLandUser");
 		String landLocation = request.getParameter("landLocation");
 		String landArea = request.getParameter("landArea");
+		String landAreaMeasure = request.getParameter("landAreaMeasure");
 		String landUse = request.getParameter("landUse");
 		String originalLandUse = request.getParameter("originalLandUse");
 		String matter = request.getParameter("matter");
@@ -266,7 +270,7 @@ public class ReportFormController {
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
 		reportFormManager.reCreateReportForm(oldId, reportFormTypeId, title, formId,
-				landUser, originalLandUser, landLocation, landArea, landUse,
+				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
 				responsiblePerson,auditor,tabulator,currentUser.getId() );
 		

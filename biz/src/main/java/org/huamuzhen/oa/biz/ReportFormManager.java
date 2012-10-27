@@ -1,5 +1,6 @@
 package org.huamuzhen.oa.biz;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,11 +10,9 @@ import javax.annotation.Resource;
 
 import org.huamuzhen.oa.domain.dao.ReportFormDAO;
 import org.huamuzhen.oa.domain.dao.ReportFormTypeDAO;
-import org.huamuzhen.oa.domain.entity.Feedback;
 import org.huamuzhen.oa.domain.entity.ReportForm;
-import org.huamuzhen.oa.domain.entity.User;
-import org.huamuzhen.oa.domain.enumeration.Privilege;
 import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
+import org.huamuzhen.oa.domain.enumeration.SquareMeasure;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,19 +33,19 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	@Transactional
 	public ReportForm saveReportForm(String id, String reportFormTypeId, String title,
 			String formId, String landUser, String originalLandUser,
-			String landLocation, String landArea, String landUse,
+			String landLocation, BigDecimal landArea, String landAreaMeasure, String landUse,
 			String originalLandUse, String matter, String matterDetail,
 			String policyBasis, String comment, String responsiblePerson,
 			String auditor, String tabulator, String creatorId) {
 		if (null == id) {
 			return createNew(title, reportFormTypeId, formId, landUser,
-					originalLandUser, landLocation, landArea, landUse,
+					originalLandUser, landLocation, landArea, landAreaMeasure,landUse,
 					originalLandUse, matter, matterDetail, policyBasis,
 					comment, responsiblePerson, auditor, tabulator, creatorId);
 		} else {
 			return updateExisting(id, reportFormTypeId, title, formId,
-					landUser, originalLandUser, landLocation, landArea,
-					landUse, originalLandUse, matter, matterDetail,
+					landUser, originalLandUser, landLocation, landArea, landAreaMeasure
+					,landUse, originalLandUse, matter, matterDetail,
 					policyBasis, comment, responsiblePerson, auditor, tabulator);
 		}
 	}
@@ -54,7 +53,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	@Transactional
 	private ReportForm updateExisting(String id, String reportFormTypeId, String title,
 			String formId, String landUser, String originalLandUser,
-			String landLocation, String landArea, String landUse,
+			String landLocation, BigDecimal landArea, String landAreaMeasure, String landUse,
 			String originalLandUse, String matter, String matterDetail,
 			String policyBasis, String comment, String responsiblePerson,
 			String auditor, String tabulator) {
@@ -67,6 +66,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		reportForm.setOriginalLandUser(originalLandUser);
 		reportForm.setLandLocation(landLocation);
 		reportForm.setLandArea(landArea);
+		reportForm.setLandAreaMeasure(SquareMeasure.valueOf(landAreaMeasure));
 		reportForm.setLandUse(landUse);
 		reportForm.setOriginalLandUse(originalLandUse);
 		reportForm.setMatter(matter);
@@ -83,7 +83,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	@Transactional
 	private ReportForm createNew(String title, String reportFormTypeId,String formId,
 			String landUser, String originalLandUser, String landLocation,
-			String landArea, String landUse, String originalLandUse,
+			BigDecimal landArea, String landAreaMeasure, String landUse, String originalLandUse,
 			String matter, String matterDetail, String policyBasis,
 			String comment, String responsiblePerson, String auditor, String tabulator, String creatorId) {
 		
@@ -95,6 +95,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setOriginalLandUser(originalLandUser);
 		newReportForm.setLandLocation(landLocation);
 		newReportForm.setLandArea(landArea);
+		newReportForm.setLandAreaMeasure(SquareMeasure.valueOf(landAreaMeasure));
 		newReportForm.setLandUse(landUse);
 		newReportForm.setOriginalLandUse(originalLandUse);
 		newReportForm.setMatter(matter);
@@ -207,8 +208,8 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	@Transactional
 	public ReportForm reCreateReportForm(String oldId, String reportFormTypeId,
 			String title, String formId, String landUser,
-			String originalLandUser, String landLocation, String landArea,
-			String landUse, String originalLandUse, String matter,
+			String originalLandUser, String landLocation, BigDecimal landArea, 
+			String landAreaMeasure, String landUse, String originalLandUse, String matter,
 			String matterDetail, String policyBasis, String comment,
 			String responsiblePerson, String auditor, String tabulator,
 			String creatorId) {
@@ -224,6 +225,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setOriginalLandUser(originalLandUser);
 		newReportForm.setLandLocation(landLocation);
 		newReportForm.setLandArea(landArea);
+		newReportForm.setLandAreaMeasure(SquareMeasure.valueOf(landAreaMeasure));
 		newReportForm.setLandUse(landUse);
 		newReportForm.setOriginalLandUse(originalLandUse);
 		newReportForm.setMatter(matter);

@@ -59,3 +59,13 @@ INSERT INTO User (id, username, description, hashed_password, hash_salt, privile
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('dc5647f19d7540e891927e2f7d4ad402', '主要领导', '我是主要领导', '8b31aed889af092a7788dcc0b820ed04e3bffe1f', '4734', 'LEADER2', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('dc5647f19d7540e891927e2f7d4ad401', '主要领导2', '我是主要领导2', '8b31aed889af092a7788dcc0b820ed04e3bffe1f', '4734', 'LEADER2', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('0e79b16a28054cbf8c94b7b0a98f68ef', '办公室', '我是办公室', '7df2c434fd5f77a394ea41b3f1b44a7f57179d39', '2960', 'OFFICE', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
+
+INSERT INTO Report_Form_Title (id, name) VALUES ('1','划拨用地');
+INSERT INTO Report_Form_Title (id, name) VALUES ('2','公开出让');
+INSERT INTO Report_Form_Title (id, name) VALUES ('3','作价出资');
+INSERT INTO Report_Form_Title (id, name) VALUES ('4','改变用途补缴出让金');
+INSERT INTO Report_Form_Title (id, name) VALUES ('5','变更登记');
+INSERT INTO Report_Form_Title (id, name) VALUES ('6','土地置换');
+INSERT INTO Report_Form_Title (id, name) VALUES ('7','收回土地');
+INSERT INTO Report_Form_Title (id, name) VALUES ('8','通报');
+INSERT INTO Report_Form_Title (id, name) VALUES ('9','提请研究');

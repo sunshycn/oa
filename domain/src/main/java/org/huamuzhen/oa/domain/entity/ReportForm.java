@@ -1,24 +1,21 @@
 package org.huamuzhen.oa.domain.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
+import org.huamuzhen.oa.domain.enumeration.SquareMeasure;
 
 @Entity
 @Table(name="Report_Form")
@@ -54,8 +51,13 @@ public class ReportForm extends BaseEntity{
 	@Column(name="land_location", length = 40)
 	private String landLocation;
 	
-	@Column(name="land_area", length = 24)
-	private String landArea;
+	@Column(name="land_area")
+	private BigDecimal landArea;
+	
+	
+	@Column(name="land_area_measure", length = 10)
+	@Enumerated(EnumType.STRING)
+	private SquareMeasure landAreaMeasure = SquareMeasure.SQUARE_METER;
 	
 	@Column(name="land_use", length = 10)
 	private String landUse;
@@ -161,12 +163,20 @@ public class ReportForm extends BaseEntity{
 		this.landLocation = landLocation;
 	}
 
-	public String getLandArea() {
+	public BigDecimal getLandArea() {
 		return landArea;
 	}
 
-	public void setLandArea(String landArea) {
+	public void setLandArea(BigDecimal landArea) {
 		this.landArea = landArea;
+	}
+
+	public SquareMeasure getLandAreaMeasure() {
+		return landAreaMeasure;
+	}
+
+	public void setLandAreaMeasure(SquareMeasure landAreaMeasure) {
+		this.landAreaMeasure = landAreaMeasure;
 	}
 
 	public String getLandUse() {

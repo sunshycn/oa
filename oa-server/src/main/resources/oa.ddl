@@ -44,7 +44,8 @@ CREATE TABLE Report_Form
 	  land_user VARCHAR (30),
 	  original_land_user VARCHAR (30),
 	  land_location VARCHAR (40),
-	  land_area VARCHAR (24),
+	  land_area DECIMAL ,
+	  land_area_measure VARCHAR (15),
 	  land_use VARCHAR (10),
 	  original_land_use VARCHAR (10),
 	  matter VARCHAR (20),
@@ -85,6 +86,14 @@ CREATE TABLE Report_Form_Type_Org_Unit
 	report_form_type_id VARCHAR (36) NOT NULL,
 	org_unit_id VARCHAR (36) NOT NULL
 );
+
+CREATE TABLE Report_Form_Title
+(
+	id VARCHAR (36) NOT NULL PRIMARY KEY,
+	name VARCHAR (20) NOT NULL UNIQUE,
+	created_at TIMESTAMP,
+    modified_at TIMESTAMP,
+)
 
 ---必要数据
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('ce7447d8dd5a4f8e980d7dcd870e7b06', 'admin', 'admin', '90d84b5b96d0e1f1bc1a699d055f53587b52c474', '4371', 'ADMIN', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
