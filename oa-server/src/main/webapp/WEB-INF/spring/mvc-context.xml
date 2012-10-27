@@ -29,7 +29,15 @@
 
     <mvc:interceptors>
     	<mvc:interceptor>
-    		<mvc:mapping path="/*"/>
+    		<mvc:mapping path="/user/*"/>
+    		<mvc:mapping path="/user"/>
+    		<mvc:mapping path="/reportForm/*"/>
+    		<mvc:mapping path="/reportForm"/>
+    		<mvc:mapping path="/orgUnit/*"/>
+    		<mvc:mapping path="/orgUnit"/>
+    		<mvc:mapping path="/reportFormType/*"/>
+    		<mvc:mapping path="/reportFormType"/>
+    		<mvc:mapping path="/feedback/*"/>
     		<bean class="org.huamuzhen.oa.server.interceptor.AuthorizeInterceptor"></bean>
     	</mvc:interceptor>
     </mvc:interceptors>
