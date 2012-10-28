@@ -16,7 +16,7 @@
 	用地（受让）单位：${reportForm.landUser}<br/>
 	原土地使用者：${reportForm.originalLandUser}<br/>
 	土地座落： ${reportForm.landLocation}<br/>
-	用地面积（㎡、亩）：${reportForm.landArea} 
+	用地面积：${reportForm.landArea} 
 	<c:choose>
 		<c:when test="${reportForm.landAreaMeasure == 'MU'}">亩</c:when>
 		<c:when test="${reportForm.landAreaMeasure == 'HECTARE'}">公顷</c:when>

@@ -19,7 +19,7 @@
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"  value="${selectedReportForm.originalLandUser}"></input></td></tr>
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="40" value="${selectedReportForm.landLocation}"></input></td></tr>
 			<tr><td>
-			用地面积（㎡、亩）： <input name="landArea" type="text" maxlength="24" value="${selectedReportForm.landArea}"></input>
+			用地面积： <input name="landArea" type="text" maxlength="24" value="${selectedReportForm.landArea}"></input>
 			<select name="landAreaMeasure">
 			<c:choose>
 			 	<c:when test="${selectReportForm.landAreaMeasure == 'MU'}"><option value="MU">亩</option></c:when>

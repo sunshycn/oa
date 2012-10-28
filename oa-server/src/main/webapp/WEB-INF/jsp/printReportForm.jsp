@@ -96,7 +96,13 @@ th {
 	  <p ><span class="fangsong">${printedReportForm.landLocation}</span></p>
 	  </td>
 	  <td width=80 valign=top>
-	  <p ><span class="fangsong">${printedReportForm.landArea}</span></p>
+	  <p ><span class="fangsong">${printedReportForm.landArea}
+	  <c:choose>
+				<c:when test="${printedReportForm.landAreaMeasure == 'MU'}">亩</c:when>
+				<c:when test="${printedReportForm.landAreaMeasure == 'HECTARE'}">公顷</c:when>
+				<c:otherwise>平方公里</c:otherwise>
+	</c:choose>
+	  </span></p>
 	  </td>
 	  <td width=48 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.originalLandUse}</span></p>
