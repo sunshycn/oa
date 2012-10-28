@@ -33,5 +33,18 @@ public class QueryManager extends BaseManager<ReportForm, String> {
 		return  queryResult;		
 		
 	}
+
+	@Transactional
+	public List<ReportForm>  queryForm(String param1, String value1, String param2,
+			String value2, String param3, String value3) {
+		
+		StringBuilder value1SB = new StringBuilder().append("%").append(value1).append("%");
+		StringBuilder value2SB = new StringBuilder().append("%").append(value2).append("%");
+		StringBuilder value3SB = new StringBuilder().append("%").append(value3).append("%");
+		
+		List<ReportForm> queryResult = this.reportFormDAO.queryReportFromByKeyword(param1,value1SB.toString(),param2,value2SB.toString(),param3,value3SB.toString());
+		
+		return queryResult;
+	}
 	
 }

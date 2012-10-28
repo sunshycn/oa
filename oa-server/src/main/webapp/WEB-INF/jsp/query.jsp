@@ -11,10 +11,12 @@
 	<a href="${contextPath}/">返回首页</a><br/>
 	<form action="${contextPath}/query" method="post">
 		<table>
-			<tr><td>编号： <input type="text" name="formId" maxlength="20"/></td></tr>
+			<!-- <tr><td>编号： <input type="text" name="formId" maxlength="20"/></td></tr>
 			<tr><td>用地单位： <input type="text" name="landUser" maxlength="20"/></td></tr>
-			<tr><td>土地坐落： <input type="text" name="landLocation" maxlength="20"/></td></tr>
-			
+			<tr><td>土地坐落： <input type="text" name="landLocation" maxlength="20"/></td></tr> -->
+			<tr><td><select name="param1"><option value="formId">编号</option><option value="landUser">用地单位</option><option value="landLocation">土地坐落</option></select><input type="text" name="value1" maxlength="20"/></td></tr>
+			<tr><td><select name="param2"><option value="formId">编号</option><option value="landUser">用地单位</option><option value="landLocation">土地坐落</option></select><input type="text" name="value2" maxlength="20"/></td></tr>
+			<tr><td><select name="param3"><option value="formId">编号</option><option value="landUser">用地单位</option><option value="landLocation">土地坐落</option></select><input type="text" name="value3" maxlength="20"/></td></tr>
 			<tr><td><input type="submit" value="查询" /></td></tr>
 		</table>
 	</form>

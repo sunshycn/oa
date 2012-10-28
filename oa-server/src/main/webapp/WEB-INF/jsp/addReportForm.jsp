@@ -20,18 +20,15 @@ $(document).ready(function(){
 	
 	<form action="${contextPath}/reportForm/add" method="post">
 		<table>
-			<tr><td><select id="demo1" name="demo1"><option></option></select></td></tr>
-			<tr><td>报审表类型：<select id="reportFormTypeId" name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
-			
+			<tr><td>报审表类型：<select id="reportFormTypeId" name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>			
 			<tr><td>报审名称： <input id="title" name="title" type="text" maxlength="10"></input><td/></tr>
-			
 			<tr><td>编号：${formId}<input name="formId" type="hidden" value="${formId}" ></td></tr>
 			<tr><td>用地（受让）单位： <input name="landUser" type="text" maxlength="30"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"></input></td></tr>
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="40"></input></td></tr>
 			<tr><td>
 			用地面积（㎡、亩）： <input name="landArea" type="text" maxlength="24"></input>
-			<select name="landAreaMeasure"><option value="SQUARE_METER">平方米</option><option value="MU">亩</option><option value="HECTARE">公顷</option></select>
+			<select name="landAreaMeasure"><option value="SQUARE_KM">平方公里</option><option value="MU">亩</option><option value="HECTARE">公顷</option></select>
 			</td></tr>
 			<tr><td>规划用途： <input name="landUse" type="text" maxlength="10"></input></td></tr>
 			<tr><td>原用途：： <input name="originalLandUse" type="text" maxlength="10"></input></td></tr>

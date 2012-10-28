@@ -57,7 +57,7 @@ public class ReportForm extends BaseEntity{
 	
 	@Column(name="land_area_measure", length = 10)
 	@Enumerated(EnumType.STRING)
-	private SquareMeasure landAreaMeasure = SquareMeasure.SQUARE_METER;
+	private SquareMeasure landAreaMeasure = SquareMeasure.SQUARE_KM;
 	
 	@Column(name="land_use", length = 10)
 	private String landUse;

@@ -26,14 +26,20 @@ public class QueryController {
 	public ModelAndView queryReportForm(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("query");
 		
-		String formId = request.getParameter("formId");
+	/*	String formId = request.getParameter("formId");
 		String landUser = request.getParameter("landUser");
 		String landLocation = request.getParameter("landLocation");
 
 		List<ReportForm> reportFormList = new ArrayList<ReportForm>();
-		reportFormList = queryManager.queryForm(formId,landUser,landLocation);
-		
-		mav.addObject("reportFormList", reportFormList);
+		reportFormList = queryManager.queryForm(formId,landUser,landLocation);*/
+		String param1 = request.getParameter("param1");
+		String param2 = request.getParameter("param2");
+		String param3 = request.getParameter("param3");
+		String value1 = request.getParameter("value1");
+		String value2 = request.getParameter("value2");
+		String value3 = request.getParameter("value3");
+		List<ReportForm> reportFormList = queryManager.queryForm(param1,value1,param2,value2,param3,value3);
+	//	mav.addObject("reportFormList", reportFormList);
 		return mav;	
 		
 	}
