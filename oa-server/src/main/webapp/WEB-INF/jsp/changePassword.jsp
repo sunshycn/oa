@@ -10,7 +10,7 @@
 	
 	<h2>修改密码</h2>
 	<a href="${contextPath}/">返回首页</a><br/>
-	<form action="${contextPath}/user/changePassword" method="post">
+	<form action="${contextPath}/account/changePassword" method="post">
 		<table>
 			
 			<tr><td>旧密码： <input type="password" name="oldPassword" maxlength="36"/></td></tr>

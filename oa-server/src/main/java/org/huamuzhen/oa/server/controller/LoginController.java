@@ -9,6 +9,7 @@ import org.huamuzhen.oa.domain.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/")
@@ -26,7 +27,7 @@ public class LoginController {
 		return "index";
 	}
 	
-	@RequestMapping(value="/login",method=RequestMethod.POST)
+	@RequestMapping(value="/account/login",method=RequestMethod.POST)
 	public String login(HttpServletRequest request){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -39,9 +40,44 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/logoff",method=RequestMethod.POST)
+	@RequestMapping(value="/account/logoff",method=RequestMethod.POST)
 	public String logoff(HttpSession session){
 		session.removeAttribute("currentUser");
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/account/changePasswordPage")
+	public String changePasswordPage(){
+		return "changePassword";
+	}
+	
+	@RequestMapping(value="/account/changePassword",method=RequestMethod.POST)
+	public ModelAndView changePassword(HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		String oldPassword = request.getParameter("oldPassword");
+		String newPassword =request.getParameter("newPassword");
+		String repeatPassword = request.getParameter("repeatPassword");
+		if(oldPassword.equals("") || newPassword.equals("") || repeatPassword.equals("")){
+			mav.addObject("errorMessage", "密码不能为空");
+			mav.setViewName("changePassword");
+			return mav;
+		}
+		if(!newPassword.equals(repeatPassword)){
+			mav.addObject("errorMessage", "重复密码不对");
+			mav.setViewName("changePassword");
+			return mav;
+		}
+		User currentUser = (User)request.getSession().getAttribute("currentUser");
+		if(userManager.authenticate(currentUser.getUsername(), oldPassword) == null){
+			mav.addObject("errorMessage", "旧密码不对");
+			mav.setViewName("changePassword");
+			return mav;
+		}
+		
+		User user = userManager.changePassword(currentUser.getId(), newPassword);
+		request.getSession().setAttribute("currentUser", user);
+		mav.setViewName("/index");
+		
+		return mav;
 	}
 }

@@ -50,7 +50,7 @@ input{width:120px; height:18px; border:solid 1px #aca7a7; font-size:9pt;}
 		 <div id="center">
 		      <div id="center_left"></div>
 			  <div id="center_middle">
-			  <form action="${contextPath}/login" id="loginForm" method="post">
+			  <form action="${contextPath}/account/login" id="loginForm" method="post">
 			       <div id="user">用  户
 			        <input type="text" name="username" maxlength="20"/>
 			       </div>

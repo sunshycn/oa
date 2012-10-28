@@ -3,6 +3,9 @@ package org.huamuzhen.oa.biz;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 import org.huamuzhen.oa.domain.dao.ReportFormDAO;
 import org.huamuzhen.oa.domain.entity.ReportForm;
@@ -13,37 +16,35 @@ import org.springframework.transaction.annotation.Transactional;
 public class QueryManager extends BaseManager<ReportForm, String> {
 	
 	@Resource
-	private ReportFormDAO reportFormDAO;
+	private EntityManagerFactory entityManagerFactory;
 
 	@Resource
 	public void setDao(ReportFormDAO dao) {
 		super.setDao(dao);
 	}
-	
-	@Transactional
-	public List<ReportForm> queryForm(String formId, String landUser, String landerLocation){
-		StringBuffer formIdBuffer = new StringBuffer();
-		formIdBuffer.append("%").append(formId).append("%");		
-		StringBuffer landUserBuffer = new StringBuffer();
-		landUserBuffer.append("%").append(landUser).append("%");		
-		StringBuffer landerLocationBuffer = new StringBuffer();
-		landerLocationBuffer.append("%").append(landerLocation).append("%");
-		
-		List<ReportForm> queryResult = this.reportFormDAO.queryReportFromByKeyword(formIdBuffer.toString(), landUserBuffer.toString(), landerLocationBuffer.toString());
-		return  queryResult;		
-		
-	}
 
 	@Transactional
 	public List<ReportForm>  queryForm(String param1, String value1, String param2,
 			String value2, String param3, String value3) {
+		EntityManager em = entityManagerFactory.createEntityManager();
 		
-		StringBuilder value1SB = new StringBuilder().append("%").append(value1).append("%");
-		StringBuilder value2SB = new StringBuilder().append("%").append(value2).append("%");
-		StringBuilder value3SB = new StringBuilder().append("%").append(value3).append("%");
-		
-		List<ReportForm> queryResult = this.reportFormDAO.queryReportFromByKeyword(param1,value1SB.toString(),param2,value2SB.toString(),param3,value3SB.toString());
-		
+		StringBuilder value1SB = new StringBuilder().append("%").append(value1)
+				.append("%");
+		StringBuilder value2SB = new StringBuilder().append("%").append(value2)
+				.append("%");
+		StringBuilder value3SB = new StringBuilder().append("%").append(value3)
+				.append("%");
+		Query query = em.createQuery("FROM ReportForm WHERE " + param1
+				+ " LIKE ?1 AND  " + param2
+				+ " LIKE ?2 AND  " + param3
+				+ " LIKE ?3");
+		query.setParameter(1, value1SB.toString());
+		query.setParameter(2, value2SB.toString());
+		query.setParameter(3, value3SB.toString());
+		@SuppressWarnings("unchecked")
+		List<ReportForm> queryResult = (List<ReportForm>) query.getResultList();
+		em.close();
+
 		return queryResult;
 	}
 	
