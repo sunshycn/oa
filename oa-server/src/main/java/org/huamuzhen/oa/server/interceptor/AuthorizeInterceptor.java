@@ -14,19 +14,27 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 
 		User user = (User)request.getSession().getAttribute("currentUser");
-		if(user == null){
+		if (user == null) {
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().write("还未登陆，请登录");
 			return false;
 		}
-		if(user.getPrivilege()== Privilege.ADMIN){
-			if(request.getRequestURI().startsWith(request.getContextPath()+"/reportForm") || request.getRequestURI().startsWith(request.getContextPath()+"/feedback")){
+		if (user.getPrivilege() == Privilege.ADMIN) {
+			if (request.getRequestURI().startsWith(
+							request.getContextPath() + "/feedback")) {
 				response.setCharacterEncoding("utf-8");
 				response.getWriter().write("权限不够");
 				return false;
 			}
-		}else{
-			if(request.getRequestURI().startsWith(request.getContextPath()+ "/user") || request.getRequestURI().startsWith(request.getContextPath()+"/orgUnit") || request.getRequestURI().startsWith(request.getContextPath()+"/reportFormType")){
+		} else {
+			if (request.getRequestURI().startsWith(
+					request.getContextPath() + "/user")
+					|| request.getRequestURI().startsWith(
+							request.getContextPath() + "/orgUnit")
+					|| request.getRequestURI().startsWith(
+							request.getContextPath() + "/reportFormType")
+					|| request.getRequestURI().startsWith(
+							request.getContextPath() + "/reportFormTitle")) {
 				response.setCharacterEncoding("utf-8");
 				response.getWriter().write("权限不够");
 				return false;

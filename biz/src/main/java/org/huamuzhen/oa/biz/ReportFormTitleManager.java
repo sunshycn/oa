@@ -14,4 +14,27 @@ public class ReportFormTitleManager extends BaseManager<ReportFormTitle, String>
 		super.setDao(dao);
 	}
 
+	public ReportFormTitle saveReportFormTitle(String id, String name) {
+		if(null == id){
+			return createNew(name);
+		}else{
+			return updateExisting(id,name);
+		}
+		
+	}
+
+	private ReportFormTitle updateExisting(String id, String name) {
+		ReportFormTitle reportFormTitle = this.findOne(id);
+		reportFormTitle.setName(name);
+		return this.save(reportFormTitle);
+		
+	}
+
+	private ReportFormTitle createNew(String name) {
+		ReportFormTitle reportFormTitle = new ReportFormTitle();
+		reportFormTitle.setName(name);
+		return this.save(reportFormTitle);
+		
+	}
+
 }
