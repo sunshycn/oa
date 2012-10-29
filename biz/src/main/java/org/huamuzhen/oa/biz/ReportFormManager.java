@@ -94,6 +94,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setLandUser(landUser);
 		newReportForm.setOriginalLandUser(originalLandUser);
 		newReportForm.setLandLocation(landLocation);
+System.out.println("save landArea as," + landArea.toString());
 		newReportForm.setLandArea(landArea);
 		newReportForm.setLandAreaMeasure(SquareMeasure.valueOf(landAreaMeasure));
 		newReportForm.setLandUse(landUse);

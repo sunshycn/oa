@@ -3,25 +3,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<script type="text/javascript" src="${jsRootPath}/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="${jsRootPath}/jquery.jec-1.3.4.js"></script>
-<script type="text/javascript">
-
-$(document).ready(function(){
-	$('#demo1').jec();
-	 });
-</script>
-<meta charset="UTF-8">
-<title>新建报审表</title>
+    <meta charset="UTF-8">
+    <title>新建报审表</title>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var reportTypeAuto = $("input[name='title']");
+            var nameList = [];
+            <c:forEach var="repTitle" items="${reportFormTitleList}">
+                nameList.push("${repTitle.name}");
+            </c:forEach>
+            reportTypeAuto.autocomplete({
+                source: nameList,
+                minLength: 0 
+            });
+            
+            reportTypeAuto.focus(function() {
+                if (!$(this).val()) {
+                    reportTypeAuto.autocomplete("search", "");
+                }
+                return false;
+            });
+            
+            
+            var regNum = /\d+(.\d+)?/;
+            $("form").submit(function() {
+                var errors = [];
+                if ($.trim($("input[name='title']").val()).length == 0) {
+                    errors.push("请填写报审名称");
+                }
+                if (!$.trim($("input[name='landArea']").val()).match(regNum)) {
+                    errors.push("用地面积必须为数字，且不能为空");
+                }
+                if (errors.length > 0) {
+                    alert(errors.join(", "));
+                    return false;
+                }
+            });
+            
+    	 });
+    </script>
 </head>
 <body>
 	<h2>新建报审表</h2>
 	
-	<form action="${contextPath}/reportForm/add" method="post">
+	<form id="addForm" action="${contextPath}/reportForm/add" method="post">
 		<table>
 			<tr><td>报审表类型：<select id="reportFormTypeId" name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>			
-			<tr><td>报审名称： <input id="title" name="title" type="text" maxlength="10"></input><td/></tr>
+			<tr><td>报审名称： <input name="title" type="text" maxlength="10"></input><td/></tr>
 			<tr><td>编号：${formId}<input name="formId" type="hidden" value="${formId}" ></td></tr>
 			<tr><td>用地（受让）单位： <input name="landUser" type="text" maxlength="30"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"></input></td></tr>

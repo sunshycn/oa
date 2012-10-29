@@ -12,11 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import org.huamuzhen.oa.biz.FeedbackManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
+import org.huamuzhen.oa.biz.ReportFormTitleManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.biz.UserManager;
 import org.huamuzhen.oa.domain.entity.Feedback;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportForm;
+import org.huamuzhen.oa.domain.entity.ReportFormTitle;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
 import org.huamuzhen.oa.domain.enumeration.Privilege;
@@ -44,6 +46,9 @@ public class ReportFormController {
 	@Resource
 	private UserManager userManager;
 	
+	@Resource
+	private ReportFormTitleManager reportFormTitleManager;
+	
 	@RequestMapping(value = { "", "/" })
 	public String index(HttpServletRequest request){
 		
@@ -57,6 +62,10 @@ public class ReportFormController {
 		mav.addObject("reportFormTypeList", reportFormTypeList);
 		String formId = reportFormManager.generateFormId();
 		mav.addObject("formId", formId);
+		
+		List<ReportFormTitle> reportFormTitleList = reportFormTitleManager.findAll();
+		mav.addObject("reportFormTitleList", reportFormTitleList);
+		
 		return mav;
 	}
 	
@@ -102,6 +111,10 @@ public class ReportFormController {
 		mav.addObject("selectedReportForm", selectedReportForm);
 		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
 		mav.addObject("reportFormTypeList", reportFormTypeList);
+		
+		List<ReportFormTitle> reportFormTitleList = reportFormTitleManager.findAll();
+		mav.addObject("reportFormTitleList", reportFormTitleList);
+		
 		return mav;
 	}
 	
@@ -243,6 +256,10 @@ public class ReportFormController {
 		mav.addObject("newFormId", newFormId);
 		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
 		mav.addObject("reportFormTypeList", reportFormTypeList);
+		
+		List<ReportFormTitle> reportFormTitleList = reportFormTitleManager.findAll();
+		mav.addObject("reportFormTitleList", reportFormTitleList);
+		
 		return mav;
 	}
 	

@@ -2,15 +2,52 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>编辑报审表</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>编辑报审表</title>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var reportTypeAuto = $("input[name='title']");
+                var nameList = [];
+                <c:forEach var="repTitle" items="${reportFormTitleList}">
+                    nameList.push("${repTitle.name}");
+                </c:forEach>
+                reportTypeAuto.autocomplete({
+                    source: nameList,
+                    minLength: 0 
+                });
+                
+                reportTypeAuto.focus(function() {
+                    if (!$(this).val()) {
+                        reportTypeAuto.autocomplete("search", "");
+                    }
+                    return false;
+                });
+                
+                
+                var regNum = /\d+(.\d+)?/;
+                $("form").submit(function() {
+                    var errors = [];
+                    if ($.trim($("input[name='title']").val()).length == 0) {
+                        errors.push("请填写报审名称");
+                    }
+                    if (!$.trim($("input[name='landArea']").val()).match(regNum)) {
+                        errors.push("用地面积必须为数字，且不能为空");
+                    }
+                    if (errors.length > 0) {
+                        alert(errors.join(", "));
+                        return false;
+                    }
+                });
+                
+             });
+        </script>
+    </head>
 <body>
 	<h2>编辑报审表</h2>
 	
 	<form action="${contextPath}/reportForm/edit" method="post">
-		<table>
+        <table>
 			<tr><td>ID: ${selectedReportForm.id}<input type="hidden" name="id" value="${selectedReportForm.id}"></td></tr>
 			<tr><td>报审表类型：<select name="reportFormTypeId"><option value="${selectedReportForm.reportFormType.id}">${selectedReportForm.reportFormType.name}</option><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
 			<tr><td>报审名称： <input name="title" type="text" maxlength="10" value="${selectedReportForm.title}" ></input></td></tr>
