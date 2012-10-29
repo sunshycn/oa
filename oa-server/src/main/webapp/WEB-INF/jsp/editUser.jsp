@@ -5,6 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>编辑用户</title>
+
+ <script type="text/javascript">
+        $(document).ready(function(){
+        	$("form").submit(function() {
+                var errors = [];
+                if ($.trim($("input[name='username']").val()).length == 0) {
+                    errors.push("请填写用户名称");
+                }
+
+                if (errors.length > 0) {
+                    alert(errors.join(", "));
+                    return false;
+                }
+            });
+        });
+</script>
 </head>
 <body>
 	<h2>编辑用户</h2>

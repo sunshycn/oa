@@ -6,6 +6,21 @@
 <meta charset="UTF-8">
 <link href="${cssRootPath}/app.css" rel="stylesheet" type="text/css">
 <title>编辑报审表名称</title>
+ <script type="text/javascript">
+        $(document).ready(function(){
+        	$("form").submit(function() {
+                var errors = [];
+                if ($.trim($("input[name='username']").val()).length == 0) {
+                    errors.push("请填写名称");
+                }
+
+                if (errors.length > 0) {
+                    alert(errors.join(", "));
+                    return false;
+                }
+            });
+        });
+</script>
 </head>
 <body>
 	<h2>编辑报审表名称</h2>

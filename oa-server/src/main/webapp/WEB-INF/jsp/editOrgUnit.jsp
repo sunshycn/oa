@@ -6,6 +6,22 @@
 <meta charset="UTF-8">
 <link href="${cssRootPath}/app.css" rel="stylesheet" type="text/css">
 <title>编辑单位</title>
+ <script type="text/javascript">
+        $(document).ready(function(){
+        	$("form").submit(function() {
+                var errors = [];
+                if ($.trim($("input[name='name']").val()).length == 0) {
+                    errors.push("请填写单位名称");
+                }
+
+                if (errors.length > 0) {
+                    alert(errors.join(", "));
+                    return false;
+                }
+            });
+        });
+</script>
+
 </head>
 <body>
 	<h2>编辑单位</h2>
