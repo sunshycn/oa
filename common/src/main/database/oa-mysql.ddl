@@ -50,7 +50,7 @@ CREATE TABLE Report_Form
 	  land_user VARCHAR (30),
 	  original_land_user VARCHAR (30),
 	  land_location VARCHAR (40),
-	  land_area DECIMAL ,
+	  land_area DECIMAL (15,3),
 	  land_area_measure VARCHAR (15),
 	  land_use VARCHAR (10),
 	  original_land_use VARCHAR (10),
