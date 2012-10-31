@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>打印报审表</title>
 <style>
+
+
 body,div,span,th,td,input,button,a,select {
 	padding: 0px;
 	color: #333333;
@@ -14,6 +16,8 @@ body,div,span,th,td,input,button,a,select {
 }
 p {
 	margin: 0;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
 }
 table {
       border:1px solid #000;
@@ -21,6 +25,7 @@ table {
       margin:2px 0 2px 0;
       text-align:center;
       border-collapse:collapse;
+      table-layout: fixed;      
 }
 td,th {
       padding:3px;
@@ -29,7 +34,9 @@ td,th {
       border-width:0 1px 1px 0;
       margin:2px 0 2px 0;
       text-align:left;
-      word-wrap:break-word; word-break:break-all; 
+      word-wrap:break-word;
+      word-break:break-all; 
+      page-break-inside:avoid;
 }
 th {
       text-align:center;
@@ -51,8 +58,7 @@ th {
 	<p align=center style="margin:10px 0 10px 0"><span>报审事项：${printedReportForm.matter}</span>&nbsp;
 	<span>编号：${printedReportForm.formId}</span>&nbsp;&nbsp;&nbsp; <span>日期：${printedReportForm.sendTime}</span></p>
 	
-	<div align=center>
-	
+	<div align=center>	
 	<table>
 	 <tr>
 	  <td width=48 valign=top >
@@ -61,10 +67,10 @@ th {
 	  <td width=48 valign=top >
 	  <p><span >原土地使用者</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=64 valign=top>
 	  <p><span>土地座落</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=64 valign=top>
 	  <p ><span >用地面积</span></p>
 	  </td>
 	  <td width=48 valign=top>
@@ -73,16 +79,16 @@ th {
 	  <td width=48 valign=top>
 	  <p ><span >现用途</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=64 valign=top>
 	  <p ><span >报审事项</span></p>
 	  </td>
-	  <td width=205 valign=top>
+	  <td width=192 valign=top>
 	  <p ><span >报审事项及说明</span></p>
 	  </td>
-	  <td width=129 colspan=2 valign=top>
+	  <td width=93 colspan=2 valign=top>
 	  <p ><b><span >办理依据</span></b></p>
 	  </td>
-	  <td width=129 valign=top>
+	  <td width=130 valign=top>
 	  <p ><b><span >报审单位意见</span></b></p>
 	  </td>
 	 </tr>
@@ -93,10 +99,10 @@ th {
 	  <td width=48 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.originalLandUser}</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=60 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.landLocation}</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=64 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.landArea}
 	  <c:choose>
 				<c:when test="${printedReportForm.landAreaMeasure == 'MU'}">亩</c:when>
@@ -114,13 +120,13 @@ th {
 	  <td width=48 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.matter}</span></p>
 	  </td>
-	  <td width=205 valign=top>
+	  <td width=192 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.matterDetail}</span></p>
 	  </td>
-	  <td width=129 colspan=2 valign=top>
+	  <td width=93 colspan=2 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.policyBasis}</span></p>
 	  </td>
-	  <td width=129 valign=top>
+	  <td width=130 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.comment}</span></p>
 	  </td>
 	 </tr>
@@ -154,10 +160,10 @@ th {
 	  <td width=102 colspan=2 valign=top>
 	  <p ><span >市局分管领导</span></p>
 	  </td>
-	  <td width=500 colspan=7 valign=top>
+	  <td width=516 colspan=7 valign=top>
 	  <p ><span class="fangsong">${feedbackFromLeader1.content}</span></p>
 	  </td>
-	  <td width=197 colspan=2 valign=top>
+	  <td width=181 colspan=2 valign=top>
 	  <p ><span class="fangsong" >签名：${feedbackFromLeader1.signature}</span></p>
 	  <p ><span class="fangsong">日期：${feedbackFromLeader1.feedbackTime}</span></p>
 	  </td>
@@ -167,10 +173,10 @@ th {
 	  <p ><span >市局主要领导</span></p>
 	  
 	  </td>
-	  <td width=500 colspan=7 valign=top>
+	  <td width=516 colspan=7 valign=top>
 	  <p ><span class="fangsong">${feedbackFromLeader2.content}</span></p>
 	  </td>
-	  <td width=197 colspan=2 valign=top>
+	  <td width=181 colspan=2 valign=top>
 	  <p ><span class="fangsong" >签名：${feedbackFromLeader2.signature}</span></p>
 	  <p ><span class="fangsong">日期：${feedbackFromLeader2.feedbackTime}</span></p>
 	  </td>
@@ -184,8 +190,7 @@ th {
 	  </td>
 	 </tr>
 	</table>
-	
 	</div>	
-		
+	<!-- <input type=button value="打  印 " onclick="window.print()">	 -->
 </body>
 </html>
