@@ -55,17 +55,17 @@ th {
 	
 	<table>
 	 <tr>
-	  <td width=54 valign=top >
+	  <td width=48 valign=top >
 	  <p><span>现土地使用者</span></p>
 	  </td>
 	  <td width=48 valign=top >
 	  <p><span >原土地使用者</span></p>
 	  </td>
-	  <td width=60 valign=top>
+	  <td width=48 valign=top>
 	  <p><span>土地座落</span></p>
 	  </td>
-	  <td width=80 valign=top>
-	  <p ><span >用地面积（㎡、亩）</span></p>
+	  <td width=48 valign=top>
+	  <p ><span >用地面积</span></p>
 	  </td>
 	  <td width=48 valign=top>
 	  <p ><span >原用途</span></p>
@@ -79,24 +79,24 @@ th {
 	  <td width=205 valign=top>
 	  <p ><span >报审事项及说明</span></p>
 	  </td>
-	  <td width=119 colspan=2 valign=top>
+	  <td width=129 colspan=2 valign=top>
 	  <p ><b><span >办理依据</span></b></p>
 	  </td>
-	  <td width=109 valign=top>
+	  <td width=129 valign=top>
 	  <p ><b><span >报审单位意见</span></b></p>
 	  </td>
 	 </tr>
 	 <tr>
-	  <td width=54 valign=top >
+	  <td width=48 valign=top >
 	  <p ><span class="fangsong">${printedReportForm.landUser}</span></p>
 	  </td>
 	  <td width=48 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.originalLandUser}</span></p>
 	  </td>
-	  <td width=60 valign=top>
+	  <td width=48 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.landLocation}</span></p>
 	  </td>
-	  <td width=80 valign=top>
+	  <td width=48 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.landArea}
 	  <c:choose>
 				<c:when test="${printedReportForm.landAreaMeasure == 'MU'}">亩</c:when>
@@ -117,10 +117,10 @@ th {
 	  <td width=205 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.matterDetail}</span></p>
 	  </td>
-	  <td width=119 colspan=2 valign=top>
+	  <td width=129 colspan=2 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.policyBasis}</span></p>
 	  </td>
-	  <td width=109 valign=top>
+	  <td width=129 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.comment}</span></p>
 	  </td>
 	 </tr>
@@ -140,10 +140,10 @@ th {
 	  <td width=102 colspan=2 valign=top>
 	  <p ><span >${feedback.owner}</span></p>
 	  </td>
-	  <td width=516 colspan=7 valign=top>
+	  <td width=500 colspan=7 valign=top>
 	  <p ><span class="fangsong">${feedback.content}</span></p>
 	  </td>
-	  <td width=181 colspan=2 valign=top>
+	  <td width=197 colspan=2 valign=top>
 	  <p ><span class="fangsong" >签名：${feedback.signature}</span></p>
 	  <p ><span class="fangsong">日期：${feedback.feedbackTime}</span></p>
 	  </td>
@@ -154,10 +154,10 @@ th {
 	  <td width=102 colspan=2 valign=top>
 	  <p ><span >市局分管领导</span></p>
 	  </td>
-	  <td width=516 colspan=7 valign=top>
+	  <td width=500 colspan=7 valign=top>
 	  <p ><span class="fangsong">${feedbackFromLeader1.content}</span></p>
 	  </td>
-	  <td width=181 colspan=2 valign=top>
+	  <td width=197 colspan=2 valign=top>
 	  <p ><span class="fangsong" >签名：${feedbackFromLeader1.signature}</span></p>
 	  <p ><span class="fangsong">日期：${feedbackFromLeader1.feedbackTime}</span></p>
 	  </td>
@@ -167,10 +167,10 @@ th {
 	  <p ><span >市局主要领导</span></p>
 	  
 	  </td>
-	  <td width=516 colspan=7 valign=top>
+	  <td width=500 colspan=7 valign=top>
 	  <p ><span class="fangsong">${feedbackFromLeader2.content}</span></p>
 	  </td>
-	  <td width=181 colspan=2 valign=top>
+	  <td width=197 colspan=2 valign=top>
 	  <p ><span class="fangsong" >签名：${feedbackFromLeader2.signature}</span></p>
 	  <p ><span class="fangsong">日期：${feedbackFromLeader2.feedbackTime}</span></p>
 	  </td>
