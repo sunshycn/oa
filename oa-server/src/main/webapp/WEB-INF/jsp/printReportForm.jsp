@@ -29,6 +29,7 @@ td,th {
       border-width:0 1px 1px 0;
       margin:2px 0 2px 0;
       text-align:left;
+      word-wrap:break-word; word-break:break-all; 
 }
 th {
       text-align:center;
