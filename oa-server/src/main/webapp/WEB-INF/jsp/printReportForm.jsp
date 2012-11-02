@@ -106,6 +106,7 @@ th {
 	  <p ><span class="fangsong">${printedReportForm.landArea}
 	  <c:choose>
 				<c:when test="${printedReportForm.landAreaMeasure == 'MU'}">亩</c:when>
+				<c:when test="${printedReportForm.landAreaMeasure == 'SQUARE_METER'}">平方米</c:when>
 				<c:when test="${printedReportForm.landAreaMeasure == 'HECTARE'}">公顷</c:when>
 				<c:otherwise>平方公里</c:otherwise>
 	</c:choose>

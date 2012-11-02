@@ -56,7 +56,7 @@
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="40"></input></td></tr>
 			<tr><td>
 			用地面积： <input name="landArea" type="text" maxlength="24"></input>
-			<select name="landAreaMeasure"><option value="SQUARE_KM">平方公里</option><option value="MU">亩</option><option value="HECTARE">公顷</option></select>
+			<select name="landAreaMeasure"><option value="SQUARE_METER">平方米</option><option value="SQUARE_KM">平方公里</option><option value="MU">亩</option><option value="HECTARE">公顷</option></select>
 			</td></tr>
 			<tr><td>规划用途： <input name="landUse" type="text" maxlength="10"></input></td></tr>
 			<tr><td>原用途：： <input name="originalLandUse" type="text" maxlength="10"></input></td></tr>

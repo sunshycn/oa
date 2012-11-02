@@ -19,6 +19,7 @@
 	用地面积：${reportForm.landArea} 
 	<c:choose>
 		<c:when test="${reportForm.landAreaMeasure == 'MU'}">亩</c:when>
+		<c:when test="${printedReportForm.landAreaMeasure == 'SQUARE_METER'}">平方米</c:when>
 		<c:when test="${reportForm.landAreaMeasure == 'HECTARE'}">公顷</c:when>
 		<c:otherwise>平方公里</c:otherwise>
 	</c:choose>

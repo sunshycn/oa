@@ -61,10 +61,11 @@
 			<select name="landAreaMeasure">
 			 <c:choose>
 			 	<c:when test="${selectReportForm.landAreaMeasure == 'MU'}"><option value="MU">亩</option></c:when>
+			 	<c:when test="${selectReportForm.landAreaMeasure == 'SQUARE_METER'}"><option value="MU">亩</option></c:when>
 			 	<c:when test="${selectReportForm.landAreaMeasure == 'HECTARE'}"><option value="HECTARE">公顷</option></c:when>
 			 	<c:otherwise><option value="SQUARE_KM">平方公里</option></c:otherwise>
 			 </c:choose>	
-			<option value="SQUARE_KM">平方公里</option><option value="MU">亩</option><option value="HECTARE">公顷</option></select>
+			<option value="SQUARE_METER">平方米</option><option value="SQUARE_KM">平方公里</option><option value="MU">亩</option><option value="HECTARE">公顷</option></select>
 			</td></tr>
 			<tr><td>规划用途： <input name="landUse" type="text" maxlength="10" value="${selectedReportForm.landUse}"></input></td></tr>
 			<tr><td>原用途：： <input name="originalLandUse" type="text" maxlength="10" value="${selectedReportForm.originalLandUse}"></input></td></tr>
