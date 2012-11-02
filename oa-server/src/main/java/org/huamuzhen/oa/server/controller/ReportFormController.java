@@ -177,10 +177,13 @@ public class ReportFormController {
 			List<ReportForm> allReportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 			reportFormList = new ArrayList<ReportForm>();
 			for(ReportForm reportForm : allReportFormList){
-				// check if the reportForm is already answered by current org_unit
-				List<Feedback> feedbackList = feedbackManager.findFeedbackByResponseOrgUnitIdAndReportFormId(currentUser.getOrgUnit().getId(), reportForm.getId());
-				if(feedbackList.size() == 0){
-					reportFormList.add(reportForm);
+				if(currentUser.getOrgUnit()!=null){
+					for(OrgUnit orgUnit:reportForm.getReportFormType().getRequiredOrgUnits()){
+						if(currentUser.getOrgUnit().getName().equals(orgUnit.getName())){
+							reportFormList.add(reportForm);
+							break;
+						}
+					}
 				}
 			}
 		}else{ // all normal user share all report  
@@ -212,31 +215,35 @@ public class ReportFormController {
 	
 	@RequestMapping(value="responseReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView responseReportForm(@PathVariable String id, HttpServletRequest request){
-		ModelAndView mav = new ModelAndView("responseReportForm");
+		ModelAndView mav = viewReportFormMAV(id);
 		ReportForm selectedReportForm = reportFormManager.findOne(id);
 		mav.addObject("selectedReportForm", selectedReportForm);
 		if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_ORG_UNITS){
+			User currentUser = (User)request.getSession().getAttribute("currentUser");
+			if(null == currentUser.getOrgUnit()){
+				 ModelAndView errorMav = new ModelAndView("error");
+				 errorMav.addObject("errorMessage", "用户不属于任何部门");
+				 return errorMav;
+			}
 			ReportFormType reportFormType = reportFormTypeManager.findOne(selectedReportForm.getReportFormType().getId());
 			Set<OrgUnit> requiredOrgUnits = reportFormType.getRequiredOrgUnits();
-			User user = (User)request.getSession().getAttribute("currentUser");
+			
 			OrgUnit qualifiedOrgUnit = null;
 			for(OrgUnit orgUnit : requiredOrgUnits){
-				if(user.getOrgUnit().getName().equals(orgUnit.getName())){
-					 if(!feedbackManager.checkIfOrgUnitFeedbackIsAlreadyExists(orgUnit, id)){
-						 qualifiedOrgUnit = orgUnit;
-					 }else{
-						 ModelAndView errorMav = new ModelAndView("error");
-						 errorMav.addObject("errorMessage", "该部门已经回复");
-						 return errorMav;
-					 }
+				if(currentUser.getOrgUnit().getName().equals(orgUnit.getName())){					
+					 qualifiedOrgUnit = orgUnit;
+					 break;
 				}
 			}
+			if(feedbackManager.checkIfOrgUnitFeedbackIsAlreadyExists(qualifiedOrgUnit, id)){
+				 mav.addObject("feedbackExistsFlag", new Object());
+			 }
 			mav.addObject("qualifiedOrgUnit", qualifiedOrgUnit);
 		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_LEADER1){
 			mav.addObject("leader2List", userManager.findUserByPrivilege(Privilege.LEADER2));
 		}
 		mav.addObject("responseType", selectedReportForm.getStatus());
-
+		mav.addObject("status", "response");
 		return mav;
 	}	
 	

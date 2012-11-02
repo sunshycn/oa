@@ -34,7 +34,7 @@
 	审核人：${reportForm.auditor}<br/>
 	制表人：${reportForm.tabulator}<br/>
 	<br/>
-	当前回复：<br/>
+	当前已有的回复：<br/>
 	<table border="1"> 
 		<thead>
 		<tr>
@@ -55,10 +55,49 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<c:if test="${status == 'review'}">
+	<c:choose>
+	<c:when test="${status == 'review'}">
 		<form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST">选择分管领导：<select name="leader1Id"><option></option><c:forEach var="leader1" items="${leader1List}"><option value="${leader1.id}">${leader1.username}</option></c:forEach></select><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form>
 		<form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="submit" value="重新生成报审表"></input></form>
-	</c:if>
+	</c:when>
+	<c:when test="${status == 'response'}">
+		<c:choose>
+		  <c:when test="${not empty feedbackExistsFlag}">
+		    您所代表的部门已经回复了 <br/>
+		 </c:when>
+		<c:otherwise>
+			<form action="${contextPath}/feedback/add" method="post">
+			<table>
+				<tr><td><input type="hidden" name="reportFormId" value="${selectedReportForm.id}"></td></tr>
+				<tr><td>回复意见：<textarea name="content" rows="5" cols="50"></textarea></td></tr>
+				<c:if test="${responseType !='SENT_TO_OFFICE'}">
+				<tr><td>签名：<input name="signature" type="text" maxlength="6" ></input></td></tr>
+				</c:if>
+				<tr><td>
+					<c:choose>
+						<c:when test="${responseType =='SENT_TO_ORG_UNITS'}">
+						 <tr><td>回复部门： ${qualifiedOrgUnit.name}<input type="hidden" name="orgUnitId" value="${qualifiedOrgUnit.id}"></input></td></tr>
+						</c:when>
+						
+						<c:when test="${responseType =='SENT_TO_LEADER1'}">
+								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">
+								<tr><td>选择要发给的主要领导： <select name="leader2Id"><option></option><c:forEach var="leader2" items="${leader2List}"><option value="${leader2.id}">${leader2.username}</option></c:forEach></select></td></tr>
+						</c:when>
+						<c:when test="${responseType =='SENT_TO_LEADER2'}">
+								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">
+						</c:when>
+						<c:when test="${responseType =='SENT_TO_OFFICE'}"></c:when>
+					<c:otherwise>?</c:otherwise>
+					</c:choose>
+				</td></tr>
+				<tr><td><input type="submit" value="回复" /></td></tr>
+			</table>
+		   </form>
+		</c:otherwise>
+		</c:choose>
+	</c:when>
+	<c:otherwise></c:otherwise>
+	</c:choose>
 	<a href="${contextPath}/reportForm">返回报审表管理</a><br>
 
 </body>

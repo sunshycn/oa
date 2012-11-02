@@ -48,7 +48,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			feedback.setOwner(currentUser.getOrgUnit().getName());
 			feedback.setResponseOrgUnitId(currentUser.getOrgUnit().getId());
 			Feedback savedFeedback= this.saveAndFlush(feedback);;
-			if(checkIfAllRequiredOrgUnitsSendPositiveFeedback(reportForm)){
+			if(checkIfAllRequiredOrgUnitsSendFeedback(reportForm)){
 				reportForm.setStatus(ReportFormStatus.GOT_REPLY_FROM_UNITS);
 			}
 			reportFormDAO.save(reportForm);
@@ -83,7 +83,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 	}
 
 	@Transactional
-	private boolean checkIfAllRequiredOrgUnitsSendPositiveFeedback(ReportForm reportForm) {
+	private boolean checkIfAllRequiredOrgUnitsSendFeedback(ReportForm reportForm) {
 		Set<OrgUnit> requiredOrgUnits = reportForm.getReportFormType().getRequiredOrgUnits();
 		List<Feedback> feedbackList = feedbackDAO.findFeedbackByReportFormId(reportForm.getId());
 		List<String> requiredOrgUnitIdList = new ArrayList<String>();
@@ -93,9 +93,6 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		
 		for(OrgUnit requiredOrgUnit : requiredOrgUnits){
 			for(Feedback feedback : feedbackList){
-				if(!feedback.isAgree()){
-					return false;
-				}
 				if(feedback.getResponseOrgUnitId().equals(requiredOrgUnit.getId())){
 					requiredOrgUnitIdList.remove(feedback.getResponseOrgUnitId());
 				}
