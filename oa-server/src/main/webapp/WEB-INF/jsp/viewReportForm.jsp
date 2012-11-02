@@ -27,15 +27,15 @@
 	规划用途： ${reportForm.landUse}<br/>
 	原用途： ${reportForm.originalLandUse}<br/>
 	报审事项：${reportForm.matter}<br/>
-	报审事项细节：${reportForm.matterDetail}<br/>
-	办理依据：${reportForm.policyBasis}<br/>
-	报审单位意见：${reportForm.comment}<br/>
+	报审事项细节：<textarea name="matterDetail" rows="10" cols="50" disabled="disabled">${reportForm.matterDetail}</textarea><br/>
+	办理依据：<textarea name="policyBasis" rows="5" cols="50" disabled="disabled">${reportForm.policyBasis}</textarea><br/>
+	报审单位意见：<textarea name="comment" rows="5" cols="50" disabled="disabled">${reportForm.comment}</textarea><br/>
 	单位主要负责人：${reportForm.responsiblePerson}<br/>
 	审核人：${reportForm.auditor}<br/>
 	制表人：${reportForm.tabulator}<br/>
 	<br/>
 	当前回复：<br/>
-	<table> 
+	<table border="1"> 
 		<thead>
 		<tr>
 			<td>回复部门（人）</td>
@@ -50,7 +50,7 @@
 				<td>${feedback.owner}</td>
 				<td>${feedback.feedbackTime}</td>
 				<td>${feedback.signature}</td>
-				<td>${feedback.content}</td>
+				<td><textarea name="content" rows="5" cols="50" disabled="disabled">${feedback.content}</textarea></td>
 			</tr>
 			</c:forEach>
 		</tbody>
