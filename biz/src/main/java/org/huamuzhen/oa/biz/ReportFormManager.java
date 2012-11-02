@@ -37,8 +37,9 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			String originalLandUse, String matter, String matterDetail,
 			String policyBasis, String comment, String responsiblePerson,
 			String auditor, String tabulator, String creatorId) {
-		if (null == id) {
-			return createNew(title, reportFormTypeId, formId, landUser,
+		if (null == id && null == formId) {
+			
+			return createNew(title, reportFormTypeId, landUser,
 					originalLandUser, landLocation, landArea, landAreaMeasure,landUse,
 					originalLandUse, matter, matterDetail, policyBasis,
 					comment, responsiblePerson, auditor, tabulator, creatorId);
@@ -81,20 +82,20 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	}
 
 	@Transactional
-	private ReportForm createNew(String title, String reportFormTypeId,String formId,
+	private ReportForm createNew(String title, String reportFormTypeId,
 			String landUser, String originalLandUser, String landLocation,
 			BigDecimal landArea, String landAreaMeasure, String landUse, String originalLandUse,
 			String matter, String matterDetail, String policyBasis,
 			String comment, String responsiblePerson, String auditor, String tabulator, String creatorId) {
 		
+		
 		ReportForm newReportForm = new ReportForm();
 		newReportForm.setTitle(title);
 		newReportForm.setReportFormType(reportFormTypeDAO.findOne(reportFormTypeId));
-		newReportForm.setFormId(formId);
+		newReportForm.setFormId(this.generateFormId());
 		newReportForm.setLandUser(landUser);
 		newReportForm.setOriginalLandUser(originalLandUser);
 		newReportForm.setLandLocation(landLocation);
-System.out.println("save landArea as," + landArea.toString());
 		newReportForm.setLandArea(landArea);
 		newReportForm.setLandAreaMeasure(SquareMeasure.valueOf(landAreaMeasure));
 		newReportForm.setLandUse(landUse);
@@ -208,7 +209,7 @@ System.out.println("save landArea as," + landArea.toString());
 
 	@Transactional
 	public ReportForm reCreateReportForm(String oldId, String reportFormTypeId,
-			String title, String formId, String landUser,
+			String title, String oldFormId, String landUser,
 			String originalLandUser, String landLocation, BigDecimal landArea, 
 			String landAreaMeasure, String landUse, String originalLandUse, String matter,
 			String matterDetail, String policyBasis, String comment,
@@ -221,7 +222,7 @@ System.out.println("save landArea as," + landArea.toString());
 		ReportForm newReportForm = new ReportForm();
 		newReportForm.setTitle(title);
 		newReportForm.setReportFormType(reportFormTypeDAO.findOne(reportFormTypeId));
-		newReportForm.setFormId(formId);
+		newReportForm.setFormId(this.generateFormId(oldFormId));
 		newReportForm.setLandUser(landUser);
 		newReportForm.setOriginalLandUser(originalLandUser);
 		newReportForm.setLandLocation(landLocation);

@@ -43,9 +43,9 @@ CREATE TABLE Report_Form_Type
 CREATE TABLE Report_Form
 (
 	  id VARCHAR (36) NOT NULL PRIMARY KEY,
-	  form_type_id VARCHAR (36) NOT NULL UNIQUE,
+	  form_type_id VARCHAR (36) NOT NULL,
 	  title VARCHAR (20) NOT NULL,
-	  form_id VARCHAR (15) NOT NULL,
+	  form_id VARCHAR (15) NOT NULL UNIQUE,
 	  send_time TIMESTAMP,
 	  land_user VARCHAR (30),
 	  original_land_user VARCHAR (30),

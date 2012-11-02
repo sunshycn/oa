@@ -60,8 +60,6 @@ public class ReportFormController {
 		ModelAndView mav = new ModelAndView("addReportForm");
 		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
 		mav.addObject("reportFormTypeList", reportFormTypeList);
-		String formId = reportFormManager.generateFormId();
-		mav.addObject("formId", formId);
 		
 		List<ReportFormTitle> reportFormTitleList = reportFormTitleManager.findAll();
 		mav.addObject("reportFormTitleList", reportFormTitleList);
@@ -77,7 +75,7 @@ public class ReportFormController {
 		if(title.trim().equals("")){
 			title = null;
 		}
-		String formId = request.getParameter("formId");
+		
 		String landUser = request.getParameter("landUser");
 		String originalLandUser = request.getParameter("originalLandUser");
 		String landLocation = request.getParameter("landLocation");
@@ -94,7 +92,7 @@ public class ReportFormController {
 		String tabulator = request.getParameter("tabulator");
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
-	    ReportForm newReportForm = reportFormManager.saveReportForm(null, reportFormTypeId, title, formId,
+	    ReportForm newReportForm = reportFormManager.saveReportForm(null, reportFormTypeId, title, null,
 				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
 				responsiblePerson,auditor,tabulator, currentUser.getId());
@@ -252,8 +250,6 @@ public class ReportFormController {
 		ReportForm selectedReportForm =reportFormManager.findOne(id);
 		ModelAndView mav = new ModelAndView("reCreateReportForm");
 		mav.addObject("selectedReportForm", selectedReportForm);
-		String newFormId = reportFormManager.generateFormId(selectedReportForm.getFormId());
-		mav.addObject("newFormId", newFormId);
 		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
 		mav.addObject("reportFormTypeList", reportFormTypeList);
 		
@@ -264,12 +260,12 @@ public class ReportFormController {
 	}
 	
 	@RequestMapping(value="/reCreate",method=RequestMethod.POST)
-	public String reCreate(HttpServletRequest request){
+	public ModelAndView reCreate(HttpServletRequest request){
 		
 		String oldId = request.getParameter("oldId");
 		String reportFormTypeId = request.getParameter("reportFormTypeId");
 		String title = request.getParameter("title");
-		String formId = request.getParameter("formId");
+		String oldFormId = request.getParameter("oldFormId");
 		String landUser = request.getParameter("landUser");
 		String originalLandUser = request.getParameter("originalLandUser");
 		String landLocation = request.getParameter("landLocation");
@@ -286,12 +282,14 @@ public class ReportFormController {
 		String tabulator = request.getParameter("tabulator");
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
-		reportFormManager.reCreateReportForm(oldId, reportFormTypeId, title, formId,
+		ReportForm newReportForm = reportFormManager.reCreateReportForm(oldId, reportFormTypeId, title, oldFormId,
 				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
 				responsiblePerson,auditor,tabulator,currentUser.getId() );
 		
-		return "redirect:/reportForm";
+		ModelAndView mav = new ModelAndView("viewReportForm");
+		mav.addObject("reportForm", newReportForm);
+		return mav;
 	}
 	
 	@RequestMapping(value="/printReportForm/{id}",method=RequestMethod.POST)
