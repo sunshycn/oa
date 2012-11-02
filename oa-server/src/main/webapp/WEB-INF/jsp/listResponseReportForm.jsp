@@ -13,7 +13,6 @@
 		<c:when test="${reportFormStatusLink =='sentToLeader2ReportForm'}">需要主要领导批复的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToOfficeReportForm'}">发送到办公室的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='passedReportForm'}">发送回报审单位的报审表</c:when>
-		<c:when test="${reportFormStatusLink =='deniedReportForm'}">被否决的报审表</c:when>
 		<c:otherwise>?</c:otherwise>
 	</c:choose>
 </title>
@@ -28,7 +27,6 @@
 			<c:when test="${reportFormStatusLink =='sentToLeader2ReportForm'}">需要主要领导批复的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToOfficeReportForm'}">发送到办公室的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='passedReportForm'}">发送回报审单位的报审表</c:when>
-			<c:when test="${reportFormStatusLink =='deniedReportForm'}">被否决的报审表</c:when>
 			<c:otherwise>?</c:otherwise>
 		</c:choose>
 	</h2>
@@ -61,9 +59,6 @@
 						</c:when>
 						<c:when test="${reportFormStatusLink =='passedReportForm'}">
 							<td><form action="${contextPath}/reportForm/printReportForm/${reportForm.id}" method="POST"><input type="submit" value="打印"></input></form></td>
-						</c:when>
-						<c:when test="${reportFormStatusLink =='deniedReportForm'}">
-						 	<td><form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="submit" value="重新生成表单"></input></form></td>
 						</c:when>
 						<c:otherwise>?</c:otherwise>
 					</c:choose>				

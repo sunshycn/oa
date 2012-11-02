@@ -172,8 +172,6 @@ public class ReportFormController {
 			reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,currentUser.getId());
 			List<ReportForm> reportFormListWhichCurrentReceiverIdIsNull = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,null);
 			reportFormList.addAll(reportFormListWhichCurrentReceiverIdIsNull);
-		}else if(reportFormStatusLink.equals("deniedReportForm")){
-			reportFormList = reportFormManager.findReportFormByStatusAndCreatorId(reportFormStatusLink, currentUser.getId());
 		}else if(reportFormStatusLink.equals("sentToOrgUnitsReportForm")){
 			// need to be optimized, use one HQL instead of looping
 			List<ReportForm> allReportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
@@ -185,7 +183,7 @@ public class ReportFormController {
 					reportFormList.add(reportForm);
 				}
 			}
-		}else{
+		}else{ // all normal user share all report  
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
 		// check if there are reportForms which is urgent
@@ -290,6 +288,7 @@ public class ReportFormController {
 		ModelAndView mav = new ModelAndView("viewReportForm");
 		mav.addObject("reportForm", newReportForm);
 		return mav;
+
 	}
 	
 	@RequestMapping(value="/printReportForm/{id}",method=RequestMethod.POST)

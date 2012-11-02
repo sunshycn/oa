@@ -36,25 +36,20 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 
 	@Transactional
 	public Feedback add(String reportFormId, String content, String signature,
-			String orgUnitId, String owner, User currentUser, boolean agree, String currentReceiverId, String leader2Id) {
+			String orgUnitId, String owner, User currentUser, String currentReceiverId, String leader2Id) {
 		Feedback feedback = new Feedback();
 		feedback.setContent(content);
 		feedback.setSignature(signature);
 		feedback.setFeedbackTime(new Timestamp(System.currentTimeMillis()));
 		feedback.setReportFormId(reportFormId);
-		feedback.setAgree(agree);
 		ReportForm reportForm = reportFormDAO.findOne(reportFormId);
 		
 		if(currentUser.getPrivilege() == Privilege.DEPARTMENT && null != orgUnitId){
 			feedback.setOwner(currentUser.getOrgUnit().getName());
 			feedback.setResponseOrgUnitId(currentUser.getOrgUnit().getId());
 			Feedback savedFeedback= this.saveAndFlush(feedback);;
-			if(!agree){
-				reportForm.setStatus(ReportFormStatus.DENIED);
-			}else{
-				if(checkIfAllRequiredOrgUnitsSendPositiveFeedback(reportForm)){
-					reportForm.setStatus(ReportFormStatus.GOT_REPLY_FROM_UNITS);
-				}
+			if(checkIfAllRequiredOrgUnitsSendPositiveFeedback(reportForm)){
+				reportForm.setStatus(ReportFormStatus.GOT_REPLY_FROM_UNITS);
 			}
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
@@ -62,32 +57,22 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		}else if(currentUser.getPrivilege() == Privilege.LEADER1 && null != currentReceiverId && null != leader2Id){
 			feedback.setOwner(Privilege.LEADER1.toString());
 			Feedback savedFeedback = this.save(feedback);
-			if(!agree){
-				reportForm.setStatus(ReportFormStatus.DENIED);
-			}else{
-				if(leader2Id.equals("")){
-					leader2Id = null;
-				}
-				reportForm.setCurrentReceiverId(leader2Id);
-				reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER2);
+			if(leader2Id.equals("")){
+				leader2Id = null;
 			}
+			reportForm.setCurrentReceiverId(leader2Id);
+			reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER2);
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
 			
 		}else if(currentUser.getPrivilege() == Privilege.LEADER2 && null != currentReceiverId){
 			feedback.setOwner(Privilege.LEADER2.toString());
 			Feedback savedFeedback = this.save(feedback);
-			if(!agree){
-				reportForm.setStatus(ReportFormStatus.DENIED);
-			}else{
-				reportForm.setStatus(ReportFormStatus.SENT_TO_OFFICE);
-			}
-					
+			reportForm.setStatus(ReportFormStatus.SENT_TO_OFFICE);
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
 		}else if(currentUser.getPrivilege() == Privilege.OFFICE){
 			feedback.setOwner(Privilege.OFFICE.toString());
-			feedback.setAgree(true);
 			Feedback savedFeedback = this.save(feedback);	
 			reportForm.setStatus(ReportFormStatus.PASSED);
 			

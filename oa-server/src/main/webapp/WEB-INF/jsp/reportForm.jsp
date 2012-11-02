@@ -14,7 +14,6 @@
 		<a href="${contextPath}/reportForm/list/notSendReportForm">处理未发送报审表</a><br/>
 		<a href="${contextPath}/reportForm/list/gotReplyFromUnitsReportForm">可发送给分管领导的报审表</a><br/>
 		<a href="${contextPath}/reportForm/list/passedReportForm">发送回报审单位的报审表</a><br/>
-		<a href="${contextPath}/reportForm/list/deniedReportForm">被否决的报审表</a><br/>
 	</c:if>
 	<c:if test="${currentUser.privilege == 'DEPARTMENT'}">
 		<a href="${contextPath}/reportForm/list/sentToOrgUnitsReportForm">待科室回复报审表</a><br/>

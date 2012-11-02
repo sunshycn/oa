@@ -17,16 +17,13 @@ public class FeedbackController {
 	@Resource
 	private FeedbackManager feedbackManager;
 	
-	@Resource
-	private ReportFormManager reportFormManager;
-	
 	@RequestMapping(value="add", method=RequestMethod.POST)
 	public String add(HttpServletRequest request){
 		String reportFormId = request.getParameter("reportFormId");
 		String content = request.getParameter("content");
 		String signature = request.getParameter("signature");
 		String owner = request.getParameter("owner");
-		boolean agree = Boolean.parseBoolean(request.getParameter("agree"));
+		
 		
 		String orgUnitId = request.getParameter("orgUnitId");
 		String currentReceiverId = request.getParameter("currentReceiverId");
@@ -34,7 +31,7 @@ public class FeedbackController {
 		
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
-		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser,agree, currentReceiverId, leader2Id);
+		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser, currentReceiverId, leader2Id);
 		
 		return "redirect:/reportForm";
 	}

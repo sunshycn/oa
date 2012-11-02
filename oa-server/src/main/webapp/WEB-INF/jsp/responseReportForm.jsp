@@ -21,6 +21,7 @@
 			<tr><td>用地面积：${selectedReportForm.landArea} 
 			<c:choose>
 				<c:when test="${reportForm.landAreaMeasure == 'MU'}">亩</c:when>
+				<c:when test="${printedReportForm.landAreaMeasure == 'SQUARE_METER'}">平方米</c:when>
 				<c:when test="${reportForm.landAreaMeasure == 'HECTARE'}">公顷</c:when>
 				<c:otherwise>平方公里</c:otherwise>
 			</c:choose>
@@ -40,7 +41,9 @@
 			<table>
 				<tr><td><input type="hidden" name="reportFormId" value="${selectedReportForm.id}"></td></tr>
 				<tr><td>回复意见：<textarea name="content" rows="5" cols="50"></textarea></td></tr>
+				<c:if test="${responseType !='SENT_TO_OFFICE'}">
 				<tr><td>签名：<input name="signature" type="text" maxlength="6" ></input></td></tr>
+				</c:if>
 				<tr><td>
 					<c:choose>
 						<c:when test="${responseType =='SENT_TO_ORG_UNITS'}">
@@ -58,9 +61,6 @@
 					<c:otherwise>?</c:otherwise>
 					</c:choose>
 				</td></tr>
-				<c:if test="${responseType !='SENT_TO_OFFICE'}">
-					<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
-				</c:if>		
 				<tr><td><input type="submit" value="回复" /></td></tr>
 			</table>
 		</form>
