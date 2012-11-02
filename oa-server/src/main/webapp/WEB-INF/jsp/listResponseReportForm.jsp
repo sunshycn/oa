@@ -8,7 +8,7 @@
 	<c:choose>
 		<c:when test="${reportFormStatusLink =='notSendReportForm'}">未发送报审单</c:when>
 		<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">待回复的报审单</c:when>
-		<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">可发送给分管领导的报审表</c:when>
+		<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">各科室回复完毕的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToLeader1ReportForm'}">需要分管领导批复的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToLeader2ReportForm'}">需要主要领导批复的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToOfficeReportForm'}">发送到办公室的报审表</c:when>
@@ -22,7 +22,7 @@
 		<c:choose>
 			<c:when test="${reportFormStatusLink =='notSendReportForm'}">未发送报审单</c:when>
 			<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">待回复的报审单</c:when>
-			<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">可发送给分管领导的报审表</c:when>
+			<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">各科室回复完毕的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToLeader1ReportForm'}">需要分管领导批复的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToLeader2ReportForm'}">需要主要领导批复的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToOfficeReportForm'}">发送到办公室的报审表</c:when>
@@ -44,7 +44,6 @@
 			<tr>
 				<td>${reportForm.formId}</td>
 				<td>${reportForm.title}</td>
-				<td>
 					<c:choose>
 						<c:when test="${reportFormStatusLink =='notSendReportForm'}">
 							<td><form action="${contextPath}/reportForm/sendToOrgUnits/${reportForm.id}" method="POST"><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form></td>
@@ -54,15 +53,13 @@
 							<td><form action="${contextPath}/reportForm/responseReportForm/${reportForm.id}" method="POST"><input type="submit" value="回复"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">
-							<td><form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST"><select name="leader1Id"><option></option><c:forEach var="leader1" items="${leader1List}"><option value="${leader1.id}">${leader1.username}</option></c:forEach></select><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form></td>
-							<td><form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="submit" value="重新生成表单"></input></form></td>
+							<td><form action="${contextPath}/reportForm/reviewReportForm/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='passedReportForm'}">
 							<td><form action="${contextPath}/reportForm/printReportForm/${reportForm.id}" method="POST"><input type="submit" value="打印"></input></form></td>
 						</c:when>
 						<c:otherwise>?</c:otherwise>
 					</c:choose>				
-				</td>
 			</tr>
 		</c:forEach>
 		</tbody>

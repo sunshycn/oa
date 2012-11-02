@@ -206,9 +206,6 @@ public class ReportFormController {
 		
 		mav.addObject("reportFormList", reportFormList);
 		mav.addObject("reportFormStatusLink", reportFormStatusLink);
-		if(reportFormStatusLink.equals("gotReplyFromUnitsReportForm")){
-			mav.addObject("leader1List", userManager.findUserByPrivilege(Privilege.LEADER1));
-		}
 		
 		return mav;
 	}
@@ -326,9 +323,24 @@ public class ReportFormController {
 	
 	@RequestMapping(value="/view/{id}",method=RequestMethod.POST)
 	public ModelAndView view(@PathVariable String id){
+		
+		return viewReportFormMAV(id);
+	}
+	
+	@RequestMapping(value="/reviewReportForm/{id}",method=RequestMethod.POST)
+	public ModelAndView reviewReportForm(@PathVariable String id){
+		ModelAndView mav = viewReportFormMAV(id);
+		mav.addObject("status", "review");
+		mav.addObject("leader1List", userManager.findUserByPrivilege(Privilege.LEADER1));
+		return mav;
+	}
+	
+	private ModelAndView viewReportFormMAV(String id){
 		ModelAndView mav = new ModelAndView("viewReportForm");
 		ReportForm selectedReportForm = reportFormManager.findOne(id);
 		mav.addObject("reportForm", selectedReportForm);
+		List<Feedback> feedbackList = feedbackManager.findFeedbackByReportFormId(id);
+		mav.addObject("feedbackList",feedbackList);
 		return mav;
 	}
 

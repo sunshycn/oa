@@ -12,7 +12,7 @@
 	<c:if test="${currentUser.privilege == 'NORMAL'}">
 		<a href="${contextPath}/reportForm/addReportForm">新建报审表</a><br/>
 		<a href="${contextPath}/reportForm/list/notSendReportForm">处理未发送报审表</a><br/>
-		<a href="${contextPath}/reportForm/list/gotReplyFromUnitsReportForm">可发送给分管领导的报审表</a><br/>
+		<a href="${contextPath}/reportForm/list/gotReplyFromUnitsReportForm">各科室回复完毕的报审表</a><br/>
 		<a href="${contextPath}/reportForm/list/passedReportForm">发送回报审单位的报审表</a><br/>
 	</c:if>
 	<c:if test="${currentUser.privilege == 'DEPARTMENT'}">

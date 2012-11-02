@@ -33,7 +33,32 @@
 	单位主要负责人：${reportForm.responsiblePerson}<br/>
 	审核人：${reportForm.auditor}<br/>
 	制表人：${reportForm.tabulator}<br/>
-	
+	<br/>
+	当前回复：<br/>
+	<table> 
+		<thead>
+		<tr>
+			<td>回复部门（人）</td>
+			<td>日期</td>
+			<td>签名</td>
+			<td>回复内容</td>
+		</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="feedback" items="${feedbackList}">	
+			<tr>
+				<td>${feedback.owner}</td>
+				<td>${feedback.feedbackTime}</td>
+				<td>${feedback.signature}</td>
+				<td>${feedback.content}</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<c:if test="${status == 'review'}">
+		<form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST">选择分管领导：<select name="leader1Id"><option></option><c:forEach var="leader1" items="${leader1List}"><option value="${leader1.id}">${leader1.username}</option></c:forEach></select><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form>
+		<form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="submit" value="重新生成报审表"></input></form>
+	</c:if>
 	<a href="${contextPath}/reportForm">返回报审表管理</a><br>
 
 </body>
