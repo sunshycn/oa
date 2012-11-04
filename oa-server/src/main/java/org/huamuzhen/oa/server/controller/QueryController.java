@@ -32,6 +32,13 @@ public class QueryController {
 		if( null != param1 && null != param2 && null != param3 && null != value1 && null != value2 && null != value3 && null != status){
 			List<ReportForm> reportFormList = queryManager.queryForm(param1,value1,param2,value2,param3,value3,status);
 			mav.addObject("reportFormList", reportFormList);
+			mav.addObject("param1",param1);
+			mav.addObject("param2",param2);
+			mav.addObject("param3",param3);
+			mav.addObject("value1",value1);
+			mav.addObject("value2",value2);
+			mav.addObject("value3",value3);
+			mav.addObject("status", status);
 		}
 		
 		return mav;	
