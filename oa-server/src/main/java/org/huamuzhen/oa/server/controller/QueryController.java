@@ -28,8 +28,9 @@ public class QueryController {
 		String value1 = request.getParameter("value1");
 		String value2 = request.getParameter("value2");
 		String value3 = request.getParameter("value3");
-		if( null != param1 && null != param2 && null != param3 && null != value1 && null != value2 && null != value3){
-			List<ReportForm> reportFormList = queryManager.queryForm(param1,value1,param2,value2,param3,value3);
+		String status = request.getParameter("status");
+		if( null != param1 && null != param2 && null != param3 && null != value1 && null != value2 && null != value3 && null != status){
+			List<ReportForm> reportFormList = queryManager.queryForm(param1,value1,param2,value2,param3,value3,status);
 			mav.addObject("reportFormList", reportFormList);
 		}
 		

@@ -25,7 +25,7 @@ public class QueryManager extends BaseManager<ReportForm, String> {
 
 	@Transactional
 	public List<ReportForm>  queryForm(String param1, String value1, String param2,
-			String value2, String param3, String value3) {
+			String value2, String param3, String value3, String status) {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		
 		StringBuilder value1SB = new StringBuilder().append("%").append(value1)
@@ -34,10 +34,13 @@ public class QueryManager extends BaseManager<ReportForm, String> {
 				.append("%");
 		StringBuilder value3SB = new StringBuilder().append("%").append(value3)
 				.append("%");
-		Query query = em.createQuery("FROM ReportForm WHERE " + param1
-				+ " LIKE ?1 AND  " + param2
-				+ " LIKE ?2 AND  " + param3
-				+ " LIKE ?3");
+		StringBuilder querySB = new StringBuilder()
+				.append("FROM ReportForm WHERE ").append(param1)
+				.append(" LIKE ?1 AND ").append(param2).append(" LIKE ?2 AND ")
+				.append(param3).append(" LIKE ?3 ")
+				.append(generateStatusQuery(status))
+				.append(" ORDER BY createdAt DESC");
+		Query query = em.createQuery(querySB.toString());
 		query.setParameter(1, value1SB.toString());
 		query.setParameter(2, value2SB.toString());
 		query.setParameter(3, value3SB.toString());
@@ -46,6 +49,19 @@ public class QueryManager extends BaseManager<ReportForm, String> {
 		em.close();
 
 		return queryResult;
+	}
+	
+	private String generateStatusQuery(String status){
+		
+		if(status.equals("dead")){
+			return " AND status = 'DEAD' ";
+		}else if(status.equals("passed")){
+			return " AND status = 'PASSED' ";
+		}else if(status.equals("processing")){
+			return " AND status <> 'DEAD' AND status <> 'PASSED' ";
+		}else{
+			return " ";
+		}
 	}
 	
 }
