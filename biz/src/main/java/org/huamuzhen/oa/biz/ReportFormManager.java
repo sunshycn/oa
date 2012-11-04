@@ -163,18 +163,18 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
     @Transactional
 	public List<ReportForm> findReportFormByStatusAndCurrentReceiverId(String reportFormStatusLink, String currentReceiverId) {
 			
-		return reportFormDAO.findReportFormByStatusAndCurrentReceiverId(ReportFormStatusLinkToReportForm(reportFormStatusLink),currentReceiverId);
+		return reportFormDAO.findReportFormByStatusAndCurrentReceiverIdOrderByCreatedAtDesc(ReportFormStatusLinkToReportForm(reportFormStatusLink),currentReceiverId);
 	}
 	
     @Transactional
 	public List<ReportForm> findReportFormByStatusAndCreatorId(String reportFormStatusLink, String creatorId){
-		return reportFormDAO.findReportFormByStatusAndCreatorId(ReportFormStatusLinkToReportForm(reportFormStatusLink), creatorId);
+		return reportFormDAO.findReportFormByStatusAndCreatorIdOrderByCreatedAtDesc(ReportFormStatusLinkToReportForm(reportFormStatusLink), creatorId);
 	}
 	
     @Transactional
 	public List<ReportForm> findReportFormByStatus(String reportFormStatusLink) {
 
-		return reportFormDAO.findReportFormByStatus(ReportFormStatusLinkToReportForm(reportFormStatusLink));
+		return reportFormDAO.findReportFormByStatusOrderByCreatedAtDesc(ReportFormStatusLinkToReportForm(reportFormStatusLink));
 	}
 
     @Transactional

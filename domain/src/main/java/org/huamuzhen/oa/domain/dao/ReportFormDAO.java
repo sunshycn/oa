@@ -16,12 +16,12 @@ public interface ReportFormDAO extends JpaDAO<ReportForm, String> {
 	public List<String> findNewCreatedFormIdListOfToday(@Param("fuzzyQueryCondition") String fuzzyQueryCondition);
 	
 	@Transactional
-	public List<ReportForm> findReportFormByStatusAndCurrentReceiverId(ReportFormStatus status, String currentReceiverId);
+	public List<ReportForm> findReportFormByStatusAndCurrentReceiverIdOrderByCreatedAtDesc(ReportFormStatus status, String currentReceiverId);
 	
 	@Transactional
-	public List<ReportForm> findReportFormByStatus(ReportFormStatus status);
+	public List<ReportForm> findReportFormByStatusOrderByCreatedAtDesc(ReportFormStatus status);
 
 	@Transactional
-	public List<ReportForm> findReportFormByStatusAndCreatorId(ReportFormStatus status, String creatorId);
+	public List<ReportForm> findReportFormByStatusAndCreatorIdOrderByCreatedAtDesc(ReportFormStatus status, String creatorId);
 
 }
