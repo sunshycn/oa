@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>打印报审表</title>
-<style>
-
+<style type="text/css" media="screen">
 
 body,div,span,th,td,input,button,a,select {
 	padding: 0px;
@@ -19,19 +18,78 @@ p {
 	-webkit-margin-before: 0em;
 	-webkit-margin-after: 0em;
 }
-table {
-      border:1px solid #000;
-      border-width:1px 0 0 1px;
+table {      
+      border-spacing:0px;
       margin:2px 0 2px 0;
       text-align:center;
-      border-collapse:collapse;
-      table-layout: fixed;      
+      border-collapse:separate;
+      table-layout: fixed;  
+      empty-cells: show;  
+}
+td,th {      
+      padding:3px;
+      font-size:12px;
+      border:1px solid #000;
+      border-width:1px 1px 1px 1px;
+      margin:2px 0 2px 0;
+      text-align:left;
+      word-wrap:break-word;
+      word-break:break-all; 
+      page-break-inside:avoid;
+}
+th {
+      text-align:center;
+      font-weight:600;
+      background-color:#F4F4F4;
+}
+td {
+     border-width:0px 1px 1px 0px;
+}
+
+td:first-child{
+	border-left:1px solid black;
+	
+}
+
+tr:first-child td{
+	border-top:1px solid black;
+}
+
+.titlefont {
+	font-size:24px;
+}
+.fangsong {
+	font-family:FangSong_GB2312;
+	font-size:15px;
+}
+</style>
+<style media="print" type="text/css">
+body,div,span,th,td,input,button,a,select {
+	padding: 0px;
+	color: #333333;
+	font-family: Calibri, Verdana, Arial;
+	font-size: 16px;
+}
+p {
+	margin: 0;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+}
+table {
+     
+      border-spacing:0px;
+      margin:2px 0 2px 0;
+      text-align:center;
+      border-collapse:separate;
+      table-layout: fixed;  
+      empty-cells: show;    
+      
 }
 td,th {
       padding:3px;
       font-size:12px;
       border:1px solid #000;
-      border-width:0 1px 1px 0;
+      border-width:1px 1px 1px 1px;
       margin:2px 0 2px 0;
       text-align:left;
       word-wrap:break-word;
@@ -50,7 +108,27 @@ th {
 	font-family:FangSong_GB2312;
 	font-size:15px;
 }
+
+
+td{
+     border-width:0px 1px 1px 0px;
+}
+
+td:first-child{
+	border-left:1px solid black;
+	
+}
+
+tr:first-child td{
+	border-top:1px solid black;
+}
+
+tr.pagebreak td{
+	border-top:1px solid black;
+	
+}
 </style>
+
 </head>
 <body>
 	
@@ -120,7 +198,7 @@ th {
 	  </td>
 	  <td width=48 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.matter}</span></p>
-	  </td>
+	  </td>	   
 	  <td width=192 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.matterDetail}</span></p>
 	  </td>
@@ -129,7 +207,8 @@ th {
 	  </td>
 	  <td width=130 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.comment}</span></p>
-	  </td>
+	  </td><!-- <td></td><td colspan=2></td><td></td> -->
+	   
 	 </tr>
 	 <tr>
 	  <td width=799 colspan=11 valign=top>
@@ -157,7 +236,7 @@ th {
 	 </tr>
 	 </c:forEach>
 
-	   <tr>
+	  <tr>
 	  <td width=102 colspan=2 valign=top>
 	  <p ><span >市局分管领导</span></p>
 	  </td>
@@ -192,6 +271,36 @@ th {
 	 </tr>
 	</table>
 	</div>	
-	<!-- <input type=button value="打  印 " onclick="window.print()">	 -->
+	<script>
+	$(
+		function(){
+			var hasFirst = false;
+			// the height of a page to print, it is not a constant value
+			var pageHeight = 670;
+			var previous = 0;
+			$("tr").each(
+				function(){
+					
+					var trHeight = $(this).offset().top +$(this).height();
+					var trTop = $(this).offset().top;
+					if( trTop <= pageHeight && trHeight > pageHeight && !hasFirst){
+						hasFirst = true;
+						$(this).addClass("pagebreak");
+						previous = trTop;
+					}
+					
+					if(previous > 0 ){
+						var all = pageHeight + previous;
+						if( trTop <= all && trHeight > all ){
+							$(this).addClass("pagebreak");
+							previous = trTop;
+						}
+					}
+					
+				}
+			);
+		}
+	);
+</script>
 </body>
 </html>
