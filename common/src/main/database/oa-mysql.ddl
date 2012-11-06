@@ -98,7 +98,7 @@ CREATE TABLE Report_Form_Title
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
 	name VARCHAR (20) NOT NULL UNIQUE,
 	created_at TIMESTAMP,
-    modified_at TIMESTAMP,
+    modified_at TIMESTAMP
 )default charset=utf8;
 
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('ce7447d8dd5a4f8e980d7dcd870e7b06', 'admin', 'admin', '90d84b5b96d0e1f1bc1a699d055f53587b52c474', '4371', 'ADMIN', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
