@@ -163,10 +163,10 @@ tr.pagebreak td{
 	  <td width=192 valign=top>
 	  <p ><span >报审事项及说明</span></p>
 	  </td>
-	  <td width=93 colspan=2 valign=top>
+	  <td width=106 colspan=2 valign=top>
 	  <p ><b><span >办理依据</span></b></p>
 	  </td>
-	  <td width=130 valign=top>
+	  <td width=117 valign=top>
 	  <p ><b><span >报审单位意见</span></b></p>
 	  </td>
 	 </tr>
@@ -202,10 +202,10 @@ tr.pagebreak td{
 	  <td width=192 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.matterDetail}</span></p>
 	  </td>
-	  <td width=93 colspan=2 valign=top>
+	  <td width=106 colspan=2 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.policyBasis}</span></p>
 	  </td>
-	  <td width=130 valign=top>
+	  <td width=117 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.comment}</span></p>
 	  </td><!-- <td></td><td colspan=2></td><td></td> -->
 	   
