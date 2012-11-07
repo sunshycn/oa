@@ -11,7 +11,7 @@ body,div,span,th,td,input,button,a,select {
 	padding: 0px;
 	color: #333333;
 	font-family: Calibri, Verdana, Arial;
-	font-size: 16px;
+	font-size: 14px;
 }
 p {
 	margin: 0;
@@ -60,7 +60,11 @@ tr:first-child td{
 }
 .fangsong {
 	font-family:FangSong_GB2312;
-	font-size:15px;
+	font-size:13px;
+}
+.fangsongSmall {
+	font-family:FangSong_GB2312;
+	font-size:12px;
 }
 </style>
 <style media="print" type="text/css">
@@ -68,7 +72,7 @@ body,div,span,th,td,input,button,a,select {
 	padding: 0px;
 	color: #333333;
 	font-family: Calibri, Verdana, Arial;
-	font-size: 16px;
+	font-size: 14px;
 }
 p {
 	margin: 0;
@@ -106,9 +110,12 @@ th {
 }
 .fangsong {
 	font-family:FangSong_GB2312;
-	font-size:15px;
+	font-size:13px;
 }
-
+.fangsongSmall {
+	font-family:FangSong_GB2312;
+	font-size:12px;
+}
 
 td{
      border-width:0px 1px 1px 0px;
@@ -133,54 +140,54 @@ tr.pagebreak td{
 <body>
 	
 	<p align=center ><span class="titlefont">${printedReportForm.reportFormType.name}</span></p>
-	<p align=center style="margin:10px 0 10px 0"><span>报审事项：${printedReportForm.matter}</span>&nbsp;
+	<p align=center style="margin:10px 0 10px 0"><span>报审单名称：${printedReportForm.title}</span>&nbsp;
 	<span>编号：${printedReportForm.formId}</span>&nbsp;&nbsp;&nbsp; <span>日期：${printedReportForm.sendTime}</span></p>
 	
 	<div align=center>	
 	<table>
 	 <tr>
-	  <td width=48 valign=top >
+	  <td width=45 valign=top >
 	  <p><span>现土地使用者</span></p>
 	  </td>
-	  <td width=48 valign=top >
+	  <td width=45 valign=top >
 	  <p><span >原土地使用者</span></p>
 	  </td>
-	  <td width=64 valign=top>
+	  <td width=45 valign=top>
 	  <p><span>土地座落</span></p>
 	  </td>
-	  <td width=64 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span >用地面积</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span >原用途</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span >现用途</span></p>
 	  </td>
-	  <td width=64 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span >报审事项</span></p>
 	  </td>
-	  <td width=192 valign=top>
+	  <td width=280 valign=top>
 	  <p ><span >报审事项及说明</span></p>
 	  </td>
-	  <td width=106 colspan=2 valign=top>
+	  <td width=90 colspan=2 valign=top>
 	  <p ><b><span >办理依据</span></b></p>
 	  </td>
-	  <td width=117 valign=top>
+	  <td width=114 valign=top>
 	  <p ><b><span >报审单位意见</span></b></p>
 	  </td>
 	 </tr>
 	 <tr>
-	  <td width=48 valign=top >
+	  <td width=45 valign=top >
 	  <p ><span class="fangsong">${printedReportForm.landUser}</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.originalLandUser}</span></p>
 	  </td>
-	  <td width=60 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.landLocation}</span></p>
 	  </td>
-	  <td width=64 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.landArea}
 	  <c:choose>
 				<c:when test="${printedReportForm.landAreaMeasure == 'MU'}">亩</c:when>
@@ -190,24 +197,24 @@ tr.pagebreak td{
 	</c:choose>
 	  </span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.originalLandUse}</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.landUse}</span></p>
 	  </td>
-	  <td width=48 valign=top>
+	  <td width=45 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.matter}</span></p>
 	  </td>	   
-	  <td width=192 valign=top>
-	  <p ><span class="fangsong">${printedReportForm.matterDetail}</span></p>
+	  <td width=280 valign=top>
+	  <p ><span class="fangsongSmall">${printedReportForm.matterDetail}</span></p>
 	  </td>
-	  <td width=106 colspan=2 valign=top>
+	  <td width=90 colspan=2 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.policyBasis}</span></p>
 	  </td>
-	  <td width=117 valign=top>
+	  <td width=114 valign=top>
 	  <p ><span class="fangsong">${printedReportForm.comment}</span></p>
-	  </td><!-- <td></td><td colspan=2></td><td></td> -->
+	  </td>
 	   
 	 </tr>
 	 <tr>
@@ -276,7 +283,7 @@ tr.pagebreak td{
 		function(){
 			var hasFirst = false;
 			// the height of a page to print, it is not a constant value
-			var pageHeight = 670;
+			var pageHeight = 671;
 			var previous = 0;
 			$("tr").each(
 				function(){
