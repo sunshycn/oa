@@ -7,10 +7,10 @@
     <title>新建报审表</title>
     <script type="text/javascript">
         $(document).ready(function(){
-            var reportTypeAuto = $("input[name='title']");
+            var reportTypeAuto = $("input[name='matter']");
             var nameList = [];
-            <c:forEach var="repTitle" items="${reportFormTitleList}">
-                nameList.push("${repTitle.name}");
+            <c:forEach var="repMatter" items="${reportFormMatterList}">
+                nameList.push("${repMatter.name}");
             </c:forEach>
             reportTypeAuto.autocomplete({
                 source: nameList,
@@ -29,7 +29,10 @@
             $("form").submit(function() {
                 var errors = [];
                 if ($.trim($("input[name='title']").val()).length == 0) {
-                    errors.push("请填写报审名称");
+                    errors.push("请填写报审单名称");
+                }
+                if ($.trim($("input[name='matter']").val()).length == 0) {
+                    errors.push("请填写报审事项");
                 }
                 if (!$.trim($("input[name='landArea']").val()).match(regNum)) {
                     errors.push("用地面积必须为数字，且不能为空");
@@ -49,8 +52,7 @@
 	<form id="addForm" action="${contextPath}/reportForm/add" method="post">
 		<table>
 			<tr><td>报审表类型：<select id="reportFormTypeId" name="reportFormTypeId"><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>			
-			<tr><td>报审名称： <input name="title" type="text" maxlength="10"></input><td/></tr>
-			<%-- <tr><td>编号：${formId}<input name="formId" type="hidden" value="${formId}" ></td></tr> --%>
+			<tr><td>报审单名称： <input name="title" type="text" maxlength="20"></input><td/></tr>
 			<tr><td>用地（受让）单位： <input name="landUser" type="text" maxlength="30"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"></input></td></tr>
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="40"></input></td></tr>

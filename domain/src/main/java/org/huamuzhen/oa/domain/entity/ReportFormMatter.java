@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="Report_Form_Title")
-public class ReportFormTitle {
+@Table(name="Report_Form_Matter")
+public class ReportFormMatter {
 	
 	
 	@Id

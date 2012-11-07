@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <link href="${cssRootPath}/app.css" rel="stylesheet" type="text/css">
-<title>编辑报审表名称</title>
+<title>添加报审事项</title>
  <script type="text/javascript">
         $(document).ready(function(){
         	$("form").submit(function() {
                 var errors = [];
-                if ($.trim($("input[name='username']").val()).length == 0) {
+                if ($.trim($("input[name='name']").val()).length == 0) {
                     errors.push("请填写名称");
                 }
 
@@ -21,18 +21,18 @@
             });
         });
 </script>
+
 </head>
 <body>
-	<h2>编辑报审表名称</h2>
+	<h2>添加报审事项</h2>
 	
-	<form action="${contextPath}/reportFormTitle/edit" method="post">
+	<form action="${contextPath}/reportFormMatter/add" method="post">
 		<table>
-			<tr><td>ID: ${selectedReportFormTitle.id}<input type="hidden" name="id" value="${selectedReportFormTitle.id}"></td></tr>
-			<tr><td>名称： <input type="text" name="name" maxlength="20" value="${selectedReportFormTitle.name}"/></td></tr>
+			<tr><td>名称： <input type="text" name="name" maxlength="20"/></td></tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>
 	</form>
 	
-	<a href="${contextPath}/reportFormTitle">返回报审表名称管理</a>
+	<a href="${contextPath}/reportFormMatter">返回报审事项管理</a>
 </body>
 </html>

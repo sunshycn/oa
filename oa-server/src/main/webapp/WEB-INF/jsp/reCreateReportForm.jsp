@@ -7,10 +7,10 @@
         <title>重建报审表</title>
          <script type="text/javascript">
             $(document).ready(function(){
-                var reportTypeAuto = $("input[name='title']");
+                var reportTypeAuto = $("input[name='matter']");
                 var nameList = [];
-                <c:forEach var="repTitle" items="${reportFormTitleList}">
-                    nameList.push("${repTitle.name}");
+                <c:forEach var="repMatter" items="${reportFormMatterList}">
+                    nameList.push("${repMatter.name}");
                 </c:forEach>
                 reportTypeAuto.autocomplete({
                     source: nameList,
@@ -29,7 +29,10 @@
                 $("form").submit(function() {
                     var errors = [];
                     if ($.trim($("input[name='title']").val()).length == 0) {
-                        errors.push("请填写报审名称");
+                        errors.push("请填写报审单名称");
+                    }
+                    if ($.trim($("input[name='matter']").val()).length == 0) {
+                        errors.push("请填写报审事项");
                     }
                     if (!$.trim($("input[name='landArea']").val()).match(regNum)) {
                         errors.push("用地面积必须为数字，且不能为空");
@@ -50,9 +53,8 @@
 		<table>
 			<tr><td>原ID: ${selectedReportForm.id}<input type="hidden" name="oldId" value="${selectedReportForm.id}" ></input></td></tr>
 			<tr><td>报审表类型：<select name="reportFormTypeId"><option value="${selectedReportForm.reportFormType.id}">${selectedReportForm.reportFormType.name}</option><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
-			<tr><td>报审名称： <input name="title" type="text" maxlength="10" value="${selectedReportForm.title}" ></input></td></tr>
+			<tr><td>报审单名称： <input name="title" type="text" maxlength="20" value="${selectedReportForm.title}" ></input></td></tr>
 			<tr><td>原编号：${selectedReportForm.formId}<input name="oldFormId" type="hidden" value="${selectedReportForm.formId}" ></td></tr>
-			<%-- <tr><td>编号：${newFormId}<input name="formId" type="hidden" value="${newFormId}" ></td></tr> --%>
 			<tr><td>用地（受让）单位：： <input name="landUser" type="text" maxlength="30" value="${selectedReportForm.landUser}"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"  value="${selectedReportForm.originalLandUser}"></input></td></tr>
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="40" value="${selectedReportForm.landLocation}"></input></td></tr>
@@ -61,7 +63,7 @@
 			<select name="landAreaMeasure">
 			 <c:choose>
 			 	<c:when test="${selectReportForm.landAreaMeasure == 'MU'}"><option value="MU">亩</option></c:when>
-			 	<c:when test="${selectReportForm.landAreaMeasure == 'SQUARE_METER'}"><option value="MU">亩</option></c:when>
+			 	<c:when test="${selectReportForm.landAreaMeasure == 'SQUARE_METER'}"><option value="MU">平方米</option></c:when>
 			 	<c:when test="${selectReportForm.landAreaMeasure == 'HECTARE'}"><option value="HECTARE">公顷</option></c:when>
 			 	<c:otherwise><option value="SQUARE_KM">平方公里</option></c:otherwise>
 			 </c:choose>	

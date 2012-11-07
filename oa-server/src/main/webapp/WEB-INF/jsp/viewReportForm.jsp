@@ -11,7 +11,7 @@
  		
 	ID: ${reportForm.id}<br/>
 	报审表类型：${reportForm.reportFormType.name}<br/>
-	报审名称：${reportForm.title}<br/>
+	报审单名称：${reportForm.title}<br/>
 	编号：${reportForm.formId}<br/>
 	用地（受让）单位：${reportForm.landUser}<br/>
 	原土地使用者：${reportForm.originalLandUser}<br/>

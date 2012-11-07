@@ -87,7 +87,7 @@ CREATE TABLE Report_Form_Type_Org_Unit
 	org_unit_id VARCHAR (36) NOT NULL
 );
 
-CREATE TABLE Report_Form_Title
+CREATE TABLE Report_Form_Matter
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
 	name VARCHAR (20) NOT NULL UNIQUE,

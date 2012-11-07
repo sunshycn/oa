@@ -12,13 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import org.huamuzhen.oa.biz.FeedbackManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
-import org.huamuzhen.oa.biz.ReportFormTitleManager;
+import org.huamuzhen.oa.biz.ReportFormMatterManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.biz.UserManager;
 import org.huamuzhen.oa.domain.entity.Feedback;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportForm;
-import org.huamuzhen.oa.domain.entity.ReportFormTitle;
+import org.huamuzhen.oa.domain.entity.ReportFormMatter;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
 import org.huamuzhen.oa.domain.enumeration.Privilege;
@@ -47,7 +47,7 @@ public class ReportFormController {
 	private UserManager userManager;
 	
 	@Resource
-	private ReportFormTitleManager reportFormTitleManager;
+	private ReportFormMatterManager reportFormMatterManager;
 	
 	@RequestMapping(value = { "", "/" })
 	public String index(HttpServletRequest request){
@@ -61,8 +61,8 @@ public class ReportFormController {
 		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
 		mav.addObject("reportFormTypeList", reportFormTypeList);
 		
-		List<ReportFormTitle> reportFormTitleList = reportFormTitleManager.findAll();
-		mav.addObject("reportFormTitleList", reportFormTitleList);
+		List<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll();
+		mav.addObject("reportFormMatterList", reportFormMatterList);
 		
 		return mav;
 	}
@@ -110,8 +110,8 @@ public class ReportFormController {
 		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
 		mav.addObject("reportFormTypeList", reportFormTypeList);
 		
-		List<ReportFormTitle> reportFormTitleList = reportFormTitleManager.findAll();
-		mav.addObject("reportFormTitleList", reportFormTitleList);
+		List<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll();
+		mav.addObject("reportFormMatterList", reportFormMatterList);
 		
 		return mav;
 	}
@@ -255,8 +255,8 @@ public class ReportFormController {
 		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
 		mav.addObject("reportFormTypeList", reportFormTypeList);
 		
-		List<ReportFormTitle> reportFormTitleList = reportFormTitleManager.findAll();
-		mav.addObject("reportFormTitleList", reportFormTitleList);
+		List<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll();
+		mav.addObject("reportFormMatterList", reportFormMatterList);
 		
 		return mav;
 	}

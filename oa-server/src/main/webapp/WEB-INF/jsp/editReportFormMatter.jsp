@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="${cssRootPath}/app.css" rel="stylesheet" type="text/css">
-<title>添加报审表名称</title>
+<title>编辑报审事项</title>
  <script type="text/javascript">
         $(document).ready(function(){
         	$("form").submit(function() {
@@ -21,18 +21,18 @@
             });
         });
 </script>
-
 </head>
 <body>
-	<h2>添加报审表名称</h2>
+	<h2>编辑报审事项</h2>
 	
-	<form action="${contextPath}/reportFormTitle/add" method="post">
+	<form action="${contextPath}/reportFormMatter/edit" method="post">
 		<table>
-			<tr><td>名称： <input type="text" name="name" maxlength="20"/></td></tr>
+			<tr><td>ID: ${selectedReportFormMatter.id}<input type="hidden" name="id" value="${selectedReportFormMatter.id}"></td></tr>
+			<tr><td>名称： <input type="text" name="name" maxlength="20" value="${selectedReportFormMatter.name}"/></td></tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>
 	</form>
 	
-	<a href="${contextPath}/reportFormTitle">返回报审表名称管理</a>
+	<a href="${contextPath}/reportFormMatter">返回报审事项管理</a>
 </body>
 </html>
