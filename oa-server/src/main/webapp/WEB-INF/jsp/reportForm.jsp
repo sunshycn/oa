@@ -16,7 +16,7 @@
 		<a href="${contextPath}/reportForm/list/passedReportForm">发送回报审单位的报审表</a><br/>
 	</c:if>
 	<c:if test="${currentUser.privilege == 'DEPARTMENT'}">
-		<a href="${contextPath}/reportForm/list/sentToOrgUnitsReportForm">待科室回复报审表</a><br/>
+		<a href="${contextPath}/reportForm/list/sentToOrgUnitsReportForm">发到科室的报审单</a><br/>
 	</c:if>
 	<c:if test="${currentUser.privilege == 'LEADER1'}">
 		<a href="${contextPath}/reportForm/list/sentToLeader1ReportForm">需要分管领导批复的报审表</a><br/>

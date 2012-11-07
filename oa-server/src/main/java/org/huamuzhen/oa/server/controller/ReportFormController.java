@@ -176,16 +176,23 @@ public class ReportFormController {
 			// need to be optimized, use one HQL instead of looping
 			List<ReportForm> allReportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 			reportFormList = new ArrayList<ReportForm>();
+			List<ReportForm> responsedReportFormList = new ArrayList<ReportForm>();
 			for(ReportForm reportForm : allReportFormList){
 				if(currentUser.getOrgUnit()!=null){
 					for(OrgUnit orgUnit:reportForm.getReportFormType().getRequiredOrgUnits()){
 						if(currentUser.getOrgUnit().getName().equals(orgUnit.getName())){
-							reportFormList.add(reportForm);
-							break;
+							if(!feedbackManager.checkIfOrgUnitFeedbackIsAlreadyExists(orgUnit, reportForm.getId())){
+								reportFormList.add(reportForm);
+								break;
+							}else{
+								responsedReportFormList.add(reportForm);
+								break;
+							}
 						}
 					}
 				}
 			}
+			mav.addObject("responsedReportFormList", responsedReportFormList);
 		}else{ // all normal user share all report  
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}

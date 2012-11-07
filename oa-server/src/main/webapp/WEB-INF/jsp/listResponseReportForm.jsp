@@ -7,7 +7,7 @@
 <title>
 	<c:choose>
 		<c:when test="${reportFormStatusLink =='notSendReportForm'}">未发送报审单</c:when>
-		<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">待回复的报审单</c:when>
+		<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">发到科室的报审单</c:when>
 		<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">各科室回复完毕的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToLeader1ReportForm'}">需要分管领导批复的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToLeader2ReportForm'}">需要主要领导批复的报审表</c:when>
@@ -21,7 +21,7 @@
 	<h2>
 		<c:choose>
 			<c:when test="${reportFormStatusLink =='notSendReportForm'}">未发送报审单</c:when>
-			<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">待回复的报审单</c:when>
+			<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">发到科室的报审单</c:when>
 			<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">各科室回复完毕的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToLeader1ReportForm'}">需要分管领导批复的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToLeader2ReportForm'}">需要主要领导批复的报审表</c:when>
@@ -30,7 +30,8 @@
 			<c:otherwise>?</c:otherwise>
 		</c:choose>
 	</h2>
-	<a href="${contextPath}/reportForm">返回报审单管理</a><br>
+	<a href="${contextPath}/reportForm">返回报审单管理</a><br/>
+	待回复的报审单<br/>
 	<table border="1">
 		<thead>
 		<tr>
@@ -64,6 +65,28 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	<br/>
+	<c:if test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">
+		已回复的报审单(等待其他科室回复)：
+		<br/>
+		<table border="1">
+		<thead>
+		<tr>
+			<td>报审单编号</td>
+			<td>报审单名称</td>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach var="reportForm" items="${responsedReportFormList}">	
+			<tr>
+				<td>${reportForm.formId}</td>
+				<td>${reportForm.title}</td>
+				<td><form action="${contextPath}/reportForm/responseReportForm/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td>			
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+	</c:if>
 	<br/>
 	<c:choose>
 		<c:when test="${warningMsg =='oneDayDelay'}">
