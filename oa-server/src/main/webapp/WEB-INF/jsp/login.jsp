@@ -36,6 +36,24 @@ input{width:120px; height:18px; border:solid 1px #aca7a7; font-size:9pt;}
 	 	this.form.submit();
 		
 	}
+	function enterSubmit(e){
+		var keypressed;
+       if(window.event)
+           keyPressed = window.event.keyCode; // IE
+       else
+           keyPressed = e.which; // Firefox
+       if(keyPressed==13)
+         { 
+    	   buttonsubmit();            
+           return false;
+        }
+    }
+	function clearInfo(){
+		$("#usernameClear").val("");
+		$("#passwordClear").val("");
+		$("#usernameClear").focus();
+	}
+	
 </script>
 
 
@@ -50,14 +68,14 @@ input{width:120px; height:18px; border:solid 1px #aca7a7; font-size:9pt;}
 		 <div id="center">
 		      <div id="center_left"></div>
 			  <div id="center_middle">
-			  <form action="${contextPath}/account/login" id="loginForm" method="post">
+			  <form  onkeydown="javascript:enterSubmit(event);" action="${contextPath}/account/login" id="loginForm" method="post">
 			       <div id="user">用  户
-			        <input type="text" name="username" maxlength="20"/>
+			        <input id="usernameClear" type="text" name="username" maxlength="20"/>
 			       </div>
 				   <div id="password">密  码
-				    <input type="password" name="password" maxlength="20"/>
+				    <input id="passwordClear" type="password" name="password" maxlength="20"/>
 				   </div>
-				   <div id="btn"><a href="javascript:buttonsubmit();">登  录</a><a href="#">清  空</a></div>
+				   <div id="btn"><a href="javascript:buttonsubmit();">登  录</a><a href="javascript:clearInfo();">清  空</a></div>
 			  </form>
 			  </div>
 			  <c:if test="${not empty flag}">
