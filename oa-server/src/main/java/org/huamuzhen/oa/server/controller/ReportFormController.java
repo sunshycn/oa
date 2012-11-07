@@ -193,7 +193,13 @@ public class ReportFormController {
 				}
 			}
 			mav.addObject("responsedReportFormList", responsedReportFormList);
-		}else{ // all normal user share all report  
+		}else if(reportFormStatusLink.equals("notSendReportForm") || reportFormStatusLink.equals("gotReplyFromUnitsReportForm") || reportFormStatusLink.equals("passedReportForm")){
+			if(currentUser.getPrivilege() == Privilege.OFFICE){
+				reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
+			}else{
+				reportFormList = reportFormManager.findReportFormByStatusAndCreatorId(reportFormStatusLink, currentUser.getId());
+			}
+		}else{ 
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
 		// check if there are reportForms which is urgent
