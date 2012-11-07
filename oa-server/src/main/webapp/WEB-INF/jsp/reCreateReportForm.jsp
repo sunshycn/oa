@@ -62,9 +62,9 @@
 			用地面积： <input name="landArea" type="text" maxlength="24" value="${selectedReportForm.landArea}"></input>
 			<select name="landAreaMeasure">
 			 <c:choose>
-			 	<c:when test="${selectReportForm.landAreaMeasure == 'MU'}"><option value="MU">亩</option></c:when>
-			 	<c:when test="${selectReportForm.landAreaMeasure == 'SQUARE_METER'}"><option value="MU">平方米</option></c:when>
-			 	<c:when test="${selectReportForm.landAreaMeasure == 'HECTARE'}"><option value="HECTARE">公顷</option></c:when>
+			 	<c:when test="${selectedReportForm.landAreaMeasure == 'MU'}"><option value="MU">亩</option></c:when>
+			 	<c:when test="${selectedReportForm.landAreaMeasure == 'SQUARE_METER'}"><option value="SQUARE_METER">平方米</option></c:when>
+			 	<c:when test="${selectedReportForm.landAreaMeasure == 'HECTARE'}"><option value="HECTARE">公顷</option></c:when>
 			 	<c:otherwise><option value="SQUARE_KM">平方公里</option></c:otherwise>
 			 </c:choose>	
 			<option value="SQUARE_METER">平方米</option><option value="SQUARE_KM">平方公里</option><option value="MU">亩</option><option value="HECTARE">公顷</option></select>
