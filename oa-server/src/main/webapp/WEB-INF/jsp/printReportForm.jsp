@@ -140,7 +140,7 @@ tr.pagebreak td{
 <body>
 	
 	<p align=center ><span class="titlefont">${printedReportForm.reportFormType.name}</span></p>
-	<p align=center style="margin:10px 0 10px 0"><span>报审单名称：${printedReportForm.title}</span>&nbsp;
+	<p align=center style="margin:10px 0 10px 0"><span>报审单名称：${printedReportForm.title}</span>&nbsp;&nbsp;&nbsp;
 	<span>编号：${printedReportForm.formId}</span>&nbsp;&nbsp;&nbsp; <span>日期：${printedReportForm.sendTime}</span></p>
 	
 	<div align=center>	
