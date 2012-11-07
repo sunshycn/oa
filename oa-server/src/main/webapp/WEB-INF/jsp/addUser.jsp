@@ -30,7 +30,7 @@
 
 	<form action="${contextPath}/user/add" method="post">
 		<table>
-			<tr><td>用户名： <input type="text" name="username" maxlength="10"/></td></tr>
+			<tr><td>用户名： <input type="text" name="username" maxlength="20"/></td></tr>
 			<tr><td>密码： <input type="password" name="password" maxlength="36"/></td></tr>
 			<tr><td>单位：<select name="orgUnitId"><option></option><c:forEach var="orgUnit" items="${orgUnitList}"><option value="${orgUnit.id}">${orgUnit.name}</option></c:forEach></select></td></tr>
 			<tr><td>描述：<textarea name="description" rows="3" cols="30"></textarea></td></tr>

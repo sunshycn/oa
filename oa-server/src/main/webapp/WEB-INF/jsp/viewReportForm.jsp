@@ -71,7 +71,7 @@
 				<tr><td><input type="hidden" name="reportFormId" value="${selectedReportForm.id}"></td></tr>
 				<tr><td>回复意见：<textarea name="content" rows="5" cols="50"></textarea></td></tr>
 				<c:if test="${responseType !='SENT_TO_OFFICE'}">
-				<tr><td>签名：<input name="signature" type="text" maxlength="6" ></input></td></tr>
+				<tr><td>签名：<input name="signature" type="text" maxlength="10" ></input></td></tr>
 				</c:if>
 				<tr><td>
 					<c:choose>

@@ -27,7 +27,7 @@
 	<form action="${contextPath}/user/edit" method="post">
 		<table>
 			<tr><td>ID: ${selectedUser.id}<input type="hidden" name="id" value="${selectedUser.id}"></td></tr>
-			<tr><td>用户名： <input type="text" name="username" maxlength="10" value="${selectedUser.username}"/></td></tr>
+			<tr><td>用户名： <input type="text" name="username" maxlength="20" value="${selectedUser.username}"/></td></tr>
 			<tr><td>密码： <input type="text" name="password" maxlength="36"/>（留空则不更新密码）</td></tr>
 			<tr><td>单位：<select name="orgUnitId">
 			<c:if test="${not empty selectedUser.orgUnit}">
