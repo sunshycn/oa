@@ -1,1 +1,0 @@
-<jsp:forward page="addReportFormType.jsp"></jsp:forward>

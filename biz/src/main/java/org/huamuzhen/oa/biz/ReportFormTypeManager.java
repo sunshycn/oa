@@ -16,28 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReportFormTypeManager extends BaseManager<ReportFormType, String> {
 
 	@Resource
-	private ReportFormTypeDAO reportFormTypeDAO;
-	
-	@Resource
 	private OrgUnitDAO orgUnitDAO;
 	
 	@Resource
 	public void setDao(ReportFormTypeDAO dao) {
 		super.setDao(dao);
 	}
-
-	@Transactional
-	public ReportFormType saveReportFormType(String id, String name, String[] requiredOrgUnitIds) {
-		if(null == id){
-			return this.createNew(name,requiredOrgUnitIds);
-		}else{
-			return this.updateExisting(id,name,requiredOrgUnitIds);
-		}
-		
-	}
 	
 	@Transactional
-	private ReportFormType createNew(String name, String[] requiredOrgUnitIds){
+	public ReportFormType createNew(String name, String[] requiredOrgUnitIds){
 		ReportFormType reportFormType = new ReportFormType();
 		reportFormType.setName(name);
 		Set<OrgUnit> requiredOrgUnits = new HashSet<OrgUnit>();
@@ -49,7 +36,7 @@ public class ReportFormTypeManager extends BaseManager<ReportFormType, String> {
 	}
 	
 	@Transactional
-	private ReportFormType updateExisting(String id, String name, String[] requiredOrgUnitIds){
+	public ReportFormType updateExisting(String id, String name, String[] requiredOrgUnitIds){
 		
 		ReportFormType reportFormType = this.findOne(id);
 		reportFormType.setName(name);

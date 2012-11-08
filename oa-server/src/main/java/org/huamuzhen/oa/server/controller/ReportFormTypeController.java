@@ -43,14 +43,26 @@ public class ReportFormTypeController {
 		}
 		String[] requiredOrgUnitIds = request.getParameterValues("requiredOrgUnitIds");
 		
-		reportFormTypeManager.saveReportFormType(null,name,requiredOrgUnitIds);
+		reportFormTypeManager.createNew(name,requiredOrgUnitIds);
 		
 		return "redirect:/reportFormType";
 	}
 	
 	@RequestMapping(value="/addReportFormType")
 	public ModelAndView addReportFormType(HttpServletRequest request){
-		ModelAndView mav = new ModelAndView("addReportFormType");
+		return baseOperateReportFormTypeMAV();
+	}
+	
+	@RequestMapping(value="/editReportFormType/{id}",method=RequestMethod.POST)
+	public ModelAndView editReportFormType(@PathVariable String id, HttpServletRequest request){
+		ModelAndView mav = baseOperateReportFormTypeMAV();
+		ReportFormType selectedReportFormType = reportFormTypeManager.findOne(id);
+		mav.addObject("selectedReportFormType", selectedReportFormType);
+		return mav;
+	}
+	
+	private ModelAndView baseOperateReportFormTypeMAV(){
+		ModelAndView mav = new ModelAndView("operateReportFormType");
 		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
 		mav.addObject("orgUnitList", orgUnitList);
 		return mav;
@@ -65,20 +77,11 @@ public class ReportFormTypeController {
 		}
 		String[] requiredOrgUnitIds = request.getParameterValues("requiredOrgUnitIds");
 		
-		reportFormTypeManager.saveReportFormType(id,name,requiredOrgUnitIds);
+		reportFormTypeManager.updateExisting(id,name,requiredOrgUnitIds);
 		
 		return "redirect:/reportFormType";
 	}
 	
-	@RequestMapping(value="/editReportFormType/{id}",method=RequestMethod.POST)
-	public ModelAndView editReportFormType(@PathVariable String id, HttpServletRequest request){
-		ModelAndView mav = new ModelAndView("editReportFormType");
-		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
-		mav.addObject("orgUnitList", orgUnitList);
-		ReportFormType selectedReportFormType = reportFormTypeManager.findOne(id);
-		mav.addObject("selectedReportFormType", selectedReportFormType);
-		return mav;
-	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.POST)
 	public String delete(@PathVariable String id){
