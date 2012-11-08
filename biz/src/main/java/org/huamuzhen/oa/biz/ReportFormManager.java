@@ -29,30 +29,9 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	public void setDao(ReportFormDAO dao) {
 		super.setDao(dao);
 	}
-	
-	@Transactional
-	public ReportForm saveReportForm(String id, String reportFormTypeId, String title,
-			String formId, String landUser, String originalLandUser,
-			String landLocation, BigDecimal landArea, String landAreaMeasure, String landUse,
-			String originalLandUse, String matter, String matterDetail,
-			String policyBasis, String comment, String responsiblePerson,
-			String auditor, String tabulator, String creatorId) {
-		if (null == id && null == formId) {
-			
-			return createNew(title, reportFormTypeId, landUser,
-					originalLandUser, landLocation, landArea, landAreaMeasure,landUse,
-					originalLandUse, matter, matterDetail, policyBasis,
-					comment, responsiblePerson, auditor, tabulator, creatorId);
-		} else {
-			return updateExisting(id, reportFormTypeId, title, formId,
-					landUser, originalLandUser, landLocation, landArea, landAreaMeasure
-					,landUse, originalLandUse, matter, matterDetail,
-					policyBasis, comment, responsiblePerson, auditor, tabulator);
-		}
-	}
 
 	@Transactional
-	private ReportForm updateExisting(String id, String reportFormTypeId, String title,
+	public ReportForm updateExisting(String id, String reportFormTypeId, String title,
 			String formId, String landUser, String originalLandUser,
 			String landLocation, BigDecimal landArea, String landAreaMeasure, String landUse,
 			String originalLandUse, String matter, String matterDetail,
@@ -60,9 +39,68 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			String auditor, String tabulator) {
 		
 		ReportForm reportForm = reportFormDAO.findOne(id);
+		reportForm = this.setBasicDataForReportForm(reportForm,
+				reportFormTypeId, title, landUser, originalLandUser,
+				landLocation, landArea, landAreaMeasure, landUse,
+				originalLandUse, matter, matterDetail, policyBasis, comment,
+				responsiblePerson, auditor, tabulator);
+		reportForm.setFormId(formId);
+		return reportFormDAO.save(reportForm);
+	}
+
+	@Transactional
+	public ReportForm createNew(String title, String reportFormTypeId,
+			String landUser, String originalLandUser, String landLocation,
+			BigDecimal landArea, String landAreaMeasure, String landUse, String originalLandUse,
+			String matter, String matterDetail, String policyBasis,
+			String comment, String responsiblePerson, String auditor, String tabulator, String creatorId) {
+		
+		ReportForm newReportForm = new ReportForm();
+		newReportForm = this.setBasicDataForReportForm(newReportForm,
+				reportFormTypeId, title, landUser, originalLandUser,
+				landLocation, landArea, landAreaMeasure, landUse,
+				originalLandUse, matter, matterDetail, policyBasis, comment,
+				responsiblePerson, auditor, tabulator);
+		newReportForm.setFormId(this.generateFormId());
+		newReportForm.setCreatorId(creatorId);
+		newReportForm.setReferredReportFormId(null);
+		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
+		return reportFormDAO.save(newReportForm);
+	}
+	
+	@Transactional
+	public ReportForm reCreateReportForm(String oldId, String reportFormTypeId,
+			String title, String oldFormId, String landUser,
+			String originalLandUser, String landLocation, BigDecimal landArea, 
+			String landAreaMeasure, String landUse, String originalLandUse, String matter,
+			String matterDetail, String policyBasis, String comment,
+			String responsiblePerson, String auditor, String tabulator,
+			String creatorId) {
+		
+		ReportForm oldReportForm = this.findOne(oldId);
+		oldReportForm.setStatus(ReportFormStatus.DEAD);
+		ReportForm newReportForm = new ReportForm();
+		newReportForm = this.setBasicDataForReportForm(newReportForm,
+				reportFormTypeId, title, landUser, originalLandUser,
+				landLocation, landArea, landAreaMeasure, landUse,
+				originalLandUse, matter, matterDetail, policyBasis, comment,
+				responsiblePerson, auditor, tabulator);
+		newReportForm.setFormId(this.generateFormId(oldFormId));
+		newReportForm.setCreatorId(creatorId);
+		newReportForm.setReferredReportFormId(oldReportForm.getId());
+		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
+		reportFormDAO.save(oldReportForm);
+		return reportFormDAO.save(newReportForm);	
+	}
+	
+	private ReportForm setBasicDataForReportForm(final ReportForm reportForm,String reportFormTypeId,
+			String title, String landUser,
+			String originalLandUser, String landLocation, BigDecimal landArea, 
+			String landAreaMeasure, String landUse, String originalLandUse, String matter,
+			String matterDetail, String policyBasis, String comment,
+			String responsiblePerson, String auditor, String tabulator){
 		reportForm.setTitle(title);
 		reportForm.setReportFormType(reportFormTypeDAO.findOne(reportFormTypeId));
-		reportForm.setFormId(formId);
 		reportForm.setLandUser(landUser);
 		reportForm.setOriginalLandUser(originalLandUser);
 		reportForm.setLandLocation(landLocation);
@@ -77,42 +115,9 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		reportForm.setResponsiblePerson(responsiblePerson);
 		reportForm.setAuditor(auditor);
 		reportForm.setTabulator(tabulator);
-		
-		return reportFormDAO.save(reportForm);
+		return reportForm;
 	}
 
-	@Transactional
-	private ReportForm createNew(String title, String reportFormTypeId,
-			String landUser, String originalLandUser, String landLocation,
-			BigDecimal landArea, String landAreaMeasure, String landUse, String originalLandUse,
-			String matter, String matterDetail, String policyBasis,
-			String comment, String responsiblePerson, String auditor, String tabulator, String creatorId) {
-		
-		
-		ReportForm newReportForm = new ReportForm();
-		newReportForm.setTitle(title);
-		newReportForm.setReportFormType(reportFormTypeDAO.findOne(reportFormTypeId));
-		newReportForm.setFormId(this.generateFormId());
-		newReportForm.setLandUser(landUser);
-		newReportForm.setOriginalLandUser(originalLandUser);
-		newReportForm.setLandLocation(landLocation);
-		newReportForm.setLandArea(landArea);
-		newReportForm.setLandAreaMeasure(SquareMeasure.valueOf(landAreaMeasure));
-		newReportForm.setLandUse(landUse);
-		newReportForm.setOriginalLandUse(originalLandUse);
-		newReportForm.setMatter(matter);
-		newReportForm.setMatterDetail(matterDetail);
-		newReportForm.setPolicyBasis(policyBasis);
-		newReportForm.setComment(comment);
-		newReportForm.setResponsiblePerson(responsiblePerson);
-		newReportForm.setAuditor(auditor);
-		newReportForm.setTabulator(tabulator);
-		
-		newReportForm.setCreatorId(creatorId);
-		newReportForm.setReferredReportFormId(null);
-		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
-		return reportFormDAO.save(newReportForm);
-	}
 	
     public String generateFormId(String previousFormId){
 		
@@ -205,45 +210,6 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			status = ReportFormStatus.DENIED;
 		}
 		return status;
-	}
-
-	@Transactional
-	public ReportForm reCreateReportForm(String oldId, String reportFormTypeId,
-			String title, String oldFormId, String landUser,
-			String originalLandUser, String landLocation, BigDecimal landArea, 
-			String landAreaMeasure, String landUse, String originalLandUse, String matter,
-			String matterDetail, String policyBasis, String comment,
-			String responsiblePerson, String auditor, String tabulator,
-			String creatorId) {
-		
-		ReportForm oldReportForm = this.findOne(oldId);
-		oldReportForm.setStatus(ReportFormStatus.DEAD);
-		
-		ReportForm newReportForm = new ReportForm();
-		newReportForm.setTitle(title);
-		newReportForm.setReportFormType(reportFormTypeDAO.findOne(reportFormTypeId));
-		newReportForm.setFormId(this.generateFormId(oldFormId));
-		newReportForm.setLandUser(landUser);
-		newReportForm.setOriginalLandUser(originalLandUser);
-		newReportForm.setLandLocation(landLocation);
-		newReportForm.setLandArea(landArea);
-		newReportForm.setLandAreaMeasure(SquareMeasure.valueOf(landAreaMeasure));
-		newReportForm.setLandUse(landUse);
-		newReportForm.setOriginalLandUse(originalLandUse);
-		newReportForm.setMatter(matter);
-		newReportForm.setMatterDetail(matterDetail);
-		newReportForm.setPolicyBasis(policyBasis);
-		newReportForm.setComment(comment);
-		newReportForm.setResponsiblePerson(responsiblePerson);
-		newReportForm.setAuditor(auditor);
-		newReportForm.setTabulator(tabulator);
-		
-		newReportForm.setCreatorId(creatorId);
-		newReportForm.setReferredReportFormId(oldReportForm.getId());
-		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
-		
-		reportFormDAO.save(oldReportForm);
-		return reportFormDAO.save(newReportForm);	
 	}
 
 }

@@ -4,7 +4,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>编辑报审表</title>
+        <title>
+        <c:choose>
+        	<c:when test="${operate == 'add'}">新增报审表<c:set var="actionValue" value="${contextPath}/reportForm/add"/></c:when>
+        	<c:when test="${operate == 'edit'}">编辑报审表<c:set var="actionValue" value="${contextPath}/reportForm/edit"/></c:when>
+        	<c:when test="${operate == 'reCreate'}">重建报审表<c:set var="actionValue" value="${contextPath}/reportForm/reCreate"/></c:when>
+        </c:choose>
+        </title>
         <script type="text/javascript">
             $(document).ready(function(){
                 var reportTypeAuto = $("input[name='matter']");
@@ -47,14 +53,23 @@
         </script>
     </head>
 <body>
-	<h2>编辑报审表</h2>
-	
-	<form action="${contextPath}/reportForm/edit" method="post">
+	<h2>
+	<c:choose>
+        	<c:when test="${operate == 'add'}">新增报审表</c:when>
+        	<c:when test="${operate == 'edit'}">编辑报审表</c:when>
+        	<c:when test="${operate == 'reCreate'}">重建报审表</c:when>
+    </c:choose>
+	</h2>
+	<form action="${actionValue}" method="post">
+		<input type="hidden" name="id" value="${selectedReportForm.id}">
+		<input type="hidden" name="formId"  value="${selectedReportForm.formId}" >
         <table>
-			<tr><td>ID: ${selectedReportForm.id}<input type="hidden" name="id" value="${selectedReportForm.id}"></td></tr>
 			<tr><td>报审表类型：<select name="reportFormTypeId"><option value="${selectedReportForm.reportFormType.id}">${selectedReportForm.reportFormType.name}</option><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
 			<tr><td>报审单名称： <input name="title" type="text" maxlength="30" value="${selectedReportForm.title}" ></input></td></tr>
-			<tr><td>编号：${selectedReportForm.formId}<input name="formId" type="hidden" value="${selectedReportForm.formId}" ></td></tr>
+			<c:choose>
+        		<c:when test="${operate == 'edit'}"><tr><td>编号：${selectedReportForm.formId}</td></tr></c:when>
+        		<c:when test="${operate == 'reCreate'}"><tr><td>原表编号：${selectedReportForm.formId}</td></tr></c:when>
+   			 </c:choose>
 			<tr><td>用地（受让）单位： <input name="landUser" type="text" maxlength="30" value="${selectedReportForm.landUser}"></input></td></tr>
 			<tr><td>原土地使用者： <input name="originalLandUser" type="text" maxlength="30"  value="${selectedReportForm.originalLandUser}"></input></td></tr>
 			<tr><td>土地座落： <input name="landLocation" type="text" maxlength="50" value="${selectedReportForm.landLocation}"></input></td></tr>
@@ -65,7 +80,7 @@
 			 	<c:when test="${selectedReportForm.landAreaMeasure == 'MU'}"><option value="MU">亩</option></c:when>
 			 	<c:when test="${selectedReportForm.landAreaMeasure == 'SQUARE_METER'}"><option value="SQUARE_METER">平方米</option></c:when>
 			 	<c:when test="${selectedReportForm.landAreaMeasure == 'HECTARE'}"><option value="HECTARE">公顷</option></c:when>
-			 	<c:otherwise><option value="SQUARE_KM">平方公里</option></c:otherwise>
+			 	<c:when test="${selectedReportForm.landAreaMeasure == 'SQUARE_KM'}"><option value="SQUARE_KM">平方公里</option></c:when>
 			 </c:choose>
 			<option value="SQUARE_METER">平方米</option><option value="SQUARE_METER">平方公里</option><option value="MU">亩</option><option value="HECTARE">公顷</option>
 			</select>

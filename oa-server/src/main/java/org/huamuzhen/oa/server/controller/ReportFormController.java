@@ -49,6 +49,9 @@ public class ReportFormController {
 	@Resource
 	private ReportFormMatterManager reportFormMatterManager;
 	
+	private static String OPERATE = "operate";
+	private static String STATUS = "status";
+	
 	@RequestMapping(value = { "", "/" })
 	public String index(HttpServletRequest request){
 		
@@ -57,13 +60,36 @@ public class ReportFormController {
 	
 	@RequestMapping("/addReportForm")
 	public ModelAndView addReportForm(){
-		ModelAndView mav = new ModelAndView("addReportForm");
+		ModelAndView mav = baseOperateReportFormMAV();
+		mav.addObject(OPERATE, "add");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value="/editUnsendReportForm/{id}",method=RequestMethod.POST)
+	public ModelAndView editUnsendReportForm(@PathVariable String id){
+		ReportForm selectedReportForm =reportFormManager.findOne(id);
+		ModelAndView mav = baseOperateReportFormMAV();
+		mav.addObject("selectedReportForm", selectedReportForm);
+		mav.addObject(OPERATE, "edit");
+		return mav;
+	}
+	
+	@RequestMapping(value="/reCreateReportForm/{id}",method=RequestMethod.POST)
+	public ModelAndView reCreateReportForm(@PathVariable String id){
+		ReportForm selectedReportForm =reportFormManager.findOne(id);
+		ModelAndView mav = baseOperateReportFormMAV();
+		mav.addObject("selectedReportForm", selectedReportForm);
+		mav.addObject(OPERATE, "reCreate");
+		return mav;
+	}
+	
+	private ModelAndView baseOperateReportFormMAV(){
+		ModelAndView mav = new ModelAndView("operateReportForm");
 		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
 		mav.addObject("reportFormTypeList", reportFormTypeList);
-		
 		List<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll();
 		mav.addObject("reportFormMatterList", reportFormMatterList);
-		
 		return mav;
 	}
 	
@@ -92,27 +118,13 @@ public class ReportFormController {
 		String tabulator = request.getParameter("tabulator");
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
-	    ReportForm newReportForm = reportFormManager.saveReportForm(null, reportFormTypeId, title, null,
+	    ReportForm newReportForm = reportFormManager.createNew(title,reportFormTypeId,
 				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
 				responsiblePerson,auditor,tabulator, currentUser.getId());
 	    
 		ModelAndView mav = new ModelAndView("viewReportForm");
 		mav.addObject("reportForm", newReportForm);
-		return mav;
-	}
-	
-	@RequestMapping(value="/editUnsendReportForm/{id}",method=RequestMethod.POST)
-	public ModelAndView editUnsendReportForm(@PathVariable String id){
-		ReportForm selectedReportForm =reportFormManager.findOne(id);
-		ModelAndView mav = new ModelAndView("editReportForm");
-		mav.addObject("selectedReportForm", selectedReportForm);
-		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
-		mav.addObject("reportFormTypeList", reportFormTypeList);
-		
-		List<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll();
-		mav.addObject("reportFormMatterList", reportFormMatterList);
-		
 		return mav;
 	}
 	
@@ -136,13 +148,46 @@ public class ReportFormController {
 		String responsiblePerson = request.getParameter("responsiblePerson");
 		String auditor = request.getParameter("auditor");
 		String tabulator = request.getParameter("tabulator");
-		reportFormManager.saveReportForm(id, reportFormTypeId, title, formId,
+		reportFormManager.updateExisting(id, reportFormTypeId, title, formId,
 				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
 				originalLandUse, matter, matterDetail, policyBasis, comment,
-				responsiblePerson,auditor,tabulator, null);
+				responsiblePerson,auditor,tabulator);
 		
 		
 		return "redirect:/reportForm/list/notSendReportForm";
+	}
+	
+	@RequestMapping(value="/reCreate",method=RequestMethod.POST)
+	public ModelAndView reCreate(HttpServletRequest request){
+		
+		String oldId = request.getParameter("id");
+		String reportFormTypeId = request.getParameter("reportFormTypeId");
+		String title = request.getParameter("title");
+		String oldFormId = request.getParameter("formId");
+		String landUser = request.getParameter("landUser");
+		String originalLandUser = request.getParameter("originalLandUser");
+		String landLocation = request.getParameter("landLocation");
+		String landArea = request.getParameter("landArea");
+		String landAreaMeasure = request.getParameter("landAreaMeasure");
+		String landUse = request.getParameter("landUse");
+		String originalLandUse = request.getParameter("originalLandUse");
+		String matter = request.getParameter("matter");
+		String matterDetail = request.getParameter("matterDetail");
+		String policyBasis = request.getParameter("policyBasis");
+		String comment = request.getParameter("comment");
+		String responsiblePerson = request.getParameter("responsiblePerson");
+		String auditor = request.getParameter("auditor");
+		String tabulator = request.getParameter("tabulator");
+		User currentUser = (User)request.getSession().getAttribute("currentUser");
+		ReportForm newReportForm = reportFormManager.reCreateReportForm(oldId, reportFormTypeId, title, oldFormId,
+				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
+				originalLandUse, matter, matterDetail, policyBasis, comment,
+				responsiblePerson,auditor,tabulator,currentUser.getId() );
+		
+		ModelAndView mav = new ModelAndView("viewReportForm");
+		mav.addObject("reportForm", newReportForm);
+		return mav;
+
 	}
 	
 	@RequestMapping(value="/sendToOrgUnits/{id}", method=RequestMethod.POST)
@@ -228,7 +273,7 @@ public class ReportFormController {
 	
 	@RequestMapping(value="responseReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView responseReportForm(@PathVariable String id, HttpServletRequest request){
-		ModelAndView mav = viewReportFormMAV(id);
+		ModelAndView mav = baseViewReportFormMAV(id);
 		ReportForm selectedReportForm = reportFormManager.findOne(id);
 		mav.addObject("selectedReportForm", selectedReportForm);
 		if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_ORG_UNITS){
@@ -256,57 +301,10 @@ public class ReportFormController {
 			mav.addObject("leader2List", userManager.findUserByPrivilege(Privilege.LEADER2));
 		}
 		mav.addObject("responseType", selectedReportForm.getStatus());
-		mav.addObject("status", "response");
+		mav.addObject(STATUS, "response");
 		return mav;
 	}	
 	
-	@RequestMapping(value="/reCreateReportForm/{id}",method=RequestMethod.POST)
-	public ModelAndView reCreateReportForm(@PathVariable String id){
-		ReportForm selectedReportForm =reportFormManager.findOne(id);
-		ModelAndView mav = new ModelAndView("reCreateReportForm");
-		mav.addObject("selectedReportForm", selectedReportForm);
-		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
-		mav.addObject("reportFormTypeList", reportFormTypeList);
-		
-		List<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll();
-		mav.addObject("reportFormMatterList", reportFormMatterList);
-		
-		return mav;
-	}
-	
-	@RequestMapping(value="/reCreate",method=RequestMethod.POST)
-	public ModelAndView reCreate(HttpServletRequest request){
-		
-		String oldId = request.getParameter("oldId");
-		String reportFormTypeId = request.getParameter("reportFormTypeId");
-		String title = request.getParameter("title");
-		String oldFormId = request.getParameter("oldFormId");
-		String landUser = request.getParameter("landUser");
-		String originalLandUser = request.getParameter("originalLandUser");
-		String landLocation = request.getParameter("landLocation");
-		String landArea = request.getParameter("landArea");
-		String landAreaMeasure = request.getParameter("landAreaMeasure");
-		String landUse = request.getParameter("landUse");
-		String originalLandUse = request.getParameter("originalLandUse");
-		String matter = request.getParameter("matter");
-		String matterDetail = request.getParameter("matterDetail");
-		String policyBasis = request.getParameter("policyBasis");
-		String comment = request.getParameter("comment");
-		String responsiblePerson = request.getParameter("responsiblePerson");
-		String auditor = request.getParameter("auditor");
-		String tabulator = request.getParameter("tabulator");
-		User currentUser = (User)request.getSession().getAttribute("currentUser");
-		
-		ReportForm newReportForm = reportFormManager.reCreateReportForm(oldId, reportFormTypeId, title, oldFormId,
-				landUser, originalLandUser, landLocation, new BigDecimal(landArea),landAreaMeasure, landUse,
-				originalLandUse, matter, matterDetail, policyBasis, comment,
-				responsiblePerson,auditor,tabulator,currentUser.getId() );
-		
-		ModelAndView mav = new ModelAndView("viewReportForm");
-		mav.addObject("reportForm", newReportForm);
-		return mav;
-
-	}
 	
 	@RequestMapping(value="/printReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView printReportForm(@PathVariable String id){
@@ -344,18 +342,18 @@ public class ReportFormController {
 	@RequestMapping(value="/view/{id}",method=RequestMethod.POST)
 	public ModelAndView view(@PathVariable String id){
 		
-		return viewReportFormMAV(id);
+		return baseViewReportFormMAV(id);
 	}
 	
 	@RequestMapping(value="/reviewReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView reviewReportForm(@PathVariable String id){
-		ModelAndView mav = viewReportFormMAV(id);
-		mav.addObject("status", "review");
+		ModelAndView mav = baseViewReportFormMAV(id);
+		mav.addObject(STATUS, "review");
 		mav.addObject("leader1List", userManager.findUserByPrivilege(Privilege.LEADER1));
 		return mav;
 	}
 	
-	private ModelAndView viewReportFormMAV(String id){
+	private ModelAndView baseViewReportFormMAV(String id){
 		ModelAndView mav = new ModelAndView("viewReportForm");
 		ReportForm selectedReportForm = reportFormManager.findOne(id);
 		mav.addObject("reportForm", selectedReportForm);
