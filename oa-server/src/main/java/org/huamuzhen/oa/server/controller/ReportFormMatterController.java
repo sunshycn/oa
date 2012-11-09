@@ -34,7 +34,7 @@ public class ReportFormMatterController {
 		if(name.trim().equals("")){
 			name = null;
 		}
-		reportFormMatterManager.saveReportFormMatter(null,name);
+		reportFormMatterManager.createNew(name);
 		return "redirect:/reportFormMatter";
 	}
 	
@@ -45,7 +45,7 @@ public class ReportFormMatterController {
 		if(name.trim().equals("")){
 			name = null;
 		}
-		reportFormMatterManager.saveReportFormMatter(id,name);
+		reportFormMatterManager.updateExisting(id,name);
 		return "redirect:/reportFormMatter";
 	}
 	
@@ -57,12 +57,12 @@ public class ReportFormMatterController {
 	
 	@RequestMapping(value="/addReportFormMatter")
 	public String addReportFormMatter(){
-		return "addReportFormMatter";
+		return "operateReportFormMatter";
 	}
 	
 	@RequestMapping(value="/editReportFormMatter/{id}",method=RequestMethod.POST)
 	public ModelAndView editReportFormMatter(@PathVariable String id){
-		ModelAndView mav = new ModelAndView("editReportFormMatter");
+		ModelAndView mav = new ModelAndView("operateReportFormMatter");
 		ReportFormMatter selectedReportFormMatter = reportFormMatterManager.findOne(id);
 		mav.addObject("selectedReportFormMatter",selectedReportFormMatter);
 		return mav;

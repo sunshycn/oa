@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <link href="${cssRootPath}/app.css" rel="stylesheet" type="text/css">
-<title>添加报审事项</title>
+<c:set var="titleValue" value="${not empty selectedReportFormType ? '编辑': '添加'}报审事项"/>
+<title>${titleValue}</title>
  <script type="text/javascript">
         $(document).ready(function(){
         	$("form").submit(function() {
@@ -21,14 +22,14 @@
             });
         });
 </script>
-
 </head>
 <body>
-	<h2>添加报审事项</h2>
+	<h2>${titleValue}</h2>
 	
-	<form action="${contextPath}/reportFormMatter/add" method="post">
+	<form action="${contextPath}/reportFormMatter/${not empty selectedReportFormMatter ? 'edit' : 'add'}" method="post">
+		<input type="hidden" name="id" value="${selectedReportFormMatter.id}"></input>
 		<table>
-			<tr><td>名称： <input type="text" name="name" maxlength="20"/></td></tr>
+			<tr><td>名称： <input type="text" name="name" maxlength="20" value="${selectedReportFormMatter.name}"/></td></tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>
 	</form>

@@ -14,23 +14,14 @@ public class ReportFormMatterManager extends BaseManager<ReportFormMatter, Strin
 		super.setDao(dao);
 	}
 
-	public ReportFormMatter saveReportFormMatter(String id, String name) {
-		if(null == id){
-			return createNew(name);
-		}else{
-			return updateExisting(id,name);
-		}
-		
-	}
-
-	private ReportFormMatter updateExisting(String id, String name) {
+	public ReportFormMatter updateExisting(String id, String name) {
 		ReportFormMatter reportFormMatter = this.findOne(id);
 		reportFormMatter.setName(name);
 		return this.save(reportFormMatter);
 		
 	}
 
-	private ReportFormMatter createNew(String name) {
+	public ReportFormMatter createNew(String name) {
 		ReportFormMatter reportFormMatter = new ReportFormMatter();
 		reportFormMatter.setName(name);
 		return this.save(reportFormMatter);
