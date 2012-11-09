@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <link href="${cssRootPath}/app.css" rel="stylesheet" type="text/css">
-<title>编辑单位</title>
+<c:set var="titleValue" value="${not empty selectedReportFormType ? '编辑': '添加'}单位"/>
+<title>${titleValue}</title>
  <script type="text/javascript">
         $(document).ready(function(){
         	$("form").submit(function() {
@@ -24,11 +25,11 @@
 
 </head>
 <body>
-	<h2>编辑单位</h2>
+	<h2>${titleValue}</h2>
 	
-	<form action="${contextPath}/orgUnit/edit" method="post">
+	<form action="${contextPath}/orgUnit/${not empty selectedOrgUnit ? 'edit' : 'add'}" method="post">
+		<input type="hidden" name="id" value="${selectedOrgUnit.id}">
 		<table>
-			<tr><td>ID: ${selectedOrgUnit.id}<input type="hidden" name="id" value="${selectedOrgUnit.id}"></td></tr>
 			<tr><td>单位名： <input type="text" name="name" maxlength="20" value="${selectedOrgUnit.name}"/></td></tr>
 			<tr><td>上级单位：<select name="parentId">
 			<c:if test="${not empty parentOrgUnit}">	

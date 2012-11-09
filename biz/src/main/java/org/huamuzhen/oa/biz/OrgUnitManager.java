@@ -19,15 +19,6 @@ public class OrgUnitManager extends BaseManager<OrgUnit, String> {
 	}
 	
 	@Transactional
-	public OrgUnit saveOrgUnit(String id, String name, String description, String parentId){
-		if( null == id){
-			return createNew(name,description,parentId);
-		}else{
-			return updateExisting(id,name,description,parentId);
-		}
-	}
-	
-	@Transactional
 	public void deleteOrgUnit(String id){
 		this.delete(id);
 	}
@@ -38,25 +29,27 @@ public class OrgUnitManager extends BaseManager<OrgUnit, String> {
 	}
 
 	@Transactional
-	private OrgUnit updateExisting(String id, String name, String description,
+	public OrgUnit updateExisting(String id, String name, String description,
 			String parentId) {
 		OrgUnit orgUnit = this.findOne(id);
-		orgUnit.setName(name);
-		orgUnit.setDescription(description);
-		orgUnit.setParentId(parentId);
-		orgUnit.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+		orgUnit = setBasicDataForOrgUnit(orgUnit,name,description,parentId);
 		return this.save(orgUnit);
 		
 	}
 
 	@Transactional
-	private OrgUnit createNew(String name, String description, String parentId) {
+	public OrgUnit createNew(String name, String description, String parentId) {
 		OrgUnit newOrgUnit = new OrgUnit();
-		newOrgUnit.setName(name);
-		newOrgUnit.setDescription(description);
-		newOrgUnit.setParentId(parentId);
+		newOrgUnit = setBasicDataForOrgUnit(newOrgUnit,name,description,parentId);
 		newOrgUnit.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		newOrgUnit.setModifiedAt(new Timestamp(System.currentTimeMillis()));
 		return this.save(newOrgUnit);
+	}
+	
+	private OrgUnit setBasicDataForOrgUnit(final OrgUnit orgUnit,String name, String description, String parentId){
+		orgUnit.setName(name);
+		orgUnit.setDescription(description);
+		orgUnit.setParentId(parentId);
+		orgUnit.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+		return orgUnit;
 	}
 }

@@ -40,7 +40,7 @@ public class OrgUnitController {
 		if(parentId.trim().equals("")){
 			parentId = null;
 		}
-		orgUnitManager.saveOrgUnit(null, name, description, parentId);
+		orgUnitManager.createNew(name, description, parentId);
 		
 		return "redirect:/orgUnit";
 	}
@@ -57,7 +57,7 @@ public class OrgUnitController {
 		if(parentId.trim().equals("")){
 			parentId = null;
 		}
-		orgUnitManager.saveOrgUnit(id, name, description, parentId);
+		orgUnitManager.updateExisting(id, name, description, parentId);
 		
 		return "redirect:/orgUnit";
 	}
@@ -71,23 +71,25 @@ public class OrgUnitController {
 	
 	@RequestMapping(value="/addOrgUnit")
 	public ModelAndView addOrgUnit(){
-		ModelAndView mav = new ModelAndView("addOrgUnit");
-		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
-		mav.addObject("orgUnitList", orgUnitList);
-		return mav;
+
+		return basicOperateOrgUnitMAV();
 	}
 	
 	@RequestMapping(value="/editOrgUnit/{id}",method=RequestMethod.POST)
 	public ModelAndView editOrgUnit(@PathVariable String id){
-		ModelAndView mav = new ModelAndView("editOrgUnit");
+		ModelAndView mav = basicOperateOrgUnitMAV();
 		OrgUnit selectedOrgUnit = orgUnitManager.findOne(id);
 		mav.addObject("selectedOrgUnit", selectedOrgUnit);
-		
 		OrgUnit parentOrgUnit = null;
 		if( null != selectedOrgUnit.getParentId()){
 			parentOrgUnit = orgUnitManager.findOne(selectedOrgUnit.getParentId());
 		}
 		mav.addObject("parentOrgUnit", parentOrgUnit);
+		return mav;
+	}
+	
+	private ModelAndView basicOperateOrgUnitMAV(){
+		ModelAndView mav = new ModelAndView("operateOrgUnit");
 		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
 		mav.addObject("orgUnitList", orgUnitList);
 		return mav;
