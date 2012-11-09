@@ -1,5 +1,7 @@
 package org.huamuzhen.oa.biz;
 
+import java.sql.Timestamp;
+
 import javax.annotation.Resource;
 
 import org.huamuzhen.oa.domain.dao.ReportFormMatterDAO;
@@ -17,6 +19,7 @@ public class ReportFormMatterManager extends BaseManager<ReportFormMatter, Strin
 	public ReportFormMatter updateExisting(String id, String name) {
 		ReportFormMatter reportFormMatter = this.findOne(id);
 		reportFormMatter.setName(name);
+		reportFormMatter.setModifiedAt(new Timestamp(System.currentTimeMillis()));
 		return this.save(reportFormMatter);
 		
 	}
@@ -24,6 +27,8 @@ public class ReportFormMatterManager extends BaseManager<ReportFormMatter, Strin
 	public ReportFormMatter createNew(String name) {
 		ReportFormMatter reportFormMatter = new ReportFormMatter();
 		reportFormMatter.setName(name);
+		reportFormMatter.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		reportFormMatter.setModifiedAt(new Timestamp(System.currentTimeMillis()));
 		return this.save(reportFormMatter);
 		
 	}

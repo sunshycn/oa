@@ -42,15 +42,6 @@ public class UserManager extends BaseManager<User, String>{
 	}
 	
 	@Transactional
-	public User saveUser(String id, String username, String rawPassword, String description, String orgUnitId, String privilege){
-		if( null == id){
-			return createNew(username,rawPassword,description,orgUnitId,privilege);
-		}else{
-			return updateExisting(id,username,rawPassword,description,orgUnitId,privilege);
-		}		
-	}
-	
-	@Transactional
 	public User authenticate(String username, String password){
 		User user = userDAO.findUserByUsername(username);
 		if(null != user){
@@ -62,45 +53,27 @@ public class UserManager extends BaseManager<User, String>{
 	}
 
 	@Transactional
-	private User updateExisting(String id, String username, String rawPassword,
+	public User updateExisting(String id, String username, String rawPassword,
 			String description, String orgUnitId, String privilege) {
 		User user = this.findOne(id);
-		user.setUsername(username);
-		user.setDescription(description);
-		if(null == orgUnitId){
-			user.setOrgUnit(null);
-		}else{
-			user.setOrgUnit(orgUnitDAO.findOne(orgUnitId));
-		}
-		user.setPrivilege(Privilege.valueOf(privilege));
 		if(!rawPassword.equals("")){
 			String hashSalt = new Integer(random.nextInt(10000)).toString();
 			user.setHashSalt(hashSalt);
 			user.setHashedPassword(encoder.encodePassword(rawPassword, hashSalt));
 		}
-		user.setModifiedAt(new Timestamp(System.currentTimeMillis()));
-		
+		user = setBasicDataForUser(user, username, description, orgUnitId, privilege);
 		return this.save(user);
 	}
 
 	@Transactional
-	private User createNew(String username, String rawPassword,
+	public User createNew(String username, String rawPassword,
 			String description, String orgUnitId, String privilege) {
 		User newUser = new User();
-		newUser.setUsername(username);
-		newUser.setDescription(description);
-		if(null == orgUnitId){
-			newUser.setOrgUnit(null);
-		}else{
-			newUser.setOrgUnit(orgUnitDAO.findOne(orgUnitId));
-		}
-		newUser.setPrivilege(Privilege.valueOf(privilege));
 		String hashSalt = new Integer(random.nextInt(10000)).toString();
 		newUser.setHashSalt(hashSalt);
 		newUser.setHashedPassword(encoder.encodePassword(rawPassword, hashSalt));
 		newUser.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		newUser.setModifiedAt(new Timestamp(System.currentTimeMillis()));
-		
+		newUser = setBasicDataForUser(newUser, username, description, orgUnitId, privilege);
 		return this.save(newUser);
 	}
 	
@@ -119,6 +92,20 @@ public class UserManager extends BaseManager<User, String>{
 		user.setModifiedAt(new Timestamp(System.currentTimeMillis()));
 		return this.save(user);
 		
+	}
+	
+	private User setBasicDataForUser(final User user,String username,
+			String description, String orgUnitId, String privilege){
+		user.setUsername(username);
+		user.setDescription(description);
+		if(null == orgUnitId){
+			user.setOrgUnit(null);
+		}else{
+			user.setOrgUnit(orgUnitDAO.findOne(orgUnitId));
+		}
+		user.setPrivilege(Privilege.valueOf(privilege));
+		user.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+		return user;
 	}
 	
 }

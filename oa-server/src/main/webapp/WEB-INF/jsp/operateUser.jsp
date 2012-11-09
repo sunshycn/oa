@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>编辑用户</title>
+<c:set var="titleValue" value="${not empty selectedUser ? '编辑': '添加'}用户"/>
+<title>${titleValue}</title>
 
  <script type="text/javascript">
         $(document).ready(function(){
@@ -23,12 +24,12 @@
 </script>
 </head>
 <body>
-	<h2>编辑用户</h2>
-	<form action="${contextPath}/user/edit" method="post">
+	<h2>${titleValue}</h2>
+	<form action="${contextPath}/user/${not empty selectedUser ? 'edit' : 'add'}" method="post">
+	<input type="hidden" name="id" value="${selectedUser.id}" />
 		<table>
-			<tr><td>ID: ${selectedUser.id}<input type="hidden" name="id" value="${selectedUser.id}"></td></tr>
 			<tr><td>用户名： <input type="text" name="username" maxlength="20" value="${selectedUser.username}"/></td></tr>
-			<tr><td>密码： <input type="text" name="password" maxlength="36"/>（留空则不更新密码）</td></tr>
+			<tr><td>密码： <input type="text" name="password" maxlength="36"/> <c:if test="${not empty selectedUser}">（留空则不更新密码）</c:if></td></tr>
 			<tr><td>单位：<select name="orgUnitId">
 			<c:if test="${not empty selectedUser.orgUnit}">
 				<option value="${selectedUser.orgUnit.id}">${selectedUser.orgUnit.name}</option>
@@ -38,16 +39,18 @@
 			</select>
 			<tr><td>描述：<textarea name="description" rows="3" cols="30">${selectedUser.description}</textarea></td></tr>
 			<tr><td>权限：<select name="privilege">
-			<option value="${selectedUser.privilege}">
-			<c:choose>
-				<c:when test="${selectedUser.privilege =='DEPARTMENT' }">部门</c:when>
-				<c:when test="${selectedUser.privilege =='LEADER1' }">一般领导</c:when>
-				<c:when test="${selectedUser.privilege =='LEADER2' }">主要领导</c:when>
-				<c:when test="${selectedUser.privilege =='OFFICE' }">办公室</c:when>
-				<c:when test="${selectedUser.privilege =='ADMIN' }">管理员</c:when>
-				<c:otherwise>普通</c:otherwise>
-			</c:choose>
-			</option>
+			<c:if test="${not empty selectedUser}">
+				<option value="${selectedUser.privilege}">
+				<c:choose>
+					<c:when test="${selectedUser.privilege =='DEPARTMENT' }">部门</c:when>
+					<c:when test="${selectedUser.privilege =='LEADER1' }">一般领导</c:when>
+					<c:when test="${selectedUser.privilege =='LEADER2' }">主要领导</c:when>
+					<c:when test="${selectedUser.privilege =='OFFICE' }">办公室</c:when>
+					<c:when test="${selectedUser.privilege =='ADMIN' }">管理员</c:when>
+					<c:otherwise>普通</c:otherwise>
+				</c:choose>
+				</option>
+			</c:if>
 			<option value="NORMAL">普通</option>
 			<option value="DEPARTMENT">部门</option>
 			<option value="LEADER1">分管领导</option>

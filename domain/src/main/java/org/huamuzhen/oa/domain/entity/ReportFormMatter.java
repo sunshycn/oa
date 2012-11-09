@@ -10,9 +10,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="Report_Form_Matter")
-public class ReportFormMatter {
+public class ReportFormMatter extends BaseEntity{
 	
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(generator = "generator")
 	@GenericGenerator(name = "generator", strategy = "org.huamuzhen.oa.domain.util.IdGenerator")

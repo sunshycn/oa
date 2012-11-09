@@ -65,6 +65,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setCreatorId(creatorId);
 		newReportForm.setReferredReportFormId(null);
 		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
+		newReportForm.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		return reportFormDAO.save(newReportForm);
 	}
 	
@@ -89,6 +90,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setCreatorId(creatorId);
 		newReportForm.setReferredReportFormId(oldReportForm.getId());
 		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
+		newReportForm.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		reportFormDAO.save(oldReportForm);
 		return reportFormDAO.save(newReportForm);	
 	}
@@ -115,6 +117,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		reportForm.setResponsiblePerson(responsiblePerson);
 		reportForm.setAuditor(auditor);
 		reportForm.setTabulator(tabulator);
+		reportForm.setModifiedAt(new Timestamp(System.currentTimeMillis()));
 		return reportForm;
 	}
 

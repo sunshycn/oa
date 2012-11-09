@@ -1,5 +1,6 @@
 package org.huamuzhen.oa.biz;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +33,8 @@ public class ReportFormTypeManager extends BaseManager<ReportFormType, String> {
 			requiredOrgUnits.add(orgUnitDAO.findOne(orgUnitId));
 		}
 		reportFormType.setRequiredOrgUnits(requiredOrgUnits);
+		reportFormType.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		reportFormType.setModifiedAt(new Timestamp(System.currentTimeMillis()));
 		return this.save(reportFormType);
 	}
 	
@@ -40,6 +43,7 @@ public class ReportFormTypeManager extends BaseManager<ReportFormType, String> {
 		
 		ReportFormType reportFormType = this.findOne(id);
 		reportFormType.setName(name);
+		reportFormType.setModifiedAt(new Timestamp(System.currentTimeMillis()));
 		Set<OrgUnit> requiredOrgUnits = new HashSet<OrgUnit>();
 		for(String orgUnitId : requiredOrgUnitIds){
 			requiredOrgUnits.add(orgUnitDAO.findOne(orgUnitId));

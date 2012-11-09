@@ -48,7 +48,7 @@ public class UserController {
 			orgUnitId = null;
 		}
 		String privilege = request.getParameter("privilege");
-		userManager.saveUser(null, username, password, description, orgUnitId, privilege);
+		userManager.createNew(username, password, description, orgUnitId, privilege);
 		return "redirect:/user";
 	}
 	
@@ -66,23 +66,18 @@ public class UserController {
 			orgUnitId = null;
 		}
 		String privilege = request.getParameter("privilege");
-		userManager.saveUser(id, username, password, description, orgUnitId, privilege);
+		userManager.updateExisting(id, username, password, description, orgUnitId, privilege);
 		return "redirect:/user";
 	}
 	
 	@RequestMapping(value="/addUser")
 	public ModelAndView addUser(){
-		ModelAndView mav = new ModelAndView("addUser");
-		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
-		mav.addObject("orgUnitList", orgUnitList);
-		return mav;
+		return baseOperateUserMAV();
 	}
 	
 	@RequestMapping(value="/editUser/{id}",method=RequestMethod.POST)
 	public ModelAndView editUser(@PathVariable String id){
-		ModelAndView mav = new ModelAndView("editUser");
-		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
-		mav.addObject("orgUnitList", orgUnitList);
+		ModelAndView mav = baseOperateUserMAV();
 		User selectedUser = userManager.findOne(id);
 		mav.addObject("selectedUser", selectedUser);
 		return mav;
@@ -92,6 +87,13 @@ public class UserController {
 	public String delete(@PathVariable String id){
 		userManager.deleteUser(id);
 		return "redirect:/user";
+	}
+	
+	private ModelAndView baseOperateUserMAV(){
+		ModelAndView mav = new ModelAndView("operateUser");
+		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
+		mav.addObject("orgUnitList", orgUnitList);
+		return mav;
 	}
 	
 }
