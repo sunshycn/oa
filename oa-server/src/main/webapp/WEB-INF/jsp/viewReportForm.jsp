@@ -5,6 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>报审表信息</title>
+ <script type="text/javascript">
+        $(document).ready(function(){
+        	$("form").submit(function() {
+                var errors = [];
+                if ($.trim($("textarea[name='content']").val()).length == 0) {
+                    errors.push("请填写回复意见");
+                }
+                if ($.trim($("input[name='signature']").val()).length == 0) {
+                    errors.push("请填写签名");
+                }
+                if (errors.length > 0) {
+                    alert(errors.join(", "));
+                    return false;
+                }
+            });
+        });
+</script>
 </head>
 <body>
  	<h2>报审表信息</h2>

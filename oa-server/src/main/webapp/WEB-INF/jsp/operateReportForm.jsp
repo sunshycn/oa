@@ -34,8 +34,44 @@
                 var regNum = /\d+(.\d+)?/;
                 $("form").submit(function() {
                     var errors = [];
+                    if ($.trim($("select[name='reportFormTypeId']").val()).length == 0) {
+                        errors.push("请填写报审单类型");
+                    }
                     if ($.trim($("input[name='title']").val()).length == 0) {
                         errors.push("请填写报审单名称");
+                    }
+                    if ($.trim($("input[name='landUser']").val()).length == 0) {
+                        errors.push("请填写用地（受让）单位");
+                    }
+                    if ($.trim($("input[name='originalLandUser']").val()).length == 0) {
+                        errors.push("请填写原土地使用者");
+                    }
+                    if ($.trim($("input[name='landLocation']").val()).length == 0) {
+                        errors.push("请填写土地座落");
+                    }
+                    if ($.trim($("input[name='landUse']").val()).length == 0) {
+                        errors.push("请填写规划用途");
+                    }
+                    if ($.trim($("input[name='originalLandUse']").val()).length == 0) {
+                        errors.push("请填写原用途");
+                    }
+                    if ($.trim($("textarea[name='matterDetail']").val()).length == 0) {
+                        errors.push("请填写报审事项细节");
+                    }
+                    if ($.trim($("textarea[name='policyBasis']").val()).length == 0) {
+                        errors.push("请填写办理依据");
+                    }
+                    if ($.trim($("textarea[name='comment']").val()).length == 0) {
+                        errors.push("请填写报审单位意见");
+                    }
+                    if ($.trim($("input[name='responsiblePerson']").val()).length == 0) {
+                        errors.push("请填写单位主要负责人");
+                    }
+                    if ($.trim($("input[name='auditor']").val()).length == 0) {
+                        errors.push("请填写审核人");
+                    }
+                    if ($.trim($("input[name='tabulator']").val()).length == 0) {
+                        errors.push("请填写制表人");
                     }
                     if ($.trim($("input[name='matter']").val()).length == 0) {
                         errors.push("请填写报审事项");
