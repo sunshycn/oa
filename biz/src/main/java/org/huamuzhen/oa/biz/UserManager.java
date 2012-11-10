@@ -1,13 +1,17 @@
 package org.huamuzhen.oa.biz;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.huamuzhen.oa.domain.dao.OrgUnitDAO;
+import org.huamuzhen.oa.domain.dao.ReportFormTypeDAO;
 import org.huamuzhen.oa.domain.dao.UserDAO;
+import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
 import org.huamuzhen.oa.domain.enumeration.Privilege;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
@@ -27,6 +31,9 @@ public class UserManager extends BaseManager<User, String>{
 	
 	@Resource
 	private OrgUnitDAO orgUnitDAO;
+	
+	@Resource
+	private ReportFormTypeDAO reportFormTypeDAO;
 	
 	private Random random = new Random();
 	private ShaPasswordEncoder encoder = new ShaPasswordEncoder();
@@ -54,26 +61,26 @@ public class UserManager extends BaseManager<User, String>{
 
 	@Transactional
 	public User updateExisting(String id, String username, String rawPassword,
-			String description, String orgUnitId, String privilege) {
+			String description, String orgUnitId, String privilege, String[] supportedReportFormTypeIds) {
 		User user = this.findOne(id);
 		if(!rawPassword.equals("")){
 			String hashSalt = new Integer(random.nextInt(10000)).toString();
 			user.setHashSalt(hashSalt);
 			user.setHashedPassword(encoder.encodePassword(rawPassword, hashSalt));
 		}
-		user = setBasicDataForUser(user, username, description, orgUnitId, privilege);
+		user = setBasicDataForUser(user, username, description, orgUnitId, privilege,supportedReportFormTypeIds);
 		return this.save(user);
 	}
 
 	@Transactional
 	public User createNew(String username, String rawPassword,
-			String description, String orgUnitId, String privilege) {
+			String description, String orgUnitId, String privilege, String[] supportedReportFormTypeIds) {
 		User newUser = new User();
 		String hashSalt = new Integer(random.nextInt(10000)).toString();
 		newUser.setHashSalt(hashSalt);
 		newUser.setHashedPassword(encoder.encodePassword(rawPassword, hashSalt));
 		newUser.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		newUser = setBasicDataForUser(newUser, username, description, orgUnitId, privilege);
+		newUser = setBasicDataForUser(newUser, username, description, orgUnitId, privilege,supportedReportFormTypeIds);
 		return this.save(newUser);
 	}
 	
@@ -95,7 +102,7 @@ public class UserManager extends BaseManager<User, String>{
 	}
 	
 	private User setBasicDataForUser(final User user,String username,
-			String description, String orgUnitId, String privilege){
+			String description, String orgUnitId, String privilege, String[] supportedReportFormTypeIds){
 		user.setUsername(username);
 		user.setDescription(description);
 		if(null == orgUnitId){
@@ -104,6 +111,12 @@ public class UserManager extends BaseManager<User, String>{
 			user.setOrgUnit(orgUnitDAO.findOne(orgUnitId));
 		}
 		user.setPrivilege(Privilege.valueOf(privilege));
+		Set<ReportFormType> supportedReportFormTypes = new HashSet<ReportFormType>();
+		
+		for(int i=0;supportedReportFormTypeIds!=null&&i<supportedReportFormTypeIds.length;i++){
+			supportedReportFormTypes.add(reportFormTypeDAO.findOne(supportedReportFormTypeIds[i]));
+		}
+		user.setSupportedReportFormTypes(supportedReportFormTypes);
 		user.setModifiedAt(new Timestamp(System.currentTimeMillis()));
 		return user;
 	}

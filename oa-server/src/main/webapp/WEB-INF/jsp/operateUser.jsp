@@ -58,6 +58,26 @@
 			<option value="OFFICE">办公室</option>
 			<option value="ADMIN">管理员</option>
 			</select></td></tr>
+			<tr><td>可申请报审表类型 (Ctrl键+鼠标左键点击复选多个类型)：
+			<select name="supportedReportFormTypeIds" multiple="multiple" size="3">
+				<c:forEach var="reportFormType" items="${reportFormTypeList}">
+					<option value="${reportFormType.id}">${reportFormType.name}</option>
+				</c:forEach>
+			</select>
+			</td>
+			<c:if test="${not empty selectedUser}">
+			<td>
+			 	<b>当前支持的报审表类型：</b>
+                <table>
+                  <c:forEach var="reportFormType" items="${selectedUser.supportedReportFormTypes}">
+                      <tr>
+                          <td>${reportFormType.name}</td>
+                       </tr>
+                   </c:forEach>
+                 </table>
+			</td>
+			</c:if>
+			</tr>
 			<tr><td><input type="submit" value="提交" /></td></tr>
 		</table>
 	</form>

@@ -59,6 +59,8 @@ INSERT INTO User (id, username, description, hashed_password, hash_salt, privile
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('dc5647f19d7540e891927e2f7d4ad402', '主要领导', '我是主要领导', '8b31aed889af092a7788dcc0b820ed04e3bffe1f', '4734', 'LEADER2', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('dc5647f19d7540e891927e2f7d4ad401', '主要领导2', '我是主要领导2', '8b31aed889af092a7788dcc0b820ed04e3bffe1f', '4734', 'LEADER2', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('0e79b16a28054cbf8c94b7b0a98f68ef', '办公室', '我是办公室', '7df2c434fd5f77a394ea41b3f1b44a7f57179d39', '2960', 'OFFICE', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO User_Report_Form_Type (user_id,report_form_type_id) VALUES ('faa65617bdbf4745bcacd6b546515681','de9f2dada8b241a2b28f8a0b3c4a4cea');
+
 
 INSERT INTO Report_Form_Matter (id, name) VALUES ('1','划拨用地');
 INSERT INTO Report_Form_Matter (id, name) VALUES ('2','公开出让');

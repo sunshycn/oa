@@ -2,13 +2,15 @@ package org.huamuzhen.oa.server.controller;
 
 
 import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-
 import org.huamuzhen.oa.biz.OrgUnitManager;
+import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.biz.UserManager;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
+import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,9 @@ public class UserController {
 	
 	@Resource
 	private OrgUnitManager orgUnitManager;
+	
+	@Resource
+	private ReportFormTypeManager reportFormTypeManager;
 	
 	@RequestMapping(value = { "", "/" })
 	public ModelAndView index() {
@@ -48,7 +53,8 @@ public class UserController {
 			orgUnitId = null;
 		}
 		String privilege = request.getParameter("privilege");
-		userManager.createNew(username, password, description, orgUnitId, privilege);
+		String[] supportedReportFormTypeIds = request.getParameterValues("supportedReportFormTypeIds");
+		userManager.createNew(username, password, description, orgUnitId, privilege,supportedReportFormTypeIds);
 		return "redirect:/user";
 	}
 	
@@ -66,7 +72,8 @@ public class UserController {
 			orgUnitId = null;
 		}
 		String privilege = request.getParameter("privilege");
-		userManager.updateExisting(id, username, password, description, orgUnitId, privilege);
+		String[] supportedReportFormTypeIds = request.getParameterValues("supportedReportFormTypeIds");
+		userManager.updateExisting(id, username, password, description, orgUnitId, privilege,supportedReportFormTypeIds);
 		return "redirect:/user";
 	}
 	
@@ -93,6 +100,8 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("operateUser");
 		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
 		mav.addObject("orgUnitList", orgUnitList);
+		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
+		mav.addObject("reportFormTypeList",reportFormTypeList);
 		return mav;
 	}
 	

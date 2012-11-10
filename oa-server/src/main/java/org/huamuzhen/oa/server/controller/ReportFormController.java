@@ -59,35 +59,35 @@ public class ReportFormController {
 	}
 	
 	@RequestMapping("/addReportForm")
-	public ModelAndView addReportForm(){
-		ModelAndView mav = baseOperateReportFormMAV();
+	public ModelAndView addReportForm(HttpSession session){
+		ModelAndView mav = baseOperateReportFormMAV(session);
 		mav.addObject(OPERATE, "add");
 		return mav;
 	}
 	
 	
 	@RequestMapping(value="/editUnsendReportForm/{id}",method=RequestMethod.POST)
-	public ModelAndView editUnsendReportForm(@PathVariable String id){
+	public ModelAndView editUnsendReportForm(@PathVariable String id,HttpSession session){
 		ReportForm selectedReportForm =reportFormManager.findOne(id);
-		ModelAndView mav = baseOperateReportFormMAV();
+		ModelAndView mav = baseOperateReportFormMAV(session);
 		mav.addObject("selectedReportForm", selectedReportForm);
 		mav.addObject(OPERATE, "edit");
 		return mav;
 	}
 	
 	@RequestMapping(value="/reCreateReportForm/{id}",method=RequestMethod.POST)
-	public ModelAndView reCreateReportForm(@PathVariable String id){
+	public ModelAndView reCreateReportForm(@PathVariable String id,HttpSession session){
 		ReportForm selectedReportForm =reportFormManager.findOne(id);
-		ModelAndView mav = baseOperateReportFormMAV();
+		ModelAndView mav = baseOperateReportFormMAV(session);
 		mav.addObject("selectedReportForm", selectedReportForm);
 		mav.addObject(OPERATE, "reCreate");
 		return mav;
 	}
 	
-	private ModelAndView baseOperateReportFormMAV(){
+	private ModelAndView baseOperateReportFormMAV(HttpSession session){
 		ModelAndView mav = new ModelAndView("operateReportForm");
-		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
-		mav.addObject("reportFormTypeList", reportFormTypeList);
+		User currentUser = (User)session.getAttribute("currentUser");
+		mav.addObject("supportedReportFormTypeList", currentUser.getSupportedReportFormTypes());
 		List<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll();
 		mav.addObject("reportFormMatterList", reportFormMatterList);
 		return mav;

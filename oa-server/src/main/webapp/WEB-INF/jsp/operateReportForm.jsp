@@ -64,7 +64,7 @@
 		<input type="hidden" name="id" value="${selectedReportForm.id}">
 		<input type="hidden" name="formId"  value="${selectedReportForm.formId}" >
         <table>
-			<tr><td>报审表类型：<select name="reportFormTypeId"><option value="${selectedReportForm.reportFormType.id}">${selectedReportForm.reportFormType.name}</option><c:forEach var="reportFormType" items="${reportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
+			<tr><td>报审表类型：<select name="reportFormTypeId"><option value="${selectedReportForm.reportFormType.id}">${selectedReportForm.reportFormType.name}</option><c:forEach var="reportFormType" items="${supportedReportFormTypeList}"><option value="${reportFormType.id}">${reportFormType.name}</option></c:forEach></select></td></tr>
 			<tr><td>报审单名称： <input name="title" type="text" maxlength="30" value="${selectedReportForm.title}" ></input></td></tr>
 			<c:choose>
         		<c:when test="${operate == 'edit'}"><tr><td>编号：${selectedReportForm.formId}</td></tr></c:when>

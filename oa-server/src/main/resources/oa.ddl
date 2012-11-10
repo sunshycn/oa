@@ -87,6 +87,12 @@ CREATE TABLE Report_Form_Type_Org_Unit
 	org_unit_id VARCHAR (36) NOT NULL
 );
 
+CREATE TABLE User_Report_Form_Type
+(
+	user_id VARCHAR (36) NOT NULL,
+	report_form_type_id VARCHAR (36) NOT NULL
+)
+
 CREATE TABLE Report_Form_Matter
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,

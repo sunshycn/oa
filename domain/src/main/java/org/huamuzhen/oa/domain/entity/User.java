@@ -1,12 +1,18 @@
 package org.huamuzhen.oa.domain.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -44,6 +50,12 @@ public class User extends BaseEntity{
 	
 	@Column(name="hash_salt", length = 10)
 	private String hashSalt;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="User_Report_Form_Type",
+	joinColumns={@JoinColumn(name="user_id",referencedColumnName="id")},
+	inverseJoinColumns={@JoinColumn(name="report_form_type_id",referencedColumnName="id")})
+	private Set<ReportFormType> supportedReportFormTypes = new HashSet<ReportFormType>(0);
 	
 	public String getId() {
 		return id;
@@ -87,5 +99,11 @@ public class User extends BaseEntity{
 	public void setPrivilege(Privilege privilege) {
 		this.privilege = privilege;
 	}
-	
+	public Set<ReportFormType> getSupportedReportFormTypes() {
+		return supportedReportFormTypes;
+	}
+	public void setSupportedReportFormTypes(
+			Set<ReportFormType> supportedReportFormTypes) {
+		this.supportedReportFormTypes = supportedReportFormTypes;
+	}
 }

@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS Report_Form_Type_Org_Unit CASCADE;
+DROP TABLE IF EXISTS User_Report_Form_Type CASCADE;
 DROP TABLE IF EXISTS Feedback CASCADE;
 DROP TABLE IF EXISTS Report_Form CASCADE;
 DROP TABLE IF EXISTS Report_Form_Type CASCADE;
@@ -91,6 +92,12 @@ CREATE TABLE Report_Form_Type_Org_Unit
 (
 	report_form_type_id VARCHAR (36) NOT NULL,
 	org_unit_id VARCHAR (36) NOT NULL
+)default charset=utf8;
+
+CREATE TABLE User_Report_Form_Type
+(
+	user_id VARCHAR (36) NOT NULL,
+	report_form_type_id VARCHAR (36) NOT NULL
 )default charset=utf8;
 
 CREATE TABLE Report_Form_Matter
