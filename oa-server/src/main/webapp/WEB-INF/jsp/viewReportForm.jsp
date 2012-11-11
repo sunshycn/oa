@@ -36,7 +36,7 @@
 	用地面积：${reportForm.landArea} 
 	<c:choose>
 		<c:when test="${reportForm.landAreaMeasure == 'MU'}">亩</c:when>
-		<c:when test="${printedReportForm.landAreaMeasure == 'SQUARE_METER'}">平方米</c:when>
+		<c:when test="${reportForm.landAreaMeasure == 'SQUARE_METER'}">平方米</c:when>
 		<c:when test="${reportForm.landAreaMeasure == 'HECTARE'}">公顷</c:when>
 		<c:otherwise>平方公里</c:otherwise>
 	</c:choose>
@@ -44,9 +44,9 @@
 	规划用途： ${reportForm.landUse}<br/>
 	原用途： ${reportForm.originalLandUse}<br/>
 	报审事项：${reportForm.matter}<br/>
-	报审事项细节：<textarea name="matterDetail" rows="10" cols="50" disabled="disabled">${reportForm.matterDetail}</textarea><br/>
-	办理依据：<textarea name="policyBasis" rows="5" cols="50" disabled="disabled">${reportForm.policyBasis}</textarea><br/>
-	报审单位意见：<textarea name="comment" rows="5" cols="50" disabled="disabled">${reportForm.comment}</textarea><br/>
+	报审事项细节：<textarea name="matterDetail" rows="10" cols="50">${reportForm.matterDetail}</textarea><br/>
+	办理依据：<textarea name="policyBasis" rows="5" cols="50">${reportForm.policyBasis}</textarea><br/>
+	报审单位意见：<textarea name="comment" rows="5" cols="50">${reportForm.comment}</textarea><br/>
 	单位主要负责人：${reportForm.responsiblePerson}<br/>
 	审核人：${reportForm.auditor}<br/>
 	制表人：${reportForm.tabulator}<br/>
@@ -67,7 +67,7 @@
 				<td>${feedback.owner}</td>
 				<td>${feedback.feedbackTime}</td>
 				<td>${feedback.signature}</td>
-				<td><textarea name="content" rows="5" cols="50" disabled="disabled">${feedback.content}</textarea></td>
+				<td><textarea name="content" rows="5" cols="50">${feedback.content}</textarea></td>
 			</tr>
 			</c:forEach>
 		</tbody>

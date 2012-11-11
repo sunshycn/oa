@@ -49,6 +49,7 @@
 						<c:when test="${reportFormStatusLink =='notSendReportForm'}">
 							<td><form action="${contextPath}/reportForm/sendToOrgUnits/${reportForm.id}" method="POST"><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form></td>
 							<td><form action="${contextPath}/reportForm/editUnsendReportForm/${reportForm.id}" method="POST"><input type="submit" value="编辑"></input></form></td>
+							<td><form action="${contextPath}/reportForm/delete/${reportForm.id}" method="POST"><input type="submit" value="删除" onclick="return confirm('确认删除?');"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm' || reportFormStatusLink =='sentToLeader1ReportForm' || reportFormStatusLink =='sentToLeader2ReportForm' || reportFormStatusLink =='sentToOfficeReportForm'}">
 							<td><form action="${contextPath}/reportForm/responseReportForm/${reportForm.id}" method="POST"><input type="submit" value="回复"></input></form></td>

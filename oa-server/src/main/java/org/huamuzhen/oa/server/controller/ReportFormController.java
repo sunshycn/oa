@@ -190,6 +190,13 @@ public class ReportFormController {
 
 	}
 	
+	@RequestMapping(value="/delete/{id}",method=RequestMethod.POST)
+	public String delete(@PathVariable String id){
+		reportFormManager.delete(id);
+		return "redirect:/reportForm/list/notSendReportForm";
+		
+	}
+	
 	@RequestMapping(value="/sendToOrgUnits/{id}", method=RequestMethod.POST)
 	public String sendToOrgUnits(@PathVariable String id){
 		reportFormManager.sendToOrgUnits(id);
