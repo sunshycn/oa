@@ -34,7 +34,9 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
 					|| request.getRequestURI().startsWith(
 							request.getContextPath() + "/reportFormType")
 					|| request.getRequestURI().startsWith(
-							request.getContextPath() + "/reportFormTitle")) {
+							request.getContextPath() + "/reportFormTitle")
+					||	request.getRequestURI().startsWith(
+								request.getContextPath() + "/config")) {
 				response.setCharacterEncoding("utf-8");
 				response.getWriter().write("权限不够");
 				return false;

@@ -41,6 +41,8 @@
     		<mvc:mapping path="/reportFormMatter"/>
     		<mvc:mapping path="/feedback/*"/>
     		<mvc:mapping path="/query"/>
+    		<mvc:mapping path="/config"/>
+    		<mvc:mapping path="/config/*"/>
     		<bean class="org.huamuzhen.oa.server.interceptor.AuthorizeInterceptor"></bean>
     	</mvc:interceptor>
     </mvc:interceptors>
