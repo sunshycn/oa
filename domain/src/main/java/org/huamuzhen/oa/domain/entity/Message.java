@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table
+@Table(name="Message")
 public class Message extends BaseEntity{
 	
 	private static final long serialVersionUID = 1L;
