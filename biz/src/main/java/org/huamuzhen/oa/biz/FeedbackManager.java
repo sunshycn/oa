@@ -2,7 +2,6 @@ package org.huamuzhen.oa.biz;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +10,7 @@ import javax.annotation.Resource;
 import org.huamuzhen.oa.biz.util.DeadlineCounter;
 import org.huamuzhen.oa.domain.dao.FeedbackDAO;
 import org.huamuzhen.oa.domain.dao.ReportFormDAO;
+import org.huamuzhen.oa.domain.dao.UserDAO;
 import org.huamuzhen.oa.domain.entity.Feedback;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
 import org.huamuzhen.oa.domain.entity.ReportForm;
@@ -29,6 +29,12 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 	
 	@Resource
 	private FeedbackDAO feedbackDAO;
+	
+	@Resource
+	private UserDAO userDAO;
+	
+	@Resource
+	private MessageManager message;
 	
 	@Resource
 	public void setDao(FeedbackDAO dao) {
@@ -50,11 +56,13 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		if(currentUser.getPrivilege() == Privilege.DEPARTMENT && null != orgUnitId){
 			feedback.setOwner(currentUser.getOrgUnit().getName());
 			feedback.setResponseOrgUnitId(currentUser.getOrgUnit().getId());
-			Feedback savedFeedback= this.saveAndFlush(feedback);;
+			Feedback savedFeedback= this.save(feedback);;
 			if(checkIfAllRequiredOrgUnitsSendFeedback(reportForm)){
 				reportForm.setStatus(ReportFormStatus.GOT_REPLY_FROM_UNITS);
 				reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
 			}
+			message.sendMsg(currentUser.getId(), "回复了报审表：" +reportForm.getFormId());
+			message.sendMsg(reportForm.getCreatorId(), userDAO.findOne(currentUser.getId()).getUsername()+ " 回复了报审表：" +reportForm.getFormId());
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
 			
@@ -69,9 +77,13 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 				}
 				reportForm.setCurrentReceiverId(leader2Id);
 				reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER2);
+				message.sendMsg(currentUser.getId(), "回复了报审表：" +reportForm.getFormId() + ";同意审批，将报审表发送至主要领导：" + userDAO.findOne(leader2Id).getUsername());
+				message.sendMsg(reportForm.getCreatorId(), userDAO.findOne(currentUser.getId()).getUsername()+" 回复了报审表：" +reportForm.getFormId() + ";同意审批，将报审表发送至主要领导：" + userDAO.findOne(leader2Id).getUsername());
 			}else{
 				reportForm.setCurrentReceiverId(reportForm.getCreatorId());
 				reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER1);
+				message.sendMsg(currentUser.getId(), "回复了报审表：" +reportForm.getFormId() + ";否决审批，将报审表发送回报审单位: " + userDAO.findOne(reportForm.getCreatorId()).getUsername());
+				message.sendMsg(reportForm.getCreatorId(), userDAO.findOne(currentUser.getId()).getUsername()+" 否决了报审表：" +reportForm.getFormId());
 			}	
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
@@ -87,8 +99,12 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 				reportForm.setStatus(ReportFormStatus.SENT_TO_OFFICE);
 				// reset deadline for office
 				reportForm.setDeadlineTime(DeadlineCounter.getDeadline(deadlineDuration));
+				message.sendMsg(currentUser.getId(), "回复了报审表：" +reportForm.getFormId() + ";同意审批,将报审表发送至办公室");
+				message.sendMsg(reportForm.getCurrentReceiverId(), "主要领导：" + userDAO.findOne(currentUser.getId()) + "同意了报审表: "+ reportForm.getFormId());
 			}else{
 				reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER2);
+				message.sendMsg(currentUser.getId(), "回复了报审表：" +reportForm.getFormId() + ";否决审批，将报审表发送回分管领导: " + userDAO.findOne(reportForm.getCurrentReceiverId()).getUsername());
+				message.sendMsg(reportForm.getCurrentReceiverId(), "主要领导：" + userDAO.findOne(currentUser.getId()) + "否决了报审表: "+ reportForm.getFormId());
 			}
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
@@ -98,6 +114,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			reportForm.setStatus(ReportFormStatus.PASSED);
 			reportForm.setDeadlineTime(DeadlineCounter.getDeadline(10000));
 			reportFormDAO.save(reportForm);
+			message.sendMsg(reportForm.getCreatorId(), "报审表：" + reportForm.getFormId() + "完成审批");
 			return savedFeedback;
 		}
 		return null;

@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import org.huamuzhen.oa.biz.util.DeadlineCounter;
 import org.huamuzhen.oa.domain.dao.ReportFormDAO;
 import org.huamuzhen.oa.domain.dao.ReportFormTypeDAO;
+import org.huamuzhen.oa.domain.dao.UserDAO;
 import org.huamuzhen.oa.domain.entity.ReportForm;
 import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
 import org.huamuzhen.oa.domain.enumeration.SquareMeasure;
@@ -25,6 +26,13 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	
 	@Resource
 	private ReportFormTypeDAO reportFormTypeDAO;
+	
+	@Resource
+	private UserDAO userDAO;
+	
+	
+	@Resource
+	private MessageManager message;
 
 	@Resource
 	public void setDao(ReportFormDAO dao) {
@@ -190,6 +198,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		reportForm.setStatus(ReportFormStatus.SENT_TO_ORG_UNITS);
 		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
 		reportForm.setDeadlineTime(DeadlineCounter.getDeadline(deadlineDuration));
+		message.sendMsg(currentSenderId, "将报审表: "+ reportForm.getFormId() + " 发送至各审批部门");
 		return reportFormDAO.save(reportForm);
 	}
 
@@ -200,6 +209,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		reportForm.setCurrentSenderId(currentSenderId);
 		reportForm.setCurrentReceiverId(leader1Id);
 		reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
+		message.sendMsg(currentSenderId, "将报审表: "+ reportForm.getFormId() + " 发送至分管领导: " + userDAO.findOne(leader1Id).getUsername());
 		return reportFormDAO.save(reportForm);
 	}
     
@@ -210,6 +220,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
     	reportForm.setCurrentSenderId(currentSenderId);
     	reportForm.setCurrentReceiverId(reportForm.getCreatorId());
     	reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
+    	message.sendMsg(currentSenderId, "将报审表: "+ reportForm.getFormId() + " 发送至报审单位: " + userDAO.findOne(reportForm.getCreatorId()).getUsername());
     	return reportFormDAO.save(reportForm);
 	}
 	
@@ -235,5 +246,12 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			status = ReportFormStatus.PASSED;
 		}
 		return status;
+	}
+
+	@Transactional
+	public void setReportFormAsDead(String id) {
+		ReportForm reportForm = reportFormDAO.findOne(id);
+		reportForm.setStatus(ReportFormStatus.DEAD);
+		this.save(reportForm);
 	}
 }

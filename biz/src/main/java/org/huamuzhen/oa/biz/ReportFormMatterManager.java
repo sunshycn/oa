@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.huamuzhen.oa.domain.dao.ReportFormMatterDAO;
 import org.huamuzhen.oa.domain.entity.ReportFormMatter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReportFormMatterManager extends BaseManager<ReportFormMatter, String>{
@@ -16,6 +17,7 @@ public class ReportFormMatterManager extends BaseManager<ReportFormMatter, Strin
 		super.setDao(dao);
 	}
 
+	@Transactional
 	public ReportFormMatter updateExisting(String id, String name) {
 		ReportFormMatter reportFormMatter = this.findOne(id);
 		reportFormMatter.setName(name);
@@ -24,6 +26,7 @@ public class ReportFormMatterManager extends BaseManager<ReportFormMatter, Strin
 		
 	}
 
+	@Transactional
 	public ReportFormMatter createNew(String name) {
 		ReportFormMatter reportFormMatter = new ReportFormMatter();
 		reportFormMatter.setName(name);

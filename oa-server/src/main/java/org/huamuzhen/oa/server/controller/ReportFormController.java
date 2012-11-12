@@ -49,9 +49,6 @@ public class ReportFormController {
 	private UserManager userManager;
 	
 	@Resource
-	private MessageManager messageManager;
-	
-	@Resource
 	private KeyValuePairManager config;
 	
 	@Resource
@@ -200,7 +197,7 @@ public class ReportFormController {
 	
 	@RequestMapping(value="/delete/{id}",method=RequestMethod.POST)
 	public String delete(@PathVariable String id){
-		reportFormManager.delete(id);
+		reportFormManager.setReportFormAsDead(id);
 		return "redirect:/reportForm/list/notSendReportForm";
 		
 	}
