@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.huamuzhen.oa.biz.util.DeadlineCounter;
 import org.huamuzhen.oa.domain.dao.ReportFormDAO;
 import org.huamuzhen.oa.domain.dao.ReportFormTypeDAO;
 import org.huamuzhen.oa.domain.entity.ReportForm;
@@ -183,11 +184,12 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	}
 	
     @Transactional
-	public ReportForm sendToOrgUnits(String id, String currentSenderId){
+	public ReportForm sendToOrgUnits(String id, String currentSenderId, int deadlineDuration){
 		ReportForm reportForm = reportFormDAO.findOne(id);
 		reportForm.setCurrentSenderId(currentSenderId);
 		reportForm.setStatus(ReportFormStatus.SENT_TO_ORG_UNITS);
 		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
+		reportForm.setDeadlineTime(DeadlineCounter.getDeadline(deadlineDuration));
 		return reportFormDAO.save(reportForm);
 	}
 
@@ -197,6 +199,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER1);
 		reportForm.setCurrentSenderId(currentSenderId);
 		reportForm.setCurrentReceiverId(leader1Id);
+		reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
 		return reportFormDAO.save(reportForm);
 	}
     
@@ -206,6 +209,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
     	reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER1);
     	reportForm.setCurrentSenderId(currentSenderId);
     	reportForm.setCurrentReceiverId(reportForm.getCreatorId());
+    	reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
     	return reportFormDAO.save(reportForm);
 	}
 	

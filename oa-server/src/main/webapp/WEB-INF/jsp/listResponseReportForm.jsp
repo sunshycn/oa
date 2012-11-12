@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Timestamp"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,17 @@
 		<tbody>
 		<c:forEach var="reportForm" items="${reportFormList}">	
 			<tr>
-				<td>${reportForm.formId}</td>
+				<c:set var="deadline" value="${reportForm.deadlineTime}"></c:set>
+				<% long timeDiff = ((Timestamp)request.getAttribute("deadline")).getTime() - System.currentTimeMillis();
+					if(timeDiff < 86400000){
+						%><td><span style="color:yellow">${reportForm.formId}</span></td> <% 
+					}else if(timeDiff < 0){
+						%> <td><span style="color:red">${reportForm.formId}</span></td><% 
+					}else{
+						%> <td>${reportForm.formId}</td><%
+					}
+				%>
+			<%-- 	<td>${reportForm.formId}</td> --%>
 				<td>${reportForm.title}</td>
 					<c:choose>
 						<c:when test="${reportFormStatusLink =='notSendReportForm'}">
@@ -107,7 +118,7 @@
 	</table>
 	</c:if>
 	<br/>
-	<c:choose>
+<%-- 	<c:choose>
 		<c:when test="${warningMsg =='oneDayDelay'}">
 			<span style="color:orange">存在自发送以来已经过一天而未处理的报审单</span>
 		</c:when>
@@ -115,7 +126,7 @@
 			<span style="color:red">存在自发送以来已经过两天而未处理的报审单！请尽快处理</span>
 		</c:when>
 		<c:otherwise></c:otherwise>
-	</c:choose>
+	</c:choose> --%>
 
 </body>
 </html>

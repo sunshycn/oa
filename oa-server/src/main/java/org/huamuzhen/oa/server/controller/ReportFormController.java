@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.huamuzhen.oa.biz.FeedbackManager;
+import org.huamuzhen.oa.biz.KeyValuePairManager;
+import org.huamuzhen.oa.biz.MessageManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
 import org.huamuzhen.oa.biz.ReportFormMatterManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
@@ -45,6 +47,12 @@ public class ReportFormController {
 	
 	@Resource
 	private UserManager userManager;
+	
+	@Resource
+	private MessageManager messageManager;
+	
+	@Resource
+	private KeyValuePairManager config;
 	
 	@Resource
 	private ReportFormMatterManager reportFormMatterManager;
@@ -200,7 +208,7 @@ public class ReportFormController {
 	@RequestMapping(value="/sendToOrgUnits/{id}", method=RequestMethod.POST)
 	public String sendToOrgUnits(@PathVariable String id, HttpSession session){
 		User currentUser = (User)session.getAttribute("currentUser");
-		reportFormManager.sendToOrgUnits(id, currentUser.getId());
+		reportFormManager.sendToOrgUnits(id, currentUser.getId(),Integer.parseInt(config.getParamsMap().get("deadlineDuration")));
 		return "redirect:/reportForm/list/notSendReportForm";
 		
 	}
@@ -280,7 +288,7 @@ public class ReportFormController {
 		}
 		
 		// check if there are reportForms which is urgent
-		if(reportFormStatusLink.equals("sentToLeader1ReportForm")
+/*		if(reportFormStatusLink.equals("sentToLeader1ReportForm")
 				|| reportFormStatusLink.equals("sentToLeader2ReportForm") || reportFormStatusLink.equals("sentToOrgUnitsReportForm")
 				|| reportFormStatusLink.equals("gotReplyFromUnitsReportForm") || reportFormStatusLink.equals("sentToOfficeReportForm")){
 			for(ReportForm reportForm : reportFormList){
@@ -296,7 +304,7 @@ public class ReportFormController {
 				}
 			}
 		}
-		
+		*/
 		mav.addObject("reportFormList", reportFormList);
 		mav.addObject("reportFormStatusLink", reportFormStatusLink);
 		

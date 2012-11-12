@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.huamuzhen.oa.biz.FeedbackManager;
-import org.huamuzhen.oa.biz.ReportFormManager;
+import org.huamuzhen.oa.biz.KeyValuePairManager;
 import org.huamuzhen.oa.domain.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,9 @@ public class FeedbackController {
 	
 	@Resource
 	private FeedbackManager feedbackManager;
+	
+	@Resource
+	private KeyValuePairManager config;
 	
 	@RequestMapping(value="add", method=RequestMethod.POST)
 	public String add(HttpServletRequest request){
@@ -35,7 +38,7 @@ public class FeedbackController {
 		
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
-		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser, currentReceiverId, leader2Id, agree);
+		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser, currentReceiverId, leader2Id, agree,Integer.parseInt(config.getParamsMap().get("deadlineDuration")));
 		
 		return "redirect:/reportForm";
 	}

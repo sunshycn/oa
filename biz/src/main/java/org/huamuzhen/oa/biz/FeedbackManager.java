@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.huamuzhen.oa.biz.util.DeadlineCounter;
 import org.huamuzhen.oa.domain.dao.FeedbackDAO;
 import org.huamuzhen.oa.domain.dao.ReportFormDAO;
 import org.huamuzhen.oa.domain.entity.Feedback;
@@ -36,7 +37,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 
 	@Transactional
 	public Feedback add(String reportFormId, String content, String signature,
-			String orgUnitId, String owner, User currentUser, String currentReceiverId, String leader2Id, boolean agree) {
+			String orgUnitId, String owner, User currentUser, String currentReceiverId, String leader2Id, boolean agree,int deadlineDuration) {
 		Feedback feedback = new Feedback();
 		feedback.setContent(content);
 		feedback.setSignature(signature);
@@ -52,6 +53,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			Feedback savedFeedback= this.saveAndFlush(feedback);;
 			if(checkIfAllRequiredOrgUnitsSendFeedback(reportForm)){
 				reportForm.setStatus(ReportFormStatus.GOT_REPLY_FROM_UNITS);
+				reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
 			}
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
@@ -60,6 +62,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			feedback.setOwner(Privilege.LEADER1.toString());
 			Feedback savedFeedback = this.save(feedback);
 			reportForm.setCurrentSenderId(currentUser.getId());
+			reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
 			if(agree){
 				if(leader2Id.equals("")){
 					leader2Id = null;
@@ -79,8 +82,11 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			// always return to leader1
 			reportForm.setCurrentReceiverId(reportForm.getCurrentSenderId());
 			reportForm.setCurrentSenderId(currentUser.getId());
+			reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
 			if(agree){
 				reportForm.setStatus(ReportFormStatus.SENT_TO_OFFICE);
+				// reset deadline for office
+				reportForm.setDeadlineTime(DeadlineCounter.getDeadline(deadlineDuration));
 			}else{
 				reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER2);
 			}
@@ -90,7 +96,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			feedback.setOwner(Privilege.OFFICE.toString());
 			Feedback savedFeedback = this.save(feedback);	
 			reportForm.setStatus(ReportFormStatus.PASSED);
-			
+			reportForm.setDeadlineTime(DeadlineCounter.getDeadline(10000));
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
 		}
