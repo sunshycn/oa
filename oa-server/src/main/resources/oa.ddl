@@ -113,7 +113,7 @@ CREATE TABLE Message
 (
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
 	receiver_id VARCHAR(36) NOT NULL,
-	messsage VARCHAR(100),
+	message_content VARCHAR(100)NOT NULL,
 	created_at TIMESTAMP,
     modified_at TIMESTAMP
 )

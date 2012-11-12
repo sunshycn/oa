@@ -24,7 +24,7 @@ public class MessageManager extends BaseManager<Message, String> {
 	@Transactional
 	public void sendMsg(String receiverId, String msg){
 		Message message = new Message();
-		message.setMessage(msg);
+		message.setMessageContent(msg);
 		message.setReceiverId(receiverId);
 		message.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		message.setModifiedAt(new Timestamp(System.currentTimeMillis()));

@@ -20,11 +20,11 @@ public class Message extends BaseEntity{
 	@Column(name="id", unique = true, nullable = false, length = 36)
 	private String id;
 	
-	@Column(name="receiver_id", nullable=false,length = 500)
+	@Column(name="receiver_id", nullable=false,length = 36)
 	private String receiverId;
 	
-	@Column(name="message", nullable=false,length = 500)
-	private String message;
+	@Column(name="message_content", nullable=false,length = 100)
+	private String messageContent;
 
 	public String getId() {
 		return id;
@@ -42,11 +42,12 @@ public class Message extends BaseEntity{
 		this.receiverId = receiverId;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getMessageContent() {
+		return messageContent;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMessageContent(String messageContent) {
+		this.messageContent = messageContent;
 	}
+
 }
