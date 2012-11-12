@@ -118,15 +118,6 @@
 	</table>
 	</c:if>
 	<br/>
-<%-- 	<c:choose>
-		<c:when test="${warningMsg =='oneDayDelay'}">
-			<span style="color:orange">存在自发送以来已经过一天而未处理的报审单</span>
-		</c:when>
-		<c:when test="${warningMsg =='twoDaysDelay'}">
-			<span style="color:red">存在自发送以来已经过两天而未处理的报审单！请尽快处理</span>
-		</c:when>
-		<c:otherwise></c:otherwise>
-	</c:choose> --%>
 
 </body>
 </html>

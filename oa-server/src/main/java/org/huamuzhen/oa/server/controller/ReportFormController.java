@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import org.huamuzhen.oa.biz.FeedbackManager;
 import org.huamuzhen.oa.biz.KeyValuePairManager;
-import org.huamuzhen.oa.biz.MessageManager;
 import org.huamuzhen.oa.biz.ReportFormManager;
 import org.huamuzhen.oa.biz.ReportFormMatterManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
@@ -284,24 +283,6 @@ public class ReportFormController {
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
 		
-		// check if there are reportForms which is urgent
-/*		if(reportFormStatusLink.equals("sentToLeader1ReportForm")
-				|| reportFormStatusLink.equals("sentToLeader2ReportForm") || reportFormStatusLink.equals("sentToOrgUnitsReportForm")
-				|| reportFormStatusLink.equals("gotReplyFromUnitsReportForm") || reportFormStatusLink.equals("sentToOfficeReportForm")){
-			for(ReportForm reportForm : reportFormList){
-				if(null != reportForm.getSendTime()){
-					long sendTime = reportForm.getSendTime().getTime();
-					long now = System.currentTimeMillis();
-					if (now - sendTime > 86400000 * 2){
-						mav.addObject("warningMsg", "twoDaysDelay");
-						break;
-					}else if (now - sendTime > 86400000){
-						mav.addObject("warningMsg", "oneDayDelay");
-					}
-				}
-			}
-		}
-		*/
 		mav.addObject("reportFormList", reportFormList);
 		mav.addObject("reportFormStatusLink", reportFormStatusLink);
 		
