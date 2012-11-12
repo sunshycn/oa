@@ -19,7 +19,7 @@
 		<tbody>
 		<c:forEach var="message" items="${messageList}">	
 			<tr>
-				<td>${message.message}</td>
+				<td>${message.messageContent}</td>
 				<td>${message.createdAt}</td>
 				<td><form action="${contextPath}/message/delete/${message.id}" method="POST"><input type="submit" value="删除" ></input></form></td>
 			</tr>

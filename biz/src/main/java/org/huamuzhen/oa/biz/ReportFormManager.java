@@ -210,6 +210,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		reportForm.setCurrentReceiverId(leader1Id);
 		reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
 		message.sendMsg(currentSenderId, "将报审表: "+ reportForm.getFormId() + " 发送至分管领导: " + userDAO.findOne(leader1Id).getUsername());
+		message.sendMsg(leader1Id, "收到报审表: "+ reportForm.getFormId() + " 来自: " + userDAO.findOne(currentSenderId).getUsername());
 		return reportFormDAO.save(reportForm);
 	}
     
@@ -221,6 +222,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
     	reportForm.setCurrentReceiverId(reportForm.getCreatorId());
     	reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
     	message.sendMsg(currentSenderId, "将报审表: "+ reportForm.getFormId() + " 发送至报审单位: " + userDAO.findOne(reportForm.getCreatorId()).getUsername());
+    	message.sendMsg(reportForm.getCreatorId(),  " 被分管领导: " + userDAO.findOne(reportForm.getCreatorId()).getUsername()+ "打回报审表: "+ reportForm.getFormId());
     	return reportFormDAO.save(reportForm);
 	}
 	

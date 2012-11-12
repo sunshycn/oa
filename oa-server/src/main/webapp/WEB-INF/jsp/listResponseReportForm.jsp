@@ -50,7 +50,7 @@
 		<tbody>
 		<c:forEach var="reportForm" items="${reportFormList}">	
 			<tr>
-				<c:set var="deadline" value="${reportForm.deadlineTime}"></c:set>
+			<%-- 	<c:set var="deadline" value="${reportForm.deadlineTime}"></c:set>
 				<% long timeDiff = ((Timestamp)request.getAttribute("deadline")).getTime() - System.currentTimeMillis();
 					if(timeDiff < 86400000){
 						%><td><span style="color:yellow">${reportForm.formId}</span></td> <% 
@@ -59,8 +59,8 @@
 					}else{
 						%> <td>${reportForm.formId}</td><%
 					}
-				%>
-			<%-- 	<td>${reportForm.formId}</td> --%>
+				%> --%>
+				<td>${reportForm.formId}</td>
 				<td>${reportForm.title}</td>
 					<c:choose>
 						<c:when test="${reportFormStatusLink =='notSendReportForm'}">
