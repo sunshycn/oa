@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 
 import org.huamuzhen.oa.domain.dao.MessageDAO;
 import org.huamuzhen.oa.domain.entity.Message;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class MessageManager extends BaseManager<Message, String> {
 	
 	@Resource
