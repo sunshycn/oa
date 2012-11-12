@@ -43,7 +43,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 
 	@Transactional
 	public Feedback add(String reportFormId, String content, String signature,
-			String orgUnitId, String owner, User currentUser, String currentReceiverId, String leader2Id, boolean agree,int deadlineDuration) {
+			String orgUnitId, String owner, User currentUser, String currentReceiverId, String leader2Id, Boolean agree,int deadlineDuration) {
 		Feedback feedback = new Feedback();
 		feedback.setContent(content);
 		feedback.setSignature(signature);

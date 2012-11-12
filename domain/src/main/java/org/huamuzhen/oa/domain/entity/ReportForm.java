@@ -12,10 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
 import org.huamuzhen.oa.domain.enumeration.SquareMeasure;
+import org.huamuzhen.oa.domain.enumeration.UrgentLevel;
 
 @Entity
 @Table(name="Report_Form")
@@ -104,6 +106,9 @@ public class ReportForm extends BaseEntity{
 	@Column(name="status", length=30)
 	@Enumerated(EnumType.STRING)
 	private ReportFormStatus status = ReportFormStatus.NOT_SEND;
+	
+	@Transient
+	private UrgentLevel urgentLevel = UrgentLevel.OK;
 
 	public String getId() {
 		return id;
@@ -305,5 +310,12 @@ public class ReportForm extends BaseEntity{
 	public void setStatus(ReportFormStatus status) {
 		this.status = status;
 	}
-	
+
+	public UrgentLevel getUrgentLevel() {
+		return urgentLevel;
+	}
+
+	public void setUrgentLevel(UrgentLevel urgentLevel) {
+		this.urgentLevel = urgentLevel;
+	}
 }

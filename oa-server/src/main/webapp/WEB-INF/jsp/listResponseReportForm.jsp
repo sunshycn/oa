@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<% %>
 <meta charset="UTF-8">
 <title>
 	<c:choose>
@@ -37,7 +38,7 @@
 	</h2>
 	<a href="${contextPath}/reportForm">返回报审单管理</a><br/>
 	<c:if test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">
-	待回复的报审单<br/>
+	待回复的报审单(<span style="color:yellow">黄色</span>代表还有一天期限，<span style="color:red">红色</span>代表已超期)<br/>
 	</c:if>
 	<table border="1">
 		<thead>
@@ -50,17 +51,11 @@
 		<tbody>
 		<c:forEach var="reportForm" items="${reportFormList}">	
 			<tr>
-			<%-- 	<c:set var="deadline" value="${reportForm.deadlineTime}"></c:set>
-				<% long timeDiff = ((Timestamp)request.getAttribute("deadline")).getTime() - System.currentTimeMillis();
-					if(timeDiff < 86400000){
-						%><td><span style="color:yellow">${reportForm.formId}</span></td> <% 
-					}else if(timeDiff < 0){
-						%> <td><span style="color:red">${reportForm.formId}</span></td><% 
-					}else{
-						%> <td>${reportForm.formId}</td><%
-					}
-				%> --%>
-				<td>${reportForm.formId}</td>
+				<c:choose>
+					<c:when test="${reportForm.urgentLevel == 'URGENT'}"><td><span style="color:yellow">${reportForm.formId}</span></td></c:when>
+					<c:when test="${reportForm.urgentLevel == 'EXCEED'}"><td><span style="color:red">${reportForm.formId}</span></td></c:when>
+					<c:otherwise><td>${reportForm.formId}</td></c:otherwise>
+				</c:choose>
 				<td>${reportForm.title}</td>
 					<c:choose>
 						<c:when test="${reportFormStatusLink =='notSendReportForm'}">

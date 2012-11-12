@@ -37,7 +37,6 @@ public class FeedbackController {
 		String leader2Id= request.getParameter("leader2Id");
 		
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
-		
 		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser, currentReceiverId, leader2Id, agree,Integer.parseInt(config.getParamsMap().get("deadlineDuration")));
 		
 		return "redirect:/reportForm";

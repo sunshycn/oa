@@ -25,10 +25,14 @@ public class KeyValuePairManager extends BaseManager<KeyValuePair,String>{
 		super.setDao(dao);
 	}
 	
-	@PostConstruct
-	public void init() {
+	public KeyValuePairManager(){
 		// default data
 		paramsMap.put("deadlineDuration", "3");
+	}
+	
+	@PostConstruct
+	public void init() {
+		
 		// load data
 		List<KeyValuePair> config = this.findAll();
 		for (KeyValuePair keyValuePair : config) {

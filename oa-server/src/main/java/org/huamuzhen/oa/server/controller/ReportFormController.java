@@ -24,6 +24,7 @@ import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
 import org.huamuzhen.oa.domain.enumeration.Privilege;
 import org.huamuzhen.oa.domain.enumeration.ReportFormStatus;
+import org.huamuzhen.oa.domain.enumeration.UrgentLevel;
 import org.huamuzhen.oa.server.util.FeedbackComparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -257,6 +258,7 @@ public class ReportFormController {
 				}
 			}
 			mav.addObject("responsedReportFormList", responsedReportFormList);
+			reportFormList = addUrgentInfo(reportFormList);
 		}else if(reportFormStatusLink.equals("passedReportForm")){
 			if(currentUser.getPrivilege() == Privilege.OFFICE){
 				reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
@@ -276,19 +278,33 @@ public class ReportFormController {
 		}else if(reportFormStatusLink.equals("sentToOfficeReportForm")){
 			if(currentUser.getPrivilege() == Privilege.OFFICE){
 				reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
-			}else{
+			}else if(currentUser.getPrivilege() == Privilege.LEADER1){
 				reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink, currentUser.getId());
 			}
+			reportFormList = addUrgentInfo(reportFormList);
 		}else{ 
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
-		
 		mav.addObject("reportFormList", reportFormList);
 		mav.addObject("reportFormStatusLink", reportFormStatusLink);
 		
 		return mav;
 	}
 	
+	private List<ReportForm> addUrgentInfo(final List<ReportForm> reportFormList) {
+		long now = System.currentTimeMillis();
+		for(ReportForm reportForm : reportFormList){
+			if(null != reportForm.getDeadlineTime()){
+				if(reportForm.getDeadlineTime().getTime() < now){
+					reportForm.setUrgentLevel(UrgentLevel.EXCEED);
+				}else if(reportForm.getDeadlineTime().getTime() < now + 86400000){
+					reportForm.setUrgentLevel(UrgentLevel.URGENT);
+				}
+			}
+		}
+		return reportFormList;
+	}
+
 	@RequestMapping(value="responseReportForm/{id}",method=RequestMethod.POST)
 	public ModelAndView responseReportForm(@PathVariable String id, HttpServletRequest request){
 		ModelAndView mav = baseViewReportFormMAV(id);
