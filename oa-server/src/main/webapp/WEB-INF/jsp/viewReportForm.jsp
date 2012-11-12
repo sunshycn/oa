@@ -93,19 +93,19 @@
 					<c:choose>
 						<c:when test="${responseType =='SENT_TO_ORG_UNITS'}">
 						 <tr><td>回复部门： ${qualifiedOrgUnit.name}<input type="hidden" name="orgUnitId" value="${qualifiedOrgUnit.id}"></input></td></tr>
-						 <tr><td><input type="submit" value="回复" /></td></tr>
+						 <tr><td><input type="submit" value="回复" onclick="return confirm('确认回复?');" /></td></tr>
 						</c:when>
 						
 						<c:when test="${responseType =='SENT_TO_LEADER1'}">
 								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">
 								<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
 								<tr><td>选择要发给的主要领导： <select name="leader2Id"><c:forEach var="leader2" items="${leader2List}"><option value="${leader2.id}">${leader2.username}</option></c:forEach></select></td></tr>
-								<tr><td><input type="submit" value="回复" />若同意则发送给所选主要领导，不同意则发回报审单位</td></tr>
+								<tr><td><input type="submit" value="回复" onclick="return confirm('确认回复?');" />若同意则发送给所选主要领导，不同意则发回报审单位</td></tr>
 						</c:when>
 						<c:when test="${responseType =='SENT_TO_LEADER2'}">
 								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">
 								<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
-								<tr><td><input type="submit" value="回复" />若同意则发送到办公室，并通知分管领导，不同意则发回分管领导</td></tr>
+								<tr><td><input type="submit" value="回复" onclick="return confirm('确认回复?');" />若同意则发送到办公室，并通知分管领导，不同意则发回分管领导</td></tr>
 						</c:when>
 						<c:when test="${responseType =='SENT_TO_OFFICE'}"></c:when>
 					<c:otherwise>?</c:otherwise>

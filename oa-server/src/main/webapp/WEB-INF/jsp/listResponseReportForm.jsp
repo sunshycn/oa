@@ -57,7 +57,7 @@
 							<td><form action="${contextPath}/reportForm/editUnsendReportForm/${reportForm.id}" method="POST"><input type="submit" value="编辑"></input></form></td>
 							<td><form action="${contextPath}/reportForm/delete/${reportForm.id}" method="POST"><input type="submit" value="删除" onclick="return confirm('确认删除?');"></input></form></td>
 						</c:when>
-						<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm' || reportFormStatusLink =='sentToLeader1ReportForm' || reportFormStatusLink =='sentToLeader2ReportForm' || reportFormStatusLink =='sentToOfficeReportForm'}">
+						<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm' || reportFormStatusLink =='sentToLeader1ReportForm' || reportFormStatusLink =='sentToLeader2ReportForm'}">
 							<td><form action="${contextPath}/reportForm/responseReportForm/${reportForm.id}" method="POST"><input type="submit" value="回复"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">
@@ -73,6 +73,10 @@
 						</c:when>
 						<c:when test="${reportFormStatusLink =='passedReportForm'}">
 							<td><form action="${contextPath}/reportForm/printReportForm/${reportForm.id}" method="POST"><input type="submit" value="打印"></input></form></td>
+						</c:when>
+						<c:when test="${reportFormStatusLink =='sentToOfficeReportForm'}">
+							<c:if test="${sessionScope.currentUser.privilege == 'OFFICE' }"><td><form action="${contextPath}/reportForm/responseReportForm/${reportForm.id}" method="POST"><input type="submit" value="回复"></input></form></td></c:if>
+							<c:if test="${sessionScope.currentUser.privilege == 'LEADER1' }"><td><form action="${contextPath}/reportForm/view/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td></c:if>						
 						</c:when>
 						<c:otherwise>?</c:otherwise>
 					</c:choose>				
