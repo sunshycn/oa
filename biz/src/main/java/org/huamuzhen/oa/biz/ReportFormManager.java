@@ -158,15 +158,12 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		}
 
 	}
-	
+    
     @Transactional
-	public ReportForm sendToOrgUnits(String id){
-		ReportForm reportForm = reportFormDAO.findOne(id);
-		reportForm.setStatus(ReportFormStatus.SENT_TO_ORG_UNITS);
-		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
-		return reportFormDAO.save(reportForm);
+	public List<ReportForm> findReportFormByStatusAndCurrentSenderId(String reportFormStatusLink, String currentSenderId) {
+			
+		return reportFormDAO.findReportFormByStatusAndCurrentSenderIdOrderByCreatedAtDesc(ReportFormStatusLinkToReportForm(reportFormStatusLink),currentSenderId);
 	}
-
 
     @Transactional
 	public List<ReportForm> findReportFormByStatusAndCurrentReceiverId(String reportFormStatusLink, String currentReceiverId) {
@@ -184,13 +181,32 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 
 		return reportFormDAO.findReportFormByStatusOrderByCreatedAtDesc(ReportFormStatusLinkToReportForm(reportFormStatusLink));
 	}
+	
+    @Transactional
+	public ReportForm sendToOrgUnits(String id, String currentSenderId){
+		ReportForm reportForm = reportFormDAO.findOne(id);
+		reportForm.setCurrentSenderId(currentSenderId);
+		reportForm.setStatus(ReportFormStatus.SENT_TO_ORG_UNITS);
+		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
+		return reportFormDAO.save(reportForm);
+	}
 
     @Transactional
-	public ReportForm sendToLeader1(String id, String leader1Id) {
+	public ReportForm sendToLeader1(String id, String leader1Id, String currentSenderId) {
 		ReportForm reportForm = reportFormDAO.findOne(id);
 		reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER1);
+		reportForm.setCurrentSenderId(currentSenderId);
 		reportForm.setCurrentReceiverId(leader1Id);
 		return reportFormDAO.save(reportForm);
+	}
+    
+    @Transactional
+    public ReportForm sendBackToReporter(String id, String currentSenderId) {
+    	ReportForm reportForm = reportFormDAO.findOne(id);
+    	reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER1);
+    	reportForm.setCurrentSenderId(currentSenderId);
+    	reportForm.setCurrentReceiverId(reportForm.getCreatorId());
+    	return reportFormDAO.save(reportForm);
 	}
 	
 	private ReportFormStatus ReportFormStatusLinkToReportForm(String reportFormStatusLink){
@@ -203,16 +219,17 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 			status = ReportFormStatus.GOT_REPLY_FROM_UNITS;
 		}else if(reportFormStatusLink.equals("sentToLeader1ReportForm")){
 			status = ReportFormStatus.SENT_TO_LEADER1;
+		}else if(reportFormStatusLink.equals("rejectedByLeader1ReportForm")){
+			status = ReportFormStatus.REJECTED_BY_LEADER1;
 		}else if(reportFormStatusLink.equals("sentToLeader2ReportForm")){
 			status = ReportFormStatus.SENT_TO_LEADER2;
+		}else if(reportFormStatusLink.equals("rejectedByLeader2ReportForm")){
+			status = ReportFormStatus.REJECTED_BY_LEADER2;
 		}else if(reportFormStatusLink.equals("sentToOfficeReportForm")){
 			status = ReportFormStatus.SENT_TO_OFFICE;
 		}else if(reportFormStatusLink.equals("passedReportForm")){
 			status = ReportFormStatus.PASSED;
-		}else if(reportFormStatusLink.equals("deniedReportForm")){
-			status = ReportFormStatus.DENIED;
 		}
 		return status;
 	}
-
 }

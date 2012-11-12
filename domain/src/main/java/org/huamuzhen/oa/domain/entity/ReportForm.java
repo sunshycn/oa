@@ -89,6 +89,9 @@ public class ReportForm extends BaseEntity{
 	@Column(name="referred_report_form_id", length = 36)
 	private String referredReportFormId;
 	
+	@Column(name="current_sender_id", length =36)
+	private String currentSenderId;
+	
 	@Column(name="current_receiver_id", length =36)
 	private String currentReceiverId;
 	
@@ -257,6 +260,14 @@ public class ReportForm extends BaseEntity{
 
 	public void setReferredReportFormId(String referredReportFormId) {
 		this.referredReportFormId = referredReportFormId;
+	}
+
+	public String getCurrentSenderId() {
+		return currentSenderId;
+	}
+
+	public void setCurrentSenderId(String currentSenderId) {
+		this.currentSenderId = currentSenderId;
 	}
 
 	public String getCurrentReceiverId() {

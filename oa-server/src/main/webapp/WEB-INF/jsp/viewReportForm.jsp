@@ -9,12 +9,12 @@
         $(document).ready(function(){
         	$("form").submit(function() {
                 var errors = [];
-                if ($.trim($("textarea[name='content']").val()).length == 0) {
+               /*  if ($.trim($("textarea[name='content']").val()).length == 0) {
                     errors.push("请填写回复意见");
                 }
                 if ($.trim($("input[name='signature']").val()).length == 0) {
                     errors.push("请填写签名");
-                }
+                } */
                 if (errors.length > 0) {
                     alert(errors.join(", "));
                     return false;
@@ -74,7 +74,7 @@
 	</table>
 	<c:choose>
 	<c:when test="${status == 'review'}">
-		<form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST">选择分管领导：<select name="leader1Id"><option></option><c:forEach var="leader1" items="${leader1List}"><option value="${leader1.id}">${leader1.username}</option></c:forEach></select><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form>
+		<form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST">选择分管领导：<select name="leader1Id"><c:forEach var="leader1" items="${leader1List}"><option value="${leader1.id}">${leader1.username}</option></c:forEach></select><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form>
 		<form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="submit" value="重新生成报审表"></input></form>
 	</c:when>
 	<c:when test="${status == 'response'}">
@@ -90,24 +90,26 @@
 				<c:if test="${responseType !='SENT_TO_OFFICE'}">
 				<tr><td>签名：<input name="signature" type="text" maxlength="10" ></input></td></tr>
 				</c:if>
-				<tr><td>
 					<c:choose>
 						<c:when test="${responseType =='SENT_TO_ORG_UNITS'}">
 						 <tr><td>回复部门： ${qualifiedOrgUnit.name}<input type="hidden" name="orgUnitId" value="${qualifiedOrgUnit.id}"></input></td></tr>
+						 <tr><td><input type="submit" value="回复" /></td></tr>
 						</c:when>
 						
 						<c:when test="${responseType =='SENT_TO_LEADER1'}">
 								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">
-								<tr><td>选择要发给的主要领导： <select name="leader2Id"><option></option><c:forEach var="leader2" items="${leader2List}"><option value="${leader2.id}">${leader2.username}</option></c:forEach></select></td></tr>
+								<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
+								<tr><td>选择要发给的主要领导： <select name="leader2Id"><c:forEach var="leader2" items="${leader2List}"><option value="${leader2.id}">${leader2.username}</option></c:forEach></select></td></tr>
+								<tr><td><input type="submit" value="回复" />若同意则发送给所选主要领导，不同意则发回报审单位</td></tr>
 						</c:when>
 						<c:when test="${responseType =='SENT_TO_LEADER2'}">
 								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">
+								<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
+								<tr><td><input type="submit" value="回复" />若同意则发送到办公室，并通知分管领导，不同意则发回分管领导</td></tr>
 						</c:when>
 						<c:when test="${responseType =='SENT_TO_OFFICE'}"></c:when>
 					<c:otherwise>?</c:otherwise>
-					</c:choose>
-				</td></tr>
-				<tr><td><input type="submit" value="回复" /></td></tr>
+					</c:choose>	
 			</table>
 		   </form>
 		</c:otherwise>

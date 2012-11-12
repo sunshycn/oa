@@ -23,7 +23,11 @@ public class FeedbackController {
 		String content = request.getParameter("content");
 		String signature = request.getParameter("signature");
 		String owner = request.getParameter("owner");
-		
+		String agreeStr = request.getParameter("agree");
+		Boolean agree = null;
+		if(agreeStr != null && !agreeStr.equals("")){
+			agree = Boolean.parseBoolean(agreeStr);
+		}
 		
 		String orgUnitId = request.getParameter("orgUnitId");
 		String currentReceiverId = request.getParameter("currentReceiverId");
@@ -31,7 +35,7 @@ public class FeedbackController {
 		
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		
-		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser, currentReceiverId, leader2Id);
+		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser, currentReceiverId, leader2Id, agree);
 		
 		return "redirect:/reportForm";
 	}

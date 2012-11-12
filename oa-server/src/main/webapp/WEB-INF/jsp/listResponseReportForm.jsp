@@ -10,9 +10,11 @@
 		<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">发到科室的报审单</c:when>
 		<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">各科室回复完毕的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToLeader1ReportForm'}">需要分管领导批复的报审表</c:when>
+		<c:when test="${reportFormStatusLink =='rejectedByLeader1ReportForm'}">未通过审核的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToLeader2ReportForm'}">需要主要领导批复的报审表</c:when>
+		<c:when test="${reportFormStatusLink =='rejectedByLeader2ReportForm'}">未通过主要领导审核的报审表</c:when>
 		<c:when test="${reportFormStatusLink =='sentToOfficeReportForm'}">发送到办公室的报审表</c:when>
-		<c:when test="${reportFormStatusLink =='passedReportForm'}">发送回报审单位的报审表</c:when>
+		<c:when test="${reportFormStatusLink =='passedReportForm'}">发送回报审单位的报审表（完成报审）</c:when>
 		<c:otherwise>?</c:otherwise>
 	</c:choose>
 </title>
@@ -24,14 +26,18 @@
 			<c:when test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">发到科室的报审单</c:when>
 			<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">各科室回复完毕的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToLeader1ReportForm'}">需要分管领导批复的报审表</c:when>
+			<c:when test="${reportFormStatusLink =='rejectedByLeader1ReportForm'}">未通过审核的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToLeader2ReportForm'}">需要主要领导批复的报审表</c:when>
+			<c:when test="${reportFormStatusLink =='rejectedByLeader2ReportForm'}">未通过主要领导审核的报审表</c:when>
 			<c:when test="${reportFormStatusLink =='sentToOfficeReportForm'}">发送到办公室的报审表</c:when>
-			<c:when test="${reportFormStatusLink =='passedReportForm'}">发送回报审单位的报审表</c:when>
+			<c:when test="${reportFormStatusLink =='passedReportForm'}">发送回报审单位的报审表（完成报审）</c:when>
 			<c:otherwise>?</c:otherwise>
 		</c:choose>
 	</h2>
 	<a href="${contextPath}/reportForm">返回报审单管理</a><br/>
+	<c:if test="${reportFormStatusLink =='sentToOrgUnitsReportForm'}">
 	待回复的报审单<br/>
+	</c:if>
 	<table border="1">
 		<thead>
 		<tr>
@@ -56,6 +62,14 @@
 						</c:when>
 						<c:when test="${reportFormStatusLink =='gotReplyFromUnitsReportForm'}">
 							<td><form action="${contextPath}/reportForm/reviewReportForm/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td>
+						</c:when>
+						<c:when test="${reportFormStatusLink =='rejectedByLeader1ReportForm'}">
+							<td><form action="${contextPath}/reportForm/reCreateReportForm/${reportForm.id}" method="POST"><input type="submit" value="重新生成报审表"></input></form></td>
+							<td><form action="${contextPath}/reportForm/view/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td>
+						</c:when>
+						<c:when test="${reportFormStatusLink =='rejectedByLeader2ReportForm'}">
+							<td><form action="${contextPath}/reportForm/sendBackToReporter/${reportForm.id}" method="POST"><input type="submit" value="发回报审单位"></input></form></td>
+							<td><form action="${contextPath}/reportForm/view/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='passedReportForm'}">
 							<td><form action="${contextPath}/reportForm/printReportForm/${reportForm.id}" method="POST"><input type="submit" value="打印"></input></form></td>

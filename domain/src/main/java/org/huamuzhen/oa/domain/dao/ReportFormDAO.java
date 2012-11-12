@@ -24,4 +24,7 @@ public interface ReportFormDAO extends JpaDAO<ReportForm, String> {
 	@Transactional
 	public List<ReportForm> findReportFormByStatusAndCreatorIdOrderByCreatedAtDesc(ReportFormStatus status, String creatorId);
 
+	@Transactional
+	public List<ReportForm> findReportFormByStatusAndCurrentSenderIdOrderByCreatedAtDesc(ReportFormStatus status, String currentSenderId);
+
 }

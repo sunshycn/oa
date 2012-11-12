@@ -198,8 +198,9 @@ public class ReportFormController {
 	}
 	
 	@RequestMapping(value="/sendToOrgUnits/{id}", method=RequestMethod.POST)
-	public String sendToOrgUnits(@PathVariable String id){
-		reportFormManager.sendToOrgUnits(id);
+	public String sendToOrgUnits(@PathVariable String id, HttpSession session){
+		User currentUser = (User)session.getAttribute("currentUser");
+		reportFormManager.sendToOrgUnits(id, currentUser.getId());
 		return "redirect:/reportForm/list/notSendReportForm";
 		
 	}
@@ -210,8 +211,16 @@ public class ReportFormController {
 		if(leader1Id.equals("")){
 			leader1Id = null;
 		}
-		reportFormManager.sendToLeader1(id, leader1Id);	
+		User currentUser = (User)request.getSession().getAttribute("currentUser");
+		reportFormManager.sendToLeader1(id, leader1Id,currentUser.getId());	
 		return "redirect:/reportForm/list/gotReplyFromUnitsReportForm";
+	}
+	
+	@RequestMapping(value="/sendBackToReporter/{id}", method=RequestMethod.POST)
+	public String sendBackToReporter(@PathVariable String id,  HttpSession session){
+		User currentUser = (User)session.getAttribute("currentUser");
+		reportFormManager.sendBackToReporter(id,currentUser.getId());	
+		return "redirect:/reportForm/list/rejectedByLeader2ReportForm";
 	}
 	
 	@RequestMapping(value="/list/{reportFormStatusLink}")
@@ -222,8 +231,7 @@ public class ReportFormController {
 		if (reportFormStatusLink.equals("sentToLeader1ReportForm")
 				|| reportFormStatusLink.equals("sentToLeader2ReportForm")) {
 			reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,currentUser.getId());
-			List<ReportForm> reportFormListWhichCurrentReceiverIdIsNull = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink,null);
-			reportFormList.addAll(reportFormListWhichCurrentReceiverIdIsNull);
+			
 		}else if(reportFormStatusLink.equals("sentToOrgUnitsReportForm")){
 			// need to be optimized, use one HQL instead of looping
 			List<ReportForm> allReportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
@@ -245,15 +253,32 @@ public class ReportFormController {
 				}
 			}
 			mav.addObject("responsedReportFormList", responsedReportFormList);
-		}else if(reportFormStatusLink.equals("notSendReportForm") || reportFormStatusLink.equals("gotReplyFromUnitsReportForm") || reportFormStatusLink.equals("passedReportForm")){
+		}else if(reportFormStatusLink.equals("passedReportForm")){
+			if(currentUser.getPrivilege() == Privilege.OFFICE){
+				reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
+			}else if(currentUser.getPrivilege() == Privilege.NORMAL){
+				reportFormList = reportFormManager.findReportFormByStatusAndCreatorId(reportFormStatusLink, currentUser.getId());
+			}else if(currentUser.getPrivilege() == Privilege.LEADER1){
+				reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink, currentUser.getId());
+			}
+		}else if(reportFormStatusLink.equals("notSendReportForm")){
+			reportFormList = reportFormManager.findReportFormByStatusAndCreatorId(reportFormStatusLink, currentUser.getId());
+		}else if(reportFormStatusLink.equals("gotReplyFromUnitsReportForm")){
+			reportFormList = reportFormManager.findReportFormByStatusAndCreatorId(reportFormStatusLink, currentUser.getId());
+		}else if(reportFormStatusLink.equals("rejectedByLeader1ReportForm")){
+			reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink, currentUser.getId());
+		}else if(reportFormStatusLink.equals("rejectedByLeader2ReportForm")){
+			reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink, currentUser.getId());
+		}else if(reportFormStatusLink.equals("sentToOfficeReportForm")){
 			if(currentUser.getPrivilege() == Privilege.OFFICE){
 				reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 			}else{
-				reportFormList = reportFormManager.findReportFormByStatusAndCreatorId(reportFormStatusLink, currentUser.getId());
+				reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink, currentUser.getId());
 			}
 		}else{ 
 			reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 		}
+		
 		// check if there are reportForms which is urgent
 		if(reportFormStatusLink.equals("sentToLeader1ReportForm")
 				|| reportFormStatusLink.equals("sentToLeader2ReportForm") || reportFormStatusLink.equals("sentToOrgUnitsReportForm")

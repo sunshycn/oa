@@ -51,5 +51,10 @@
 			<include-prelude>/WEB-INF/jsp/include/taglib.jspf</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
+	
+	<error-page>
+  		 <error-code>500</error-code>
+   		<location>/WEB-INF/jsp/error.jsp</location>
+	</error-page>
     
 </web-app>

@@ -36,7 +36,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 
 	@Transactional
 	public Feedback add(String reportFormId, String content, String signature,
-			String orgUnitId, String owner, User currentUser, String currentReceiverId, String leader2Id) {
+			String orgUnitId, String owner, User currentUser, String currentReceiverId, String leader2Id, boolean agree) {
 		Feedback feedback = new Feedback();
 		feedback.setContent(content);
 		feedback.setSignature(signature);
@@ -59,18 +59,31 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 		}else if(currentUser.getPrivilege() == Privilege.LEADER1 && null != currentReceiverId && null != leader2Id){
 			feedback.setOwner(Privilege.LEADER1.toString());
 			Feedback savedFeedback = this.save(feedback);
-			if(leader2Id.equals("")){
-				leader2Id = null;
-			}
-			reportForm.setCurrentReceiverId(leader2Id);
-			reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER2);
+			reportForm.setCurrentSenderId(currentUser.getId());
+			if(agree){
+				if(leader2Id.equals("")){
+					leader2Id = null;
+				}
+				reportForm.setCurrentReceiverId(leader2Id);
+				reportForm.setStatus(ReportFormStatus.SENT_TO_LEADER2);
+			}else{
+				reportForm.setCurrentReceiverId(reportForm.getCreatorId());
+				reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER1);
+			}	
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
 			
 		}else if(currentUser.getPrivilege() == Privilege.LEADER2 && null != currentReceiverId){
 			feedback.setOwner(Privilege.LEADER2.toString());
 			Feedback savedFeedback = this.save(feedback);
-			reportForm.setStatus(ReportFormStatus.SENT_TO_OFFICE);
+			// always return to leader1
+			reportForm.setCurrentReceiverId(reportForm.getCurrentSenderId());
+			reportForm.setCurrentSenderId(currentUser.getId());
+			if(agree){
+				reportForm.setStatus(ReportFormStatus.SENT_TO_OFFICE);
+			}else{
+				reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER2);
+			}
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
 		}else if(currentUser.getPrivilege() == Privilege.OFFICE){

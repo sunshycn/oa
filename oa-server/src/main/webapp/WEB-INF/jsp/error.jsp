@@ -7,7 +7,7 @@
 <title>错误</title>
 </head>
 <body>
-	<h2>出错了</h2>
+	<h2>出错了,请尝试重新操作</h2>
 	${errorMessage} <br/>
 	<a href="${contextPath}/">返回首页</a><br/>
 </body>
