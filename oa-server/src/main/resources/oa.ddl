@@ -41,6 +41,7 @@ CREATE TABLE Report_Form
 	  title VARCHAR (30) NOT NULL,
 	  form_id VARCHAR (15) NOT NULL UNIQUE,
 	  send_time TIMESTAMP,
+	  deadline_time TIMESTAMP,
 	  land_user VARCHAR (30),
 	  original_land_user VARCHAR (30),
 	  land_location VARCHAR (50),
@@ -99,13 +100,22 @@ CREATE TABLE Report_Form_Matter
 	id VARCHAR (36) NOT NULL PRIMARY KEY,
 	name VARCHAR (20) NOT NULL UNIQUE,
 	created_at TIMESTAMP,
-    modified_at TIMESTAMP,
+    modified_at TIMESTAMP
 )
 
 CREATE TABLE Key_Value_Pair
 (
 	key VARCHAR(30) NOT NULL PRIMARY KEY,
 	value VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE Message
+(
+	id VARCHAR (36) NOT NULL PRIMARY KEY,
+	receiver_id VARCHAR(36) NOT NULL,
+	messsage VARCHAR(100),
+	created_at TIMESTAMP,
+    modified_at TIMESTAMP
 )
 
 ---必要数据

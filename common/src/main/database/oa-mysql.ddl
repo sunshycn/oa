@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS User CASCADE;
 DROP TABLE IF EXISTS Org_Unit CASCADE;
 DROP TABLE IF EXISTS Report_Form_Matter CASCADE;
 DROP TABLE IF EXISTS Key_Value_Pair CASCADE;
+DROP TABLE IF EXISTS Message CASCADE;
 
 CREATE TABLE Org_Unit 
 (
@@ -50,6 +51,7 @@ CREATE TABLE Report_Form
 	  title VARCHAR (30) NOT NULL,
 	  form_id VARCHAR (15) NOT NULL UNIQUE,
 	  send_time TIMESTAMP,
+	  deadline_time TIMESTAMP,
 	  land_user VARCHAR (30),
 	  original_land_user VARCHAR (30),
 	  land_location VARCHAR (50),
@@ -114,6 +116,15 @@ CREATE TABLE Key_Value_Pair
 (
 	key VARCHAR(30) NOT NULL PRIMARY KEY,
 	value VARCHAR(30) NOT NULL
+)default charset=utf8;
+
+CREATE TABLE Message
+(
+	id VARCHAR (36) NOT NULL PRIMARY KEY,
+	receiver_id VARCHAR(36) NOT NULL,
+	messsage VARCHAR(100),
+	created_at TIMESTAMP,
+    modified_at TIMESTAMP
 )default charset=utf8;
 
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('ce7447d8dd5a4f8e980d7dcd870e7b06', 'admin', 'admin', '90d84b5b96d0e1f1bc1a699d055f53587b52c474', '4371', 'ADMIN', '2000-01-01 12:00:00', '2000-01-01 12:00:00');

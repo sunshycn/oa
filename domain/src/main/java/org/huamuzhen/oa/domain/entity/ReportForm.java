@@ -42,6 +42,9 @@ public class ReportForm extends BaseEntity{
 	@Column(name="send_time")
 	private Timestamp sendTime;
 	
+	@Column(name="deadline_time")
+	private Timestamp deadlineTime;
+	
 	@Column(name="land_user", length = 30)
 	private String landUser;
 	
@@ -140,6 +143,14 @@ public class ReportForm extends BaseEntity{
 
 	public void setSendTime(Timestamp sendTime) {
 		this.sendTime = sendTime;
+	}
+
+	public Timestamp getDeadlineTime() {
+		return deadlineTime;
+	}
+
+	public void setDeadlineTime(Timestamp deadlineTime) {
+		this.deadlineTime = deadlineTime;
 	}
 
 	public String getLandUser() {
