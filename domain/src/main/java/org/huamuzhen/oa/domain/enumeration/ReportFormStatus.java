@@ -11,6 +11,7 @@ public enum ReportFormStatus {
 	REJECTED_BY_LEADER2,
 	SENT_TO_OFFICE,
 	PASSED,
-	DEAD
+	DEAD,
+	DELETED
 	
 }

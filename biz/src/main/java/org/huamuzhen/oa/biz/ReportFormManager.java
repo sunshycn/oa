@@ -76,6 +76,9 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setReferredReportFormId(null);
 		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
 		newReportForm.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		//TODO to be fixed , just keep them not null for mysql 
+		newReportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
+		newReportForm.setDeadlineTime(new Timestamp(System.currentTimeMillis() + 86400000 * 10000));
 		return reportFormDAO.save(newReportForm);
 	}
 	
@@ -252,9 +255,9 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	}
 
 	@Transactional
-	public void setReportFormAsDead(String id) {
+	public void setReportFormAsDeleted(String id) {
 		ReportForm reportForm = reportFormDAO.findOne(id);
-		reportForm.setStatus(ReportFormStatus.DEAD);
+		reportForm.setStatus(ReportFormStatus.DELETED);
 		this.save(reportForm);
 	}
 }

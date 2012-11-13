@@ -197,7 +197,7 @@ public class ReportFormController {
 	
 	@RequestMapping(value="/delete/{id}",method=RequestMethod.POST)
 	public String delete(@PathVariable String id){
-		reportFormManager.setReportFormAsDead(id);
+		reportFormManager.setReportFormAsDeleted(id);
 		return "redirect:/reportForm/list/notSendReportForm";
 		
 	}

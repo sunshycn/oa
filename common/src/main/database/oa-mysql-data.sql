@@ -62,12 +62,12 @@ INSERT INTO User (id, username, description, hashed_password, hash_salt, privile
 INSERT INTO User_Report_Form_Type (user_id,report_form_type_id) VALUES ('faa65617bdbf4745bcacd6b546515681','de9f2dada8b241a2b28f8a0b3c4a4cea');
 
 
-INSERT INTO Report_Form_Matter (id, name) VALUES ('1','划拨用地');
-INSERT INTO Report_Form_Matter (id, name) VALUES ('2','公开出让');
-INSERT INTO Report_Form_Matter (id, name) VALUES ('3','作价出资');
-INSERT INTO Report_Form_Matter (id, name) VALUES ('4','改变用途补缴出让金');
-INSERT INTO Report_Form_Matter (id, name) VALUES ('5','变更登记');
-INSERT INTO Report_Form_Matter (id, name) VALUES ('6','土地置换');
-INSERT INTO Report_Form_Matter (id, name) VALUES ('7','收回土地');
-INSERT INTO Report_Form_Matter (id, name) VALUES ('8','通报');
-INSERT INTO Report_Form_Matter (id, name) VALUES ('9','提请研究');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('1','划拨用地','2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('2','公开出让','2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('3','作价出资','2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('4','改变用途补缴出让金','2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('5','变更登记','2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('6','土地置换','2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('7','收回土地','2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('8','通报','2000-01-01 12:00:00', '2000-01-01 12:00:00');
+INSERT INTO Report_Form_Matter (id, name, created_at, modified_at) VALUES ('9','提请研究','2000-01-01 12:00:00', '2000-01-01 12:00:00');
