@@ -23,7 +23,7 @@ public class Message extends BaseEntity{
 	@Column(name="receiver_id", nullable=false,length = 36)
 	private String receiverId;
 	
-	@Column(name="message_content", nullable=false,length = 100)
+	@Column(name="message_content", nullable=false,length = 150)
 	private String messageContent;
 
 	public String getId() {
