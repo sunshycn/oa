@@ -14,10 +14,10 @@ public class KeyValuePair implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="key")
+	@Column(name="key_data")
 	private String key;
 	
-	@Column(name="value")
+	@Column(name="value_data")
 	private String value;
 
 	public String getKey() {

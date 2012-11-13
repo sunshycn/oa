@@ -105,8 +105,8 @@ CREATE TABLE Report_Form_Matter
 
 CREATE TABLE Key_Value_Pair
 (
-	key VARCHAR(30) NOT NULL PRIMARY KEY,
-	value VARCHAR(30) NOT NULL
+	key_data VARCHAR(30) NOT NULL PRIMARY KEY,
+	value_data VARCHAR(30) NOT NULL
 )
 
 CREATE TABLE Message
@@ -120,4 +120,4 @@ CREATE TABLE Message
 
 ---必要数据
 INSERT INTO User (id, username, description, hashed_password, hash_salt, privilege,created_at, modified_at) VALUES ('ce7447d8dd5a4f8e980d7dcd870e7b06', 'admin', 'admin', '90d84b5b96d0e1f1bc1a699d055f53587b52c474', '4371', 'ADMIN', '2000-01-01 12:00:00', '2000-01-01 12:00:00');
-INSERT INTO Key_Value_Pair (key,value) VALUES ('deadlineDuration','3');
+INSERT INTO Key_Value_Pair (key_data,value_data) VALUES ('deadlineDuration','3');
