@@ -7,6 +7,9 @@ import javax.annotation.Resource;
 
 import org.huamuzhen.oa.domain.dao.OrgUnitDAO;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,11 @@ public class OrgUnitManager extends BaseManager<OrgUnit, String> {
 	@Transactional
 	public void deleteOrgUnit(String id){
 		this.delete(id);
+	}
+	
+	@Transactional
+	public Page<OrgUnit> findAllOrgUnit(Pageable page) {
+		return this.findAll(page);
 	}
 	
 	@Transactional

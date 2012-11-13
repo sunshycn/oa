@@ -133,3 +133,19 @@ fieldset {
 	margin-left: 20px;
 	vertical-align: middle;
 }
+
+ul.paginationBar {
+	height: 20px;
+	list-style: none;
+	overflow: visible;
+}
+
+ul.paginationBar li {
+/* 	float:right; */
+	display:inline;
+}
+
+.catBold {
+	color: #333;
+	font-weight: bold;
+}

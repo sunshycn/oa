@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.huamuzhen.oa.biz.OrgUnitManager;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
+import org.huamuzhen.oa.domain.entity.Pagination;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +25,24 @@ public class OrgUnitController {
 	
 	@RequestMapping(value = { "", "/" })
 	public ModelAndView index(){
-		List<OrgUnit> orgUnitList = orgUnitManager.findAllOrgUnit();
+		Pagination page = new Pagination();
+		Page<OrgUnit> orgUnitPage = orgUnitManager.findAllOrgUnit(page);
 		ModelAndView mav = new ModelAndView("orgUnit");
-		mav.addObject("orgUnitList", orgUnitList);
+		page.setTotal(Long.valueOf(orgUnitPage.getTotalElements()).intValue());
+		mav.addObject("orgUnitPage", orgUnitPage);
+		mav.addObject("page", page);
+		return mav;
+	}
+	
+	@RequestMapping(value="/{pageNumber}", method=RequestMethod.GET)
+	public ModelAndView page(@PathVariable int pageNumber){
+		Pagination page = new Pagination();
+		page.setCurrentPage(pageNumber);
+		Page<OrgUnit> orgUnitPage = orgUnitManager.findAllOrgUnit(page);
+		ModelAndView mav = new ModelAndView("orgUnit");
+		page.setTotal(Long.valueOf(orgUnitPage.getTotalElements()).intValue());
+		mav.addObject("orgUnitPage", orgUnitPage);
+		mav.addObject("page", page);
 		return mav;
 	}
 	
