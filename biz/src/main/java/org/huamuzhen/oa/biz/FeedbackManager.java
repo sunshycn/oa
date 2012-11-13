@@ -100,11 +100,13 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 				// reset deadline for office
 				reportForm.setDeadlineTime(DeadlineCounter.getDeadline(deadlineDuration));
 				message.sendMsg(currentUser.getId(), "回复了报审表：" +reportForm.getFormId() + ";同意审批,将报审表发送至办公室");
-				message.sendMsg(reportForm.getCurrentReceiverId(), "主要领导：" + userDAO.findOne(currentUser.getId()) + "同意了报审表: "+ reportForm.getFormId());
+				message.sendMsg(reportForm.getCurrentReceiverId(), "主要领导：" + userDAO.findOne(currentUser.getId()).getUsername() + "同意了报审表: "+ reportForm.getFormId());
+				message.sendMsg(reportForm.getCreatorId(), "主要领导：" + userDAO.findOne(currentUser.getId()).getUsername() + "同意了报审表: "+ reportForm.getFormId());
 			}else{
 				reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER2);
 				message.sendMsg(currentUser.getId(), "回复了报审表：" +reportForm.getFormId() + ";否决审批，将报审表发送回分管领导: " + userDAO.findOne(reportForm.getCurrentReceiverId()).getUsername());
-				message.sendMsg(reportForm.getCurrentReceiverId(), "主要领导：" + userDAO.findOne(currentUser.getId()) + "否决了报审表: "+ reportForm.getFormId());
+				message.sendMsg(reportForm.getCurrentReceiverId(), "主要领导：" + userDAO.findOne(currentUser.getId()).getUsername() + "否决了报审表: "+ reportForm.getFormId());
+				message.sendMsg(reportForm.getCreatorId(), "主要领导：" + userDAO.findOne(currentUser.getId()).getUsername() + "否决了报审表: "+ reportForm.getFormId());
 			}
 			reportFormDAO.save(reportForm);
 			return savedFeedback;
@@ -114,6 +116,7 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			reportForm.setStatus(ReportFormStatus.PASSED);
 			reportForm.setDeadlineTime(DeadlineCounter.getDeadline(10000));
 			reportFormDAO.save(reportForm);
+			message.sendMsg(currentUser.getId(), "报审表：" + reportForm.getFormId() + "完成审批");
 			message.sendMsg(reportForm.getCreatorId(), "报审表：" + reportForm.getFormId() + "完成审批");
 			return savedFeedback;
 		}

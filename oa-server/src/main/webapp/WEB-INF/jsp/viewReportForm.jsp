@@ -64,7 +64,12 @@
 		<tbody>
 			<c:forEach var="feedback" items="${feedbackList}">	
 			<tr>
-				<td>${feedback.owner}</td>
+				<c:choose>
+					<c:when test="${feedback.owner =='LEADER1'}"><td>分管领导</td></c:when>
+					<c:when test="${feedback.owner =='LEADER2'}"><td>主要领导</td></c:when>
+					<c:when test="${feedback.owner =='OFFICE'}"><td>办公室</td></c:when>
+					<c:otherwise><td>${feedback.owner}</td></c:otherwise>
+				</c:choose>
 				<td>${feedback.feedbackTime}</td>
 				<td>${feedback.signature}</td>
 				<td><textarea name="content" rows="5" cols="50">${feedback.content}</textarea></td>
@@ -107,7 +112,7 @@
 								<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
 								<tr><td><input type="submit" value="回复" onclick="return confirm('确认回复?');" />若同意则发送到办公室，并通知分管领导，不同意则发回分管领导</td></tr>
 						</c:when>
-						<c:when test="${responseType =='SENT_TO_OFFICE'}"></c:when>
+						<c:when test="${responseType =='SENT_TO_OFFICE'}"> <tr><td><input type="submit" value="回复" onclick="return confirm('确认回复?');" /></td></tr></c:when>
 					<c:otherwise>?</c:otherwise>
 					</c:choose>	
 			</table>
