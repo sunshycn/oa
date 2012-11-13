@@ -193,7 +193,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 	
     @Transactional
 	public ReportForm sendToOrgUnits(String id, String currentSenderId, int deadlineDuration){
-		ReportForm reportForm = reportFormDAO.findOne(id);
+    	ReportForm reportForm = reportFormDAO.findOne(id);
 		reportForm.setCurrentSenderId(currentSenderId);
 		reportForm.setStatus(ReportFormStatus.SENT_TO_ORG_UNITS);
 		reportForm.setSendTime(new Timestamp(System.currentTimeMillis()));

@@ -34,8 +34,7 @@ public class FeedbackController {
 		
 		String orgUnitId = request.getParameter("orgUnitId");
 		String currentReceiverId = request.getParameter("currentReceiverId");
-		String leader2Id= request.getParameter("leader2Id");
-		
+		String leader2Id= request.getParameter("leader2Id");	
 		User currentUser = (User)request.getSession().getAttribute("currentUser");
 		feedbackManager.add(reportFormId,content,signature,orgUnitId,owner,currentUser, currentReceiverId, leader2Id, agree,Integer.parseInt(config.getParamsMap().get("deadlineDuration")));
 		
