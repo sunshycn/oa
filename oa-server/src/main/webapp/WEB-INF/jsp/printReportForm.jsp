@@ -282,8 +282,13 @@ tr.pagebreak td{
 	$(
 		function(){
 			var hasFirst = false;
+		    var dpi =  window.screen.deviceXDPI;
+			var LengthOfA4 = 8.27;
+			
+			var headerAndFooter = 1.5;
 			// the height of a page to print, it is not a constant value
-			var pageHeight = 671;
+			var pageHeight = (LengthOfA4 - headerAndFooter) * dpi;
+			
 			var previous = 0;
 			$("tr").each(
 				function(){
