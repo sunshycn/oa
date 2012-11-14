@@ -76,9 +76,11 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setReferredReportFormId(null);
 		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
 		newReportForm.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		// TODO seems system auto using current time instead of null insert into mysql
-		newReportForm.setSendTime(null);
-		newReportForm.setDeadlineTime(null);
+		// TODO seems system(mysql) auto using current time instead of null insert into mysql even set it as null in Java
+		//just put current time temporarily to ensure system will not crash in different mysql server
+		//although logically it's wrong,should set null here, but it will not impact following steps.
+		newReportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
+		newReportForm.setDeadlineTime(new Timestamp(System.currentTimeMillis()));
 		return reportFormDAO.save(newReportForm);
 	}
 	
