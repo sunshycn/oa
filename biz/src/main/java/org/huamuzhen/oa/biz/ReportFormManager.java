@@ -76,9 +76,6 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setReferredReportFormId(null);
 		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
 		newReportForm.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		//TODO to be fixed , just keep them not null for mysql 
-		newReportForm.setSendTime(new Timestamp(System.currentTimeMillis()));
-		newReportForm.setDeadlineTime(new Timestamp(System.currentTimeMillis() + 86400000 * 10000));
 		return reportFormDAO.save(newReportForm);
 	}
 	
