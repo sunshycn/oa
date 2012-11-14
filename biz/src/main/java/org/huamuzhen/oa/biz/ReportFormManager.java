@@ -76,6 +76,9 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		newReportForm.setReferredReportFormId(null);
 		newReportForm.setStatus(ReportFormStatus.NOT_SEND);
 		newReportForm.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		// TODO seems system auto using current time instead of null insert into mysql
+		newReportForm.setSendTime(null);
+		newReportForm.setDeadlineTime(null);
 		return reportFormDAO.save(newReportForm);
 	}
 	
