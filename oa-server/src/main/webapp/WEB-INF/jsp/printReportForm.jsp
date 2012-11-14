@@ -22,7 +22,7 @@ table {
       border-spacing:0px;
       margin:2px 0 2px 0;
       text-align:center;
-      border-collapse:separate;
+      border-collapse:collapse;
       table-layout: fixed;  
       empty-cells: show;  
 }
@@ -134,12 +134,21 @@ tr.pagebreak td{
 	border-top:1px solid black;
 	
 }
+.printHidden{
+	display:none;
+}
 </style>
 
 </head>
 <body>
-	
-	<p align=center ><span class="titlefont">${printedReportForm.reportFormType.name}</span></p>
+	<OBJECT id="FileDialog" style="LEFT: 0px; TOP: 0px"
+codeBase="http://activex.microsoft.com/controls/vb5/comdlg32.cab"
+classid="clsid:f9043c85-f6f2-101a-a3c9-08002b2f49fb"></OBJECT>
+<div class="printHidden">
+<input type="button" value="浏览器打印 " onclick="doPrint();">&nbsp;&nbsp;&nbsp; 
+<input type="button" value="WORD 打  印 " onclick="exptWord();">
+</div>
+	<p align=center><span class="titlefont">${printedReportForm.reportFormType.name}</span></p>
 	<p align=center style="margin:10px 0 10px 0"><span>报审单名称：${printedReportForm.title}</span>&nbsp;&nbsp;&nbsp;
 	<span>编号：${printedReportForm.formId}</span>&nbsp;&nbsp;&nbsp; <span>日期：${printedReportForm.sendTime}</span></p>
 	
@@ -288,13 +297,18 @@ tr.pagebreak td{
 			var headerAndFooter = 1.5;
 			// the height of a page to print, it is not a constant value
 			var pageHeight = (LengthOfA4 - headerAndFooter) * dpi;
-			
+			var hiddenHeight = 0;
+			$(".printHidden").each(function(){
+				hiddenHeight += $(this).height();
+			});
+			var pageHeight
 			var previous = 0;
 			$("tr").each(
 				function(){
 					
-					var trHeight = $(this).offset().top +$(this).height();
-					var trTop = $(this).offset().top;
+					var trHeight = $(this).offset().top +$(this).height() - hiddenHeight;
+					
+					var trTop = $(this).offset().top - hiddenHeight;
 					if( trTop <= pageHeight && trHeight > pageHeight && !hasFirst){
 						hasFirst = true;
 						$(this).addClass("pagebreak");
@@ -313,6 +327,56 @@ tr.pagebreak td{
 			);
 		}
 	);
+	function exptWord(){
+	        var WordApp;
+	        var Doc;
+	        try{
+	                WordApp = new ActiveXObject("Word.Application");
+	                WordApp.Application.Visible=true; // show WORD?
+			obj = $("body")[0];
+	                obj.focus();
+	                obj.document.execCommand("SelectAll");
+	                obj.document.execCommand("Copy");
+	                obj.focus();
+
+	                Doc=WordApp.Documents.Add();
+	                Doc.Activate();
+	                Doc.Content.Paste();
+	                Doc.Activate();
+	                WordApp.DisplayAlerts=false;
+
+	                try{ // maybe not saved
+	                        Doc.Close();
+	                }catch(e){};
+
+	                WordApp.DisplayAlerts=true;
+	                WordApp.Quit();
+	                return;
+	        }catch(e){ // maybe automation not permitted
+	                alert("请用浏览器直接打印");
+	        }
+		}
+	function doPrint(){
+		var hkey_root,hkey_path,hkey_key;
+		hkey_root="HKEY_CURRENT_USER";
+		hkey_path="\\Software\\Microsoft\\Internet Explorer\\PageSetup\\";
+		try{
+			var RegWsh = new ActiveXObject("WScript.Shell");
+			hkey_key="header" ;
+			RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,"");
+			hkey_key="footer";
+			RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,"");
+			hkey_key="margin_left";
+			RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,0.75);
+			hkey_key="margin_right";
+			RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,0.75);
+			hkey_key="margin_top";
+			RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,0.75);
+			hkey_key="margin_bottom";
+			RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,0.75);
+			window.print();
+			}catch(e){}
+	}
 </script>
 </body>
 </html>
