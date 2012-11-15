@@ -280,6 +280,7 @@ public class ReportFormController {
 				reportFormList = reportFormManager.findReportFormByStatus(reportFormStatusLink);
 			}else if(currentUser.getPrivilege() == Privilege.LEADER1){
 				reportFormList = reportFormManager.findReportFormByStatusAndCurrentReceiverId(reportFormStatusLink, currentUser.getId());
+				reportFormList.addAll(reportFormManager.findReportFormByStatusAndCurrentReceiverId("passedReportForm", currentUser.getId()));
 			}
 			reportFormList = addUrgentInfo(reportFormList);
 		}else{ 

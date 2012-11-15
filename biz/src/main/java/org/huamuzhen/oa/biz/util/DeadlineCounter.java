@@ -7,22 +7,31 @@ import java.util.Date;
 public class DeadlineCounter {
 	
 	public static Timestamp getDeadline(int deadlineDuration){
-		Calendar c = Calendar.getInstance();
-		c.setTime(new Date());
-		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-		int actualDuration;
-		switch(dayOfWeek){
-		   case 1:actualDuration = deadlineDuration+1;break;
-		   case 2:actualDuration = deadlineDuration;break;
-		   case 3:actualDuration = deadlineDuration;break;
-		   case 4:actualDuration = deadlineDuration;break;
-		   case 5:actualDuration = deadlineDuration+2;break;
-		   case 6:actualDuration = deadlineDuration+2;break;
-		   case 7:actualDuration = deadlineDuration+2;break;
-		   default:actualDuration = deadlineDuration;
-		   } 
+		if(deadlineDuration < 100){
+			Calendar c = Calendar.getInstance();
+			c.setTime(new Date());
+			int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+			int leftDays = deadlineDuration;
+			int actualDuration = 0;
+			int currentDay = dayOfWeek;
+			while (leftDays > 0) {
+				if (currentDay == 1) {// Sun.
+					actualDuration++;
+					currentDay = 2;
+				} else if (currentDay == 7) {// Sat.
+					actualDuration = actualDuration + 2;
+					currentDay = 2;
+				}
+				actualDuration++;
+				leftDays--;
+				currentDay++;
+			}
+			return new Timestamp(System.currentTimeMillis() + 86400000*actualDuration);
+		}else{
+			return new Timestamp(System.currentTimeMillis() + 86400000*deadlineDuration);
+		}
 		
-		return new Timestamp(System.currentTimeMillis() + 86400000*actualDuration);
+	
 	}
 
 }
