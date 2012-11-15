@@ -66,6 +66,9 @@ tr:first-child td{
 	font-family:FangSong_GB2312;
 	font-size:12px;
 }
+.printHidden{
+	display:none;
+}
 </style>
 <style media="print" type="text/css">
 body,div,span,th,td,input,button,a,select {
@@ -135,7 +138,7 @@ tr.pagebreak td{
 	
 }
 .printHidden{
-	display:none;
+	display:none !important;
 }
 </style>
 
@@ -297,18 +300,13 @@ classid="clsid:f9043c85-f6f2-101a-a3c9-08002b2f49fb"></OBJECT>
 			var headerAndFooter = 1.5;
 			// the height of a page to print, it is not a constant value
 			var pageHeight = (LengthOfA4 - headerAndFooter) * dpi;
-			var hiddenHeight = 0;
-			$(".printHidden").each(function(){
-				hiddenHeight += $(this).height();
-			});
-			var pageHeight
 			var previous = 0;
 			$("tr").each(
 				function(){
 					
-					var trHeight = $(this).offset().top +$(this).height() - hiddenHeight;
+					var trHeight = $(this).offset().top +$(this).height();
 					
-					var trTop = $(this).offset().top - hiddenHeight;
+					var trTop = $(this).offset().top;
 					if( trTop <= pageHeight && trHeight > pageHeight && !hasFirst){
 						hasFirst = true;
 						$(this).addClass("pagebreak");
@@ -325,6 +323,7 @@ classid="clsid:f9043c85-f6f2-101a-a3c9-08002b2f49fb"></OBJECT>
 					
 				}
 			);
+			$(".printHidden").show();
 		}
 	);
 	function exptWord(){
