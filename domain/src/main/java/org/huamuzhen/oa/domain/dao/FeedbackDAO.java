@@ -13,6 +13,9 @@ public interface FeedbackDAO extends JpaDAO<Feedback, String> {
 	public List<Feedback> findFeedbackByReportFormId(String reportFormId);
 	
 	@Transactional
+	public List<Feedback> findFeedbackByReportFormIdAndOwner(String reportFormId,String owner);
+	
+	@Transactional
 	public List<Feedback> findFeedbackByResponseOrgUnitId(String responseOrgUnitId);
 	
 	@Transactional

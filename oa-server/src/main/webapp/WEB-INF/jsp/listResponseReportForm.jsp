@@ -74,8 +74,7 @@
 							<td><form action="${contextPath}/reportForm/view/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='rejectedByLeader2ReportForm'}">
-							<td><form action="${contextPath}/reportForm/sendBackToReporter/${reportForm.id}" method="POST"><input type="submit" value="发回报审单位" onclick="return confirm('确认发回报审单位?');"></input></form></td>
-							<td><form action="${contextPath}/reportForm/view/${reportForm.id}" method="POST"><input type="submit" value="查看"></input></form></td>
+							<td><form action="${contextPath}/reportForm/responseReportForm/${reportForm.id}" method="POST"><input type="submit" value="重新处理"></input></form></td>
 						</c:when>
 						<c:when test="${reportFormStatusLink =='passedReportForm'}">
 							<td><form action="${contextPath}/reportForm/printReportForm/${reportForm.id}" method="POST"><input type="submit" value="打印"></input></form></td>

@@ -220,7 +220,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
 		return reportFormDAO.save(reportForm);
 	}
     
-    @Transactional
+/*    @Transactional
     public ReportForm sendBackToReporter(String id, String currentSenderId) {
     	ReportForm reportForm = reportFormDAO.findOne(id);
     	reportForm.setStatus(ReportFormStatus.REJECTED_BY_LEADER1);
@@ -230,7 +230,7 @@ public class ReportFormManager extends BaseManager<ReportForm, String> {
     	message.sendMsg(currentSenderId, "将报审表: "+ reportForm.getFormId() + " 发送至报审单位: " + userDAO.findOne(reportForm.getCreatorId()).getUsername());
     	message.sendMsg(reportForm.getCreatorId(),  " 被分管领导: " + userDAO.findOne(reportForm.getCreatorId()).getUsername()+ "打回报审表: "+ reportForm.getFormId());
     	return reportFormDAO.save(reportForm);
-	}
+	}*/
 	
 	private ReportFormStatus ReportFormStatusLinkToReportForm(String reportFormStatusLink){
 		ReportFormStatus status = null;

@@ -101,7 +101,7 @@
 						 <tr><td><input type="submit" value="回复" onclick="return confirm('确认回复?');" /></td></tr>
 						</c:when>
 						
-						<c:when test="${responseType =='SENT_TO_LEADER1'}">
+						<c:when test="${responseType =='SENT_TO_LEADER1' || responseType=='REJECTED_BY_LEADER2'}">
 								<input type="hidden" name="currentReceiverId" value="${selectedReportForm.currentReceiverId}">
 								<tr><td><select name="agree"><option value="true">同意</option><option value="false">不同意</option></select></td></tr>
 								<tr><td>选择要发给的主要领导： <select name="leader2Id"><c:forEach var="leader2" items="${leader2List}"><option value="${leader2.id}">${leader2.username}</option></c:forEach></select></td></tr>

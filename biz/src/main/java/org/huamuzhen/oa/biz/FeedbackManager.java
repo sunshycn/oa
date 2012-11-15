@@ -68,7 +68,24 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			
 		}else if(currentUser.getPrivilege() == Privilege.LEADER1 && null != currentReceiverId && null != leader2Id){
 			feedback.setOwner(Privilege.LEADER1.toString());
-			Feedback savedFeedback = this.save(feedback);
+			Feedback savedFeedback = null;
+			List<Feedback> existedFeedbacks = feedbackDAO.findFeedbackByReportFormIdAndOwner(reportFormId, Privilege.LEADER1.toString());
+			//hotfix
+			if(existedFeedbacks.size() > 0){
+				Feedback existedFeedback = existedFeedbacks.get(0);
+				existedFeedback.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+				existedFeedback.setFeedbackTime(new Timestamp(System.currentTimeMillis()));
+				if(!content.equals("")){
+					existedFeedback.setContent(content);
+				}
+				if(!signature.equals("")){
+					existedFeedback.setSignature(signature);
+				}
+				savedFeedback = this.save(existedFeedback);
+			}else{
+				savedFeedback = this.save(feedback);
+			}
+			
 			reportForm.setCurrentSenderId(currentUser.getId());
 			reportForm.setDeadlineTime(DeadlineCounter.getDeadline(1000));
 			if(agree){
@@ -90,7 +107,22 @@ public class FeedbackManager extends BaseManager<Feedback, String> {
 			
 		}else if(currentUser.getPrivilege() == Privilege.LEADER2 && null != currentReceiverId){
 			feedback.setOwner(Privilege.LEADER2.toString());
-			Feedback savedFeedback = this.save(feedback);
+			Feedback savedFeedback = null;
+			List<Feedback> existedFeedbacks = feedbackDAO.findFeedbackByReportFormIdAndOwner(reportFormId, Privilege.LEADER2.toString());
+			if(existedFeedbacks.size() > 0){
+				Feedback existedFeedback = existedFeedbacks.get(0);
+				existedFeedback.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+				existedFeedback.setFeedbackTime(new Timestamp(System.currentTimeMillis()));
+				if(!content.equals("")){
+					existedFeedback.setContent(content);
+				}
+				if(!signature.equals("")){
+					existedFeedback.setSignature(signature);
+				}
+				savedFeedback = this.save(existedFeedback);
+			}else{
+				savedFeedback = this.save(feedback);
+			}
 			// always return to leader1
 			reportForm.setCurrentReceiverId(reportForm.getCurrentSenderId());
 			reportForm.setCurrentSenderId(currentUser.getId());

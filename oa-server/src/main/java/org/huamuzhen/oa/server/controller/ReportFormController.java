@@ -221,12 +221,12 @@ public class ReportFormController {
 		return "redirect:/reportForm/list/gotReplyFromUnitsReportForm";
 	}
 	
-	@RequestMapping(value="/sendBackToReporter/{id}", method=RequestMethod.POST)
+/*	@RequestMapping(value="/sendBackToReporter/{id}", method=RequestMethod.POST)
 	public String sendBackToReporter(@PathVariable String id,  HttpSession session){
 		User currentUser = (User)session.getAttribute("currentUser");
 		reportFormManager.sendBackToReporter(id,currentUser.getId());	
 		return "redirect:/reportForm/list/rejectedByLeader2ReportForm";
-	}
+	}*/
 	
 	@RequestMapping(value="/list/{reportFormStatusLink}")
 	public ModelAndView list(@PathVariable String reportFormStatusLink, HttpSession session){
@@ -332,7 +332,7 @@ public class ReportFormController {
 				 mav.addObject("feedbackExistsFlag", new Object());
 			 }
 			mav.addObject("qualifiedOrgUnit", qualifiedOrgUnit);
-		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_LEADER1){
+		}else if(selectedReportForm.getStatus() == ReportFormStatus.SENT_TO_LEADER1 ||selectedReportForm.getStatus() == ReportFormStatus.REJECTED_BY_LEADER2){
 			mav.addObject("leader2List", userManager.findUserByPrivilege(Privilege.LEADER2));
 		}
 		mav.addObject("responseType", selectedReportForm.getStatus());

@@ -86,13 +86,17 @@ CREATE TABLE Feedback
 CREATE TABLE Report_Form_Type_Org_Unit
 (
 	report_form_type_id VARCHAR (36) NOT NULL,
-	org_unit_id VARCHAR (36) NOT NULL
+	org_unit_id VARCHAR (36) NOT NULL,
+	CONSTRAINT FK_RFTOU_FORMTYPE FOREIGN KEY (report_form_type_id) REFERENCES Report_Form_Type (id),
+	CONSTRAINT FK_RFTOU_ORGUNIT FOREIGN KEY (org_unit_id) REFERENCES Org_Unit (id)
 );
 
 CREATE TABLE User_Report_Form_Type
 (
 	user_id VARCHAR (36) NOT NULL,
-	report_form_type_id VARCHAR (36) NOT NULL
+	report_form_type_id VARCHAR (36) NOT NULL,
+	CONSTRAINT FK_URFT_FORMTYPE FOREIGN KEY (report_form_type_id) REFERENCES Report_Form_Type (id),
+	CONSTRAINT FK_URFT_USER FOREIGN KEY (user_id) REFERENCES User (id)
 )
 
 CREATE TABLE Report_Form_Matter
