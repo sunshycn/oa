@@ -10,7 +10,7 @@ public class Pagination implements Pageable {
 	private final int PAGE_GROUP_PAGES = 5;
 	private int total;
 	private int currentPage = 1;
-	private int pageSize = 5;
+	private int pageSize = 15;
 	private int pages;
 	private int begin;
 	private int end;
@@ -75,6 +75,9 @@ public class Pagination implements Pageable {
 	public int getEnd() {
 		if (end == 0) {
 			end = getBegin() + PAGE_GROUP_PAGES - 1;
+		}
+		if (end > getPages()) {
+			end = getPages();
 		}
 		return end;
 	}

@@ -32,31 +32,8 @@
 				</c:forEach>
 				<tr>
 					<td colspan="5">
-						<ul class="paginationBar">
-							<li>
-								一共  ${page.total} 个单位
-							</li>
-						    <li style="float:right">
-						    	<c:if test="${page.currentPage > 1}">
-						            <a href="${contextPath}/orgUnit/${page.currentPage - 1}">上一页</a>
-						        </c:if> <c:if test="${page.lastBegin > 0}">
-						            <a href="${contextPath}/orgUnit/${page.lastBegin}">...</a>
-						        </c:if> <c:forEach begin="${page.begin}" end="${page.end < page.pages ? page.end : page.pages}" step="1" var="pageIndex">
-						            <c:choose>
-						                <c:when test="${page.currentPage != pageIndex}">
-						                    <a href="${contextPath}/orgUnit/${pageIndex}">${pageIndex}</a>
-						                </c:when>
-						                <c:otherwise>
-						                    <span class="catBold">${pageIndex}</span>
-						                </c:otherwise>
-						            </c:choose>
-						        </c:forEach> <c:if test="${page.nextBegin > 0}">
-						            <a href="${contextPath}/orgUnit/${page.nextBegin}">...</a>
-						        </c:if> <c:if test="${page.currentPage < page.pages}">
-						            <a href="${contextPath}/orgUnit/${page.currentPage + 1}">下一页</a>
-						        </c:if>
-						    </li>
-						</ul>
+						<c:set var="paginationPreUrl" value="${contextPath}/orgUnit/" scope="request"/>
+						<jsp:include page="${jspRootPath}/include/paginationBar.jsp"/>
 					</td>
 				</tr>
 			</tbody>
