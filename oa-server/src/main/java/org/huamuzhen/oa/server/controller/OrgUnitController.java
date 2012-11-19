@@ -24,8 +24,7 @@ public class OrgUnitController {
 	private OrgUnitManager orgUnitManager;
 	
 	@RequestMapping(value = { "", "/" })
-	public ModelAndView index(){
-		Pagination page = new Pagination();
+	public ModelAndView index(Pagination page){
 		Page<OrgUnit> orgUnitPage = orgUnitManager.findAllOrgUnit(page);
 		ModelAndView mav = new ModelAndView("orgUnit");
 		page.setTotal(Long.valueOf(orgUnitPage.getTotalElements()).intValue());
@@ -35,8 +34,7 @@ public class OrgUnitController {
 	}
 	
 	@RequestMapping(value="/{pageNumber}", method=RequestMethod.GET)
-	public ModelAndView page(@PathVariable int pageNumber){
-		Pagination page = new Pagination();
+	public ModelAndView page(@PathVariable int pageNumber, Pagination page){
 		page.setCurrentPage(pageNumber);
 		Page<OrgUnit> orgUnitPage = orgUnitManager.findAllOrgUnit(page);
 		ModelAndView mav = new ModelAndView("orgUnit");

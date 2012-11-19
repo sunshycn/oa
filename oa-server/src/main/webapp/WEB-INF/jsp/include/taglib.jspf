@@ -10,6 +10,7 @@
 <c:set var="cssRootPath" value="${contextPath}/css" scope="application" />
 <c:set var="imagesRootPath" value="${contextPath}/images" scope="application" />
 <c:set var="jspRootPath" value="/WEB-INF/jsp" scope="application" />
+<c:set var="blueNileAdminRootPath" value="${contextPath}/blueNileAdmin" scope="application"/>
 
 <link href="${cssRootPath}/smoothness/jquery-ui-1.9.1.custom.min.css" rel="stylesheet">
 <script src="${jsRootPath}/jquery-1.8.2.min.js"></script>
