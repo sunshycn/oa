@@ -40,7 +40,7 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/account/logoff",method=RequestMethod.POST)
+	@RequestMapping(value="/account/logoff",method=RequestMethod.GET)
 	public String logoff(HttpSession session){
 		session.removeAttribute("currentUser");
 		return "redirect:/";
