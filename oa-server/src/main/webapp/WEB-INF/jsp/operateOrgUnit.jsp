@@ -1,28 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <c:set var="pageTitle" value="${not empty selectedReportFormType ? '编辑': '添加'}单位"/>
-<%@ include file="blue/pageHeader.jsp" %>
-
- <script type="text/javascript">
-        $(document).ready(function(){
-        	$("#saveButton").click(function() {
-        		$("form").submit();
-        	});
-        	$("form").submit(function() {
-                var errors = [];
-                if ($.trim($("input[name='name']").val()).length == 0) {
-                    errors.push("请填写单位名称");
-                }
-                if ($.trim($("input[name='parentId']").val()).length == 0) {
-                    errors.push("请选择上级单位");
-                }
-                if (errors.length > 0) {
-                    alert(errors.join(", "));
-                    return false;
-                }
-            });
-        });
-</script>
+<%@ include file="blue/pageHead.jsp" %>
 
 <!-- Start content  -->
     <div class="content">
@@ -74,27 +53,31 @@
 				  </div>
 				</div>
 
-                 <footer>
-                     <hr>
-
-                     <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                     <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-
-                     <p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-                 </footer>
+                <%@ include file="blue/containerFoot.jsp" %>
             </div>
         </div>
 		<!-- End container -->
     </div>
-
-    <script src="${blueNileAdminRootPath}/lib/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">
-        $("[rel=tooltip]").tooltip();
-        $(function() {
-            $('.demo-cancel-click').click(function(){return false;});
+<!-- End content -->
+<%@ include file="blue/pageTail.jsp" %>
+ <script type="text/javascript">
+        $(document).ready(function(){
+        	$("#saveButton").click(function() {
+        		$("form").submit();
+        	});
+        	$("form").submit(function() {
+                var errors = [];
+                if ($.trim($("input[name='name']").val()).length == 0) {
+                    errors.push("请填写单位名称");
+                }
+                if ($.trim($("input[name='parentId']").val()).length == 0) {
+                    errors.push("请选择上级单位");
+                }
+                if (errors.length > 0) {
+                    alert(errors.join("\n"));
+                    return false;
+                }
+            });
         });
-    </script>
-  </body>
-</html>
-
+</script>
 

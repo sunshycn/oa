@@ -22,7 +22,7 @@
 	                    <li><a href="${paginationPreUrl}${pageIndex}">${pageIndex}</a></li>
 	                </c:when>
 	                <c:otherwise>
-	                     <li><span class="catBold">${pageIndex}</span></li>
+	                     <li class="active"><a href="javascript:void(0);">${pageIndex}</a></li>
 	                </c:otherwise>
 	            </c:choose>
 	        </c:forEach> <c:if test="${page.nextBegin > 0}">

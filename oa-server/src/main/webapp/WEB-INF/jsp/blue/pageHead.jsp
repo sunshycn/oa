@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="${blueNileAdminRootPath}/lib/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="${blueNileAdminRootPath}/stylesheets/theme.css">
     <link rel="stylesheet" href="${blueNileAdminRootPath}/lib/font-awesome/css/font-awesome.css">
-    <script src="${blueNileAdminRootPath}/lib/jquery-1.7.2.min.js" type="text/javascript"></script>
     <style type="text/css">
         #line-chart {
             height:300px;
