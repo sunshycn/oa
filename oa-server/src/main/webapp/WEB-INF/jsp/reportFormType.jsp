@@ -22,8 +22,8 @@
 						<tr>
 							<td>#</td>
 							<td>报审表名称</td>
-							<td>&nbsp;</td>
-							<td>操作</td>
+							<td>编辑</td>
+							<td>删除</td>
 						</tr>
 						</thead>
 						<tbody>
@@ -38,7 +38,7 @@
 						<tr><td colspan="4"></td></tr>
 						</tbody>
 					</table>
-					<c:set var="paginationPreUrl" value="${contextPath}/user/" scope="request"/>
+					<c:set var="paginationPreUrl" value="${contextPath}/reportFormType?currentPage=" scope="request"/>
 					<jsp:include page="${jspRootPath}/include/paginationBar.jsp"/>
 				</div>
                 <%@ include file="blue/containerFoot.jsp" %>

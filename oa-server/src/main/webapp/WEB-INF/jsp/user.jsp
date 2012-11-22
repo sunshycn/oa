@@ -25,11 +25,12 @@
 								<td>描述</td>
 								<td>所属单位</td>
 								<td>权限</td>
-								<td colspan="2">操作</td>
+								<td>编辑</td>
+								<td>删除</td>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach varStatus="stat" var="user" items="${userList}">	
+							<c:forEach varStatus="stat" var="user" items="${userPage.content}">	
 								<tr>
 									<td>${stat.index + 1 + page.offset}</td>
 									<td>${user.username}</td>
@@ -60,7 +61,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-				    <c:set var="paginationPreUrl" value="${contextPath}/user/" scope="request"/>
+				    <c:set var="paginationPreUrl" value="${contextPath}/user?currentPage=" scope="request"/>
 					<jsp:include page="${jspRootPath}/include/paginationBar.jsp"/>
 				</div>
                 <%@ include file="blue/containerFoot.jsp" %>

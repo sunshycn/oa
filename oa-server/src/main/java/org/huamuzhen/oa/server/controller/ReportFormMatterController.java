@@ -1,12 +1,12 @@
 package org.huamuzhen.oa.server.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.huamuzhen.oa.biz.ReportFormMatterManager;
+import org.huamuzhen.oa.domain.entity.Pagination;
 import org.huamuzhen.oa.domain.entity.ReportFormMatter;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +21,12 @@ public class ReportFormMatterController {
 	ReportFormMatterManager reportFormMatterManager;
 	
 	@RequestMapping(value = { "", "/" })
-	public ModelAndView index(){
-		List<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll();
-		ModelAndView mav = new ModelAndView("reportFormMatter");
-		mav.addObject("reportFormMatterList", reportFormMatterList);
+	public ModelAndView index(Pagination page) {
+		ModelAndView mav = new ModelAndView("reportFormType");
+		Page<ReportFormMatter> reportFormMatterList = reportFormMatterManager.findAll(page);
+		mav.addObject("reportFormMatterList", reportFormMatterList.getContent());
+		page.setTotal(Long.valueOf(reportFormMatterList.getTotalElements()).intValue());
+		mav.addObject("page", page);
 		return mav;
 	}
 	

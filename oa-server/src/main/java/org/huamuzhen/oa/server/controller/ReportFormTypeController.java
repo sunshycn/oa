@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.huamuzhen.oa.biz.OrgUnitManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
+import org.huamuzhen.oa.domain.entity.Pagination;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +28,12 @@ public class ReportFormTypeController {
 	private OrgUnitManager orgUnitManager;
 	
 	@RequestMapping(value = { "", "/" })
-	public ModelAndView index() {
-		
+	public ModelAndView index(Pagination page) {
 		ModelAndView mav = new ModelAndView("reportFormType");
-		List<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll();
-		mav.addObject("reportFormTypeList", reportFormTypeList);
-		
+		Page<ReportFormType> reportFormTypeList = reportFormTypeManager.findAll(page);
+		mav.addObject("reportFormTypeList", reportFormTypeList.getContent());
+		page.setTotal(Long.valueOf(reportFormTypeList.getTotalElements()).intValue());
+		mav.addObject("page", page);
 		return mav;
 	}
 	
