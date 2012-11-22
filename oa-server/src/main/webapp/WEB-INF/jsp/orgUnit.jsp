@@ -21,10 +21,11 @@
 				    <table class="table table-hover">
 				    	<thead>
 							<tr>
-								 <th>#</th>
+							 	<th>#</th>
 								<td>单位名</td>
 								<td>描述</td>
-								<td colspan="2">操作</td>
+								<td>编辑</td>
+								<td>删除</td>
 							</tr>
 						</thead>
 						<tbody>

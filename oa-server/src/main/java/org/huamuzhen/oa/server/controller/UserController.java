@@ -10,8 +10,10 @@ import org.huamuzhen.oa.biz.OrgUnitManager;
 import org.huamuzhen.oa.biz.ReportFormTypeManager;
 import org.huamuzhen.oa.biz.UserManager;
 import org.huamuzhen.oa.domain.entity.OrgUnit;
+import org.huamuzhen.oa.domain.entity.Pagination;
 import org.huamuzhen.oa.domain.entity.ReportFormType;
 import org.huamuzhen.oa.domain.entity.User;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +35,12 @@ public class UserController {
 	private ReportFormTypeManager reportFormTypeManager;
 	
 	@RequestMapping(value = { "", "/" })
-	public ModelAndView index() {
-		List<User> userList = userManager.findAllUser();
+	public ModelAndView index(Pagination page) {
+		Page<User> userPage = userManager.findAll(page);
 		ModelAndView mav = new ModelAndView("user");
-		mav.addObject("userList", userList);
+		page.setTotal(Long.valueOf(userPage.getTotalElements()).intValue());
+		mav.addObject("userPage", userPage);
+		mav.addObject("page", page);
 		return mav;
 	}
 	

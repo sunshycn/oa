@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java"  pageEncoding="utf-8"%>
 <div class="sidebar-nav">
      <a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>控制面板</a>
      <ul id="dashboard-menu" class="nav nav-list collapse in">
