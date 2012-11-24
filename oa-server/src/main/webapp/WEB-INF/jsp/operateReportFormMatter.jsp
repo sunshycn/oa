@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div class="row-fluid">
             	<div class="btn-toolbar">
-				    <button class="btn btn-primary" id="saveButton"><i class="icon-save"></i>保存</button>
+				    <button class="btn btn-primary" id="saveButton" onclick="$('form').submit();"><i class="icon-save"></i>保存</button>
 				  <div class="btn-group">
 				  </div>
 				</div>
@@ -35,9 +35,6 @@
 <%@ include file="blue/pageTail.jsp" %>
 <script type="text/javascript">
     $(document).ready(function(){
-    	$("#saveButton").click(function() {
-    		$("form").submit();
-    	});
     	$("form").submit(function() {
             var errors = [];
             if ($.trim($("input[name='name']").val()).length == 0) {
