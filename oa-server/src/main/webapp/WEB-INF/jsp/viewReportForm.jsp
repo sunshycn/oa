@@ -12,65 +12,74 @@
         </ul>
         <div class="container-fluid">
             <div class="row-fluid">
-            	<div class="btn-toolbar">
-				    <button class="btn btn-primary" id="saveButton"><i class="icon-save"></i>保存</button>
-				  <div class="btn-group">
-				  </div>
+			 	<div class="block">
+					<a href="#tablewidget1" class="block-heading" data-toggle="collapse">报审表信息</a>
+					<div id="tablewidget1" class="block-body in collapse" style="height: auto;">
+					 	<table class="table">
+					 		<tr>
+					 			<td>
+									#: 
+								</td>
+								<td>
+									${reportForm.id}
+								</td>
+							</tr>
+							<tr><td>报审表类型:</td><td>${reportForm.reportFormType.name}</td></tr>
+							<tr><td>报审单名称：</td><td>${reportForm.title}</td></tr>
+							<tr><td>编号：</td><td>${reportForm.formId}</td></tr>
+							<tr><td>用地（受让）单位：</td><td>${reportForm.landUser}</td></tr>
+							<tr><td>原土地使用者：</td><td>${reportForm.originalLandUser}</td></tr>
+							<tr><td>土地座落：</td><td> ${reportForm.landLocation}</td></tr>
+							<tr><td>用地面积：</td><td>${reportForm.landArea} 
+								<c:choose>
+									<c:when test="${reportForm.landAreaMeasure == 'MU'}">亩</c:when>
+									<c:when test="${reportForm.landAreaMeasure == 'SQUARE_METER'}">平方米</c:when>
+									<c:when test="${reportForm.landAreaMeasure == 'HECTARE'}">公顷</c:when>
+									<c:otherwise>平方公里</c:otherwise>
+								</c:choose>
+							</td></tr>
+							<tr><td>规划用途： </td><td>${reportForm.landUse}</td></tr>
+							<tr><td>原用途：</td><td> ${reportForm.originalLandUse}</td></tr>
+							<tr><td>报审事项：</td><td>${reportForm.matter}</td></tr>
+							<tr><td>报审事项细节：</td><td><textarea name="matterDetail" rows="5" cols="100">${reportForm.matterDetail}</textarea></td></tr>
+							<tr><td>办理依据：</td><td><textarea name="policyBasis" rows="5" cols="100">${reportForm.policyBasis}</textarea></td></tr>
+							<tr><td>报审单位意见：</td><td><textarea name="comment" rows="5" cols="100">${reportForm.comment}</textarea></td></tr>
+							<tr><td>单位主要负责人：</td><td>${reportForm.responsiblePerson}</td></tr>
+							<tr><td>审核人：</td><td>${reportForm.auditor}</td></tr>
+							<tr><td>制表人：</td><td>${reportForm.tabulator}</td></tr>
+						</table>
+					</div>
 				</div>
-				<div class="well">	
-			 	<h2>报审表信息</h2>
-			 		
-				#: ${reportForm.id}<br/>
-				报审表类型：${reportForm.reportFormType.name}<br/>
-				报审单名称：${reportForm.title}<br/>
-				编号：${reportForm.formId}<br/>
-				用地（受让）单位：${reportForm.landUser}<br/>
-				原土地使用者：${reportForm.originalLandUser}<br/>
-				土地座落： ${reportForm.landLocation}<br/>
-				用地面积：${reportForm.landArea} 
-				<c:choose>
-					<c:when test="${reportForm.landAreaMeasure == 'MU'}">亩</c:when>
-					<c:when test="${reportForm.landAreaMeasure == 'SQUARE_METER'}">平方米</c:when>
-					<c:when test="${reportForm.landAreaMeasure == 'HECTARE'}">公顷</c:when>
-					<c:otherwise>平方公里</c:otherwise>
-				</c:choose>
-				<br/>
-				规划用途： ${reportForm.landUse}<br/>
-				原用途： ${reportForm.originalLandUse}<br/>
-				报审事项：${reportForm.matter}<br/>
-				报审事项细节：<textarea name="matterDetail" rows="10" cols="50">${reportForm.matterDetail}</textarea><br/>
-				办理依据：<textarea name="policyBasis" rows="5" cols="50">${reportForm.policyBasis}</textarea><br/>
-				报审单位意见：<textarea name="comment" rows="5" cols="50">${reportForm.comment}</textarea><br/>
-				单位主要负责人：${reportForm.responsiblePerson}<br/>
-				审核人：${reportForm.auditor}<br/>
-				制表人：${reportForm.tabulator}<br/>
-				<br/>
-				当前已有的回复：<br/>
-				<table class="table table-hover"> 
-					<thead>
-					<tr>
-						<td>回复部门（人）</td>
-						<td>日期</td>
-						<td>签名</td>
-						<td>回复内容</td>
-					</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="feedback" items="${feedbackList}">	
-						<tr>
-							<c:choose>
-								<c:when test="${feedback.owner =='LEADER1'}"><td>分管领导</td></c:when>
-								<c:when test="${feedback.owner =='LEADER2'}"><td>主要领导</td></c:when>
-								<c:when test="${feedback.owner =='OFFICE'}"><td>办公室</td></c:when>
-								<c:otherwise><td>${feedback.owner}</td></c:otherwise>
-							</c:choose>
-							<td>${feedback.feedbackTime}</td>
-							<td>${feedback.signature}</td>
-							<td><textarea name="content" rows="5" cols="50">${feedback.content}</textarea></td>
-						</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+				<div class="block">
+					<a href="#tablewidget" class="block-heading" data-toggle="collapse">当前已有的回复</a>
+					<div id="tablewidget" class="block-body in collapse" style="height: auto;">
+						<table class="table"> 
+							<thead>
+							<tr>
+								<td>回复部门（人）</td>
+								<td>日期</td>
+								<td>签名</td>
+								<td>回复内容</td>
+							</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="feedback" items="${feedbackList}">	
+								<tr>
+									<c:choose>
+										<c:when test="${feedback.owner =='LEADER1'}"><td>分管领导</td></c:when>
+										<c:when test="${feedback.owner =='LEADER2'}"><td>主要领导</td></c:when>
+										<c:when test="${feedback.owner =='OFFICE'}"><td>办公室</td></c:when>
+										<c:otherwise><td>${feedback.owner}</td></c:otherwise>
+									</c:choose>
+									<td>${feedback.feedbackTime}</td>
+									<td>${feedback.signature}</td>
+									<td><textarea name="content" rows="5" cols="50">${feedback.content}</textarea></td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+	        		</div>
+        		</div>
 				<c:choose>
 					<c:when test="${status == 'review'}">
 						<form action="${contextPath}/reportForm/sendToLeader1/${reportForm.id}" method="POST">选择分管领导：<select name="leader1Id"><c:forEach var="leader1" items="${leader1List}"><option value="${leader1.id}">${leader1.username}</option></c:forEach></select><input type="submit" value="发送" onclick="return confirm('确认发送?');"></input></form>
@@ -117,7 +126,6 @@
 					<c:otherwise></c:otherwise>
 				</c:choose>
                 <%@ include file="blue/containerFoot.jsp" %>
-            	</div>
         	</div>
 		<!-- End container -->
     	</div>
@@ -125,19 +133,19 @@
 <!-- End content -->
 <%@ include file="blue/pageTail.jsp" %>
 <script type="text/javascript">
-        $(document).ready(function(){
-        	$("form").submit(function() {
-                var errors = [];
-               /*  if ($.trim($("textarea[name='content']").val()).length == 0) {
-                    errors.push("请填写回复意见");
-                }
-                if ($.trim($("input[name='signature']").val()).length == 0) {
-                    errors.push("请填写签名");
-                } */
-                if (errors.length > 0) {
-                    alert(errors.join(", "));
-                    return false;
-                }
-            });
+    $(document).ready(function(){
+    	$("form").submit(function() {
+            var errors = [];
+           /*  if ($.trim($("textarea[name='content']").val()).length == 0) {
+                errors.push("请填写回复意见");
+            }
+            if ($.trim($("input[name='signature']").val()).length == 0) {
+                errors.push("请填写签名");
+            } */
+            if (errors.length > 0) {
+                alert(errors.join(", "));
+                return false;
+            }
         });
+    });
 </script>
