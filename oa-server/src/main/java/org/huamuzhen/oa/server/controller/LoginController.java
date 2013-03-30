@@ -40,6 +40,23 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
+	/***
+	 * other application call this method to directly login by given user unique id. a kind of mock Integration
+	 * this is a back door, not good.
+	 * */
+	@RequestMapping(value="/account/loginById",method=RequestMethod.GET)
+	public String loginById(HttpServletRequest request){
+		String id = request.getParameter("id");
+	
+		User currentUser = userManager.authenticateById(id);
+		if(null != currentUser){
+			request.getSession().setAttribute("currentUser", currentUser);
+			return "index";
+		}
+		request.setAttribute("flag", new Object());
+		return "redirect:/";
+	}
+	
 	@RequestMapping(value="/account/logoff",method=RequestMethod.POST)
 	public String logoff(HttpSession session){
 		session.removeAttribute("currentUser");

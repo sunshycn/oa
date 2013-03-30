@@ -15,4 +15,7 @@ public interface UserDAO extends JpaDAO<User, String> {
 	
 	@Transactional
 	public List<User> findUserByPrivilege(Privilege privilege);
+	
+	@Transactional
+	public User findUserById(String id);
 }

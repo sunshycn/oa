@@ -58,6 +58,12 @@ public class UserManager extends BaseManager<User, String>{
 		}
 		return null;
 	}
+	
+	@Transactional
+	public User authenticateById(String id){
+		
+		return userDAO.findUserById(id);
+	}
 
 	@Transactional
 	public User updateExisting(String id, String username, String rawPassword,
